@@ -1,6 +1,7 @@
 ---
 import { SITE_TITLE } from '../consts';
 import HeaderLink from './HeaderLink.astro';
+import TopTrack from './TopTrack.astro';
 
 const isHomePage = Astro.url.pathname === '/';
 ---
@@ -16,7 +17,7 @@ const isHomePage = Astro.url.pathname === '/';
 	</nav>
 	{!isHomePage && (
 		<div class="hero-nonHome">
-			<h2>🦄 {SITE_TITLE} | </h2>
+			<h2>🦄 {SITE_TITLE} | <TopTrack client:load /></h2>
 		</div>
 	)}
 </header>

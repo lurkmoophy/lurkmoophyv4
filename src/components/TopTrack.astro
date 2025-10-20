@@ -1,0 +1,32 @@
+---
+// src/components/TopTrack.astro
+import { onMount } from 'astro/jsx-runtime';
+let track: { name: string; artist: string; url: string; image?: string | null; playcount?: number } | null = null;
+
+onMount(async () => {
+  const res = await fetch('/.netlify/functions/top-track');
+  const { track: t } = await res.json();
+  track = t;
+  // Astro will hydrate only this component’s island if you use client:load or client:visible
+});
+---
+<div class="top-track">
+  {track ? (
+    <a href={track.url} target="_blank" rel="noopener">
+      {track.image && <img src={track.image} alt={`${track.artist} — ${track.name} cover art`} width="128" height="128" loading="lazy" />}
+      <div>
+        <strong>{track.artist}</strong><br />
+        <span>{track.name}</span><br />
+        <small>{track.playcount} plays (last 30 days)</small>
+      </div>
+    </a>
+  ) : (
+    <span>No top track found for the last 30 days.</span>
+  )}
+</div>
+
+<style>
+.top-track { display:flex; gap:0.75rem; align-items:center; }
+.top-track img { border-radius:0.5rem; }
+.top-track a { display:flex; gap:0.75rem; text-decoration:none; color:inherit; }
+</style>
