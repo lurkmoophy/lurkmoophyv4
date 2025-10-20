@@ -1,0 +1,36 @@
+---
+import TopTrack from '../components/TopTrack.astro';
+---
+
+<html lang="en">
+<head>
+    <title>Debug TopTrack</title>
+</head>
+<body>
+    <h1>TopTrack Debug</h1>
+    
+    <h2>Component Test:</h2>
+    <div id="component-test">
+        <TopTrack />
+    </div>
+    
+    <h2>Manual Function Test:</h2>
+    <button onclick="testFunction()">Test Function</button>
+    <div id="function-result"></div>
+    
+    <script>
+        async function testFunction() {
+            const resultDiv = document.getElementById('function-result');
+            resultDiv.innerHTML = 'Testing...';
+            
+            try {
+                const res = await fetch('/.netlify/functions/top-track');
+                const data = await res.json();
+                resultDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+            } catch (error) {
+                resultDiv.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+            }
+        }
+    </script>
+</body>
+</html>

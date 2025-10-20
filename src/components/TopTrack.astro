@@ -1,32 +1,86 @@
 ---
-// src/components/TopTrack.astro
-import { onMount } from 'astro/jsx-runtime';
-let track: { name: string; artist: string; url: string; image?: string | null; playcount?: number } | null = null;
-
-onMount(async () => {
-  const res = await fetch('/.netlify/functions/top-track');
-  const { track: t } = await res.json();
-  track = t;
-  // Astro will hydrate only this component’s island if you use client:load or client:visible
-});
+// Simple vanilla TopTrack component for Header
 ---
-<div class="top-track">
-  {track ? (
-    <a href={track.url} target="_blank" rel="noopener">
-      {track.image && <img src={track.image} alt={`${track.artist} — ${track.name} cover art`} width="128" height="128" loading="lazy" />}
-      <div>
-        <strong>{track.artist}</strong><br />
-        <span>{track.name}</span><br />
-        <small>{track.playcount} plays (last 30 days)</small>
-      </div>
+
+<div class="top-track" id="top-track-container">
+  <div id="loading">🎵 Loading...</div>
+  <div id="track-content" style="display: none;">
+    <a href="#" target="_blank" rel="noopener" id="track-link">
+      <img id="track-image" alt="Track cover" width="32" height="32" loading="lazy" style="display: none;" />
+      <span id="track-text"></span>
     </a>
-  ) : (
-    <span>No top track found for the last 30 days.</span>
-  )}
+  </div>
+  <div id="no-track" style="display: none;">
+    <span>No recent plays</span>
+  </div>
 </div>
 
+<script>
+  // Simple function to load and display top track
+  async function loadTopTrack() {
+    try {
+      const res = await fetch('/.netlify/functions/top-track');
+      const data = await res.json();
+      
+      const loadingEl = document.getElementById('loading');
+      const trackContentEl = document.getElementById('track-content');
+      const noTrackEl = document.getElementById('no-track');
+      
+      if (data.track) {
+        // Show track data
+        document.getElementById('track-link').href = data.track.url;
+        document.getElementById('track-text').textContent = `${data.track.artist} - ${data.track.name}`;
+        
+        if (data.track.image) {
+          const imgEl = document.getElementById('track-image');
+          imgEl.src = data.track.image;
+          imgEl.alt = `${data.track.artist} — ${data.track.name}`;
+          imgEl.style.display = 'block';
+        }
+        
+        loadingEl.style.display = 'none';
+        trackContentEl.style.display = 'flex';
+      } else {
+        // Show no track message
+        loadingEl.style.display = 'none';
+        noTrackEl.style.display = 'block';
+      }
+    } catch (error) {
+      console.error('Error loading top track:', error);
+      document.getElementById('loading').textContent = 'Error loading track';
+    }
+  }
+  
+  // Load when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadTopTrack);
+  } else {
+    loadTopTrack();
+  }
+</script>
+
 <style>
-.top-track { display:flex; gap:0.75rem; align-items:center; }
-.top-track img { border-radius:0.5rem; }
-.top-track a { display:flex; gap:0.75rem; text-decoration:none; color:inherit; }
+.top-track { 
+  display: flex; 
+  gap: 0.5rem; 
+  align-items: center; 
+  font-size: 0.875rem;
+  color: var(--grey);
+}
+.top-track img { 
+  border-radius: 4px; 
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+}
+.top-track a { 
+  display: flex; 
+  gap: 0.5rem; 
+  text-decoration: none; 
+  color: inherit;
+  align-items: center;
+}
+.top-track a:hover {
+  color: var(--black);
+}
 </style>

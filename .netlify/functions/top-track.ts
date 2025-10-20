@@ -151,3 +151,5 @@ export const handler: Handler = async (event: HandlerEvent, context: HandlerCont
     };
   }
 };
+
+export { handler };
