@@ -1,0 +1,19 @@
+---
+title: 'Weeknotes - maybe i should just go sit down'
+description: 'Time to get back into this weeknoting thing…'
+pubDate: 'Mar 17 2023'
+---
+
+Time to get back into this weeknoting thing…
+
+![](https://uploads-ssl.webflow.com/5ff33cee2af33d0177d82c9f/64143afe9741e44eb6b37bfe_giphy%20(80).gif)* The week started with a little recording session. After recording [our album](https://open.spotify.com/album/2PH8sBHoZH66dEEO2KFgaw?si=VPJebRfITJiOs1_WL0ejqg) in 2020 and 2021 and releasing in late 2021, we’ve been remarkably quiet on the new music front. To be honest, after pouring it all out in that album I’ve been a bit light on inspiration and motivation when it comes to lyric writing. Attempts at structured writing prompts, brain-vomiting on to the page and getting together and doing it collaboratively have all still been like pulling blood from a stone. Finally, it feels like things have started to click (albeit slowly), and I’m starting to write songs that feel good. I’m also trying to keep them all on a single (broad) theme of acceptance. Being happy with what I’ve got, learning to move on, exploring and accepting my identity and how that sits within the world, confronting shittier parts of my past… all parts that are rife.  
+  
+But back to recording… the rest of the band went down to [The Bookhouse](http://thebookhousestudio.com/) studio (manned by Tom Hill who is a DIY legend) and tracked our next single *What’s Next* back in February, and we spent Monday night screaming into a microphone in a living room. It still floors me the quality you can get out of some relatively cheap equipment (a condensor mic, audio interface, DIY soundproofing rig and a copy of Logic Pro). Once a little compression and EQ was on there, it was sounding halfway professional if I do say so myself. Let’s wait and see what Tom says, though…
+
+![](https://uploads-ssl.webflow.com/5ff33cee2af33d0177d82c9f/64143b13982f87e5f84b6909_giphy%20(81).gif)* I had a much needed ‘put the world to rights’ session with [Amy](https://twitter.com/Amy_Hupe) in the pub this week. The bit of the conversation that got us very animated was about taking up space, especially when viewed through an intersectional lens. Sure, both of us have facets of our identity that mean that we feel we should be taking up space that has traditionally been held by straight, white, able-bodied men, but at the same time we both have a fair amount of privilege. Should either of us not be speaking at meetups and conferences because of this? If we take the slot is it going to go to someone more deserving of the platform, or is going to just be filled by another boring old white dude?  
+  
+It came up again this week when I was offered a slot on a DEI event to talk about inclusive design practices, and I passed the opportunity on to someone else because ‘why would anyone want to hear about DEI from a male-assumed white person’, and it was pointed out by some of my lovely colleagues that, actually, a lot of POC and women are a bit tired of having to constantly talk about DEI, almost as if that’s the only facet of themselves that’s worth talking about.  
+  
+I don’t think there’s an easy answer. I think it’s just a matter of taking up space where it feels right, and you feel like you’re saying something that adds to the world, yet at the same time viewing it in an intersectional way. Sure, [I’m queer](https://www.lurkmoophy.com/writing/passing-problematic), but I am also male-assumed, white, from a middle-class background and able bodied. My experiences are completely wrapped in the privilege I’ve been afforded in life, and I need to remember that, and therefore allow others to have more space because of that. But also, I shouldn’t assume that I can’t talk about issues of representation, diversity, inclusion etc because of that.
+
+‍

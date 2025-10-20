@@ -1,0 +1,15 @@
+---
+title: 'Weeknotes - front-end conferences and millennial angst'
+description: '— Conference season has kicked off again in earnest after the last two years of staring at a Zoom screens, and I am utterly delighted to see faces from Twitter…'
+pubDate: 'Jun 13 2022'
+---
+
+— Conference season has kicked off again in earnest after the last two years of staring at a Zoom screens, and I am utterly delighted to see faces from Twitter in person again. Last week saw [Pixel Pioneers](https://pixelpioneers.co/) in Bristol, and as well as saying some favourite faces on the lineup, there were some great new folks I’d never come across as well. First up is a *kind of* new face. [Jhey](https://twitter.com/jh3yy) is a new DevRel Engineer at Google on the Chrome team, and he seems to be at every conference in Europe and the US this year, but with good reason. Jhey manages to find the most creative ways of explaining the new cool available in Chrome, such as [:has via Tic Tac Toe](https://codepen.io/jh3y/pen/poaOrzB) or showing how you can control device orientation data in DevTools by cracking a safe. His [codepens](https://codepen.io/jh3y/pens/) are worth checking out to see some of the bonkers way he plays with CSS, and if he’s at an upcoming conference, definitely check him out.
+
+The other talk that got me all excited was [Rachel Andrew](https://twitter.com/rachelandrew)’s thorough ‘What’s new in CSS’ talk. CSS has been making some huge strides in the last few years, with some super exciting things reaching support very soon (container queries, anyone?), but there were a bunch of things available now (some behind flags) that I’m looking forward to digging into with design systems in mind. First up, [color-mix](https://www.smashingmagazine.com/2022/06/simplify-color-palette-css-color-mix/) and [color-contrast](https://www.smashingmagazine.com/2022/05/accessible-design-system-themes-css-color-contrast/), which will be amazing for setting colour palettes and for shortcutting accessible colour combinations. The other one that I haven’t quite got my head around yet is the aforementioned [container queries and subgrid](https://blog.logrocket.com/cascade-layers-subgrid-container-queries-whats-new-css/), which seem like they might change how we do layout quite dramatically.
+
+— I finally watched [The Worst Person in the World](https://www.imdb.com/title/tt10370710/) at the weekend. It’s such a beautifully shot, perfectly performed piece about the knotty, messy way that relationships work. Julia is an extremely relatable, if not massively likeable, millennial character. The way she approaches everything she’s doing in a kind ‘what the hell am I doing’ way, despite being well-educated, privileged and intelligent, is probably going to resonate with a lot of people between the age of 25 and 40. Also, it has a number of beautifully shot surreal set pieces that will have film nerds salivating. Definitely recommend checking it out.
+
+— At the weekend I discovered the joy of mixing Aperol with tonic and lemon juice. Goddamn this is one refreshing, tasty drink.
+
+‍

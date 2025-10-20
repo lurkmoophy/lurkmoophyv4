@@ -1,0 +1,29 @@
+---
+title: 'Weeknotes - I cant believe I chose the mountains every time you chose the sea'
+description: "— I finally got my hands on Los Campesinos! The Universe Replied and promptly devoured it in a couple of sittings. For those who don't know LC!"
+pubDate: 'Feb 04 2022'
+---
+
+— I finally got my hands on [Los Campesinos!](https://songwhip.com/los-campesinos) [*The Universe Replied*](https://www.goodreads.com/book/show/51486544-the-universe-replied) and promptly devoured it in a couple of sittings. For those who don’t know LC!, they’re a seven-piece band from Wales who make some of the most interesting angular indie-pop meets punk meets emo that exists in the world today. Their back catalogue is really varied, from the angular, completely nuts party times of [*Hold On Now, Youngster*](https://songwhip.com/los-campesinos/holdonnowyoungster) to the much more introspective and brash [*Romance is Boring*](https://songwhip.com/los-campesinos/romanceisboring) to the outright pop bangers on [*Hello Sadness*](https://songwhip.com/los-campesinos/hello-sadness) and [*Sick Scenes*](https://songwhip.com/los-campesinos/sick-scenes).
+
+*The Universe Replied* is an oral history of the band from the beginnings to the making of *Romance is Boring*, and interviews all current and past members, the producers, the label owner and their PR folks, for a interesting deep dive into what it was like to be a marginally successful band in the mid 2000s.
+
+It’s pure fan service, but I love getting under the skin of why someone wrote those lyrics, or why that song sounds the way it does, or why that person left when they did. I also love that the author, music journalist Brendan Mattox, includes footnotes for every band, label, club and film reference, so that nobody is left excluded from the story. It’s something that made me think quite a bit about how to write more inclusively... Also, I think it’s time for my second LC! tattoo (LC!4LYF)...
+
+![](https://uploads-ssl.webflow.com/5ff33cee2af33d0177d82c9f/61fcfed8bdbcde58b84a1594_universereplied.png)*The universe replied: An oral history of Romance is Boring by Los Campesinos*— I also managed to slot some time in to see the new [Mamoru Hosoda](https://en.wikipedia.org/wiki/Mamoru_Hosoda) anime film, [*Belle*](https://en.wikipedia.org/wiki/Belle_(2021_film)), this week. I really enjoyed [*The Girl Who Leapt Through Time*](https://en.wikipedia.org/wiki/The_Girl_Who_Leapt_Through_Time_(2006_film)) and [*Mirai*](https://en.wikipedia.org/wiki/Mirai_(film)), and after [**that**](https://www.geeknewsnow.net/index.php/2021/08/09/mamoru-hosoda-the-outstanding-standing-ovation/) standing ovation at Cannes, I really wanted to see this on the big screen. It’s a really good anime film. Probably slightly overblown and melodramatic for non-anime fans, but the characters are interesting enough and the story hits where it needs to. The soundtrack is, as to be expected from a quasi-musical film, beautiful, but it still doesn’t hold a candle to [Makoto Shinkai](https://en.wikipedia.org/wiki/Makoto_Shinkai)’s work (who has a new film coming out this year and I’m really excited).
+
+However, the one thing I absolutely adored was the visual style in the non-cyber world scenes. The combination of over-saturated, highly-realistic backgrounds, that almost look like a photo and watercolour laid on top of each other, with the ultra-simplistic, almost flat, character drawings is really effective. I was sat there wanting to watch just that for hours on end. They have an almost meditative quality to them.  It’s a very Hosoda aesthetic, and I am so here for it.
+
+![](https://uploads-ssl.webflow.com/5ff33cee2af33d0177d82c9f/61fcfeeeadab5a0d3689d0a1_belle.png)A scene from *Belle*by *Mamoru Hosoda*— I childishly poked the bear on Twitter the other day from [zeroheight’s account](https://twitter.com/zeroheight/status/1487491065083043841) that provoked yet another whole discussion around ‘source of truth’ when it comes to design systems, and pulled all of the ‘code is all that matters’ folks out of the woodwork again. What i didn’t expect was it settling down into quite a good discussion about ‘source of truth’ as a concept that helped me solidify my problems with why ‘code is always the source of trust’ rankles me so much.
+
+I completely understand that, at the end of the day, the coded components are what the users are going to see when they use your product. I also acknowledge that if a component, style, or whatever, only exists in design, and stays in design, it’s going to be useless. However, the state of a product is always in motion throughout the entire product process, and when we look at the individual pieces of a design system, the ‘source of truth’ changes as a change ripples through the different parts of the process.
+
+Hear me out.
+
+For working product orgs, there are usually multiple teams working on the same product. Paralell workflows, especially when there are chances that design teams could be touching the same styles, components and patterns, should work in an agile way, using whatever the latest changes to a style, component or pattern there are. This means that there will be some times that teams are working with elements that haven’t made it to production yet. It may be an edge case in most instances, but I think it bears noting.
+
+I think the important thing with ‘source of truth’ is not where it sits, but that it is **accurately documented**. That is, a single component should be clearly stated where the source of truth currently lives, whether that be in code, design or in spec form.
+
+I don’t know, I feel like I’m still formulating my thoughts around this one, but I’m curious to hear what other people think. I don’t think it’s quite there yet... [Hit me up on twitter](https://twitter.com/lurkmoophy) if you want to have some arguments discussion.
+
+‍

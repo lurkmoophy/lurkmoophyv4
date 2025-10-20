@@ -2,6 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
+import Title from '../components/Title.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 ---
 
@@ -13,37 +14,356 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 	<body>
 		<Header />
 		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
+			<section class="index--masthead">
+				<h2 class="index--masthead--subhead">The Personal Homepage of Luke Murphy</h2>
+				<div id="txt">
+					<h1 class="index--masthead--head bottom glitch">
+						<span class="index--masthead--primary">Ace </span>
+						<span class="index--masthead--secondary">of </span>
+						<span class="index--masthead--primary">Cups</span>
+					</h1>
+				</div>
+				<div class="unicorn"></div>
+			</section>
+			<section class="index--intro">
+				<h2>&lt;intro&gt;</h2>
+				<p>This is the personal site (and portfolio) of Luke Murphy, the Australian-cum-British designer, developer, writer, speaker and general reprobate.</p>
+				<p>I am currently building this site as I go, so it might be buggy af. Want to follow the progress? Follow me on <a href="https://bsky.app/profile/lurkmoophy.bsky.social">Bluesky</a>.</p>
+			</section>
+			<section class="index--section">
+				<Title title="Manifesto" />
+				<div class="manifesto-container">
+					<div class="text-container">
+						<p class="dropcap">
+							Why start a page with a boring about section? Well, this is still a boring about section, but restyled in the form of a manifesto. You possibly want to know a bit more about me, but I also think it’s  important to share the things you indelibly believe in at the same time.
+						</p>
+						<p>
+							So, let’s start with the basic stuff to get it out of the way. I’m a 40-something person who has spent most of their career in some mixture of product design, front-end development, writing and speaking, and carrying on too many side projects to feasibly keep going. My pronouns are they/them (using the correct pronouns makes you a cooler person. Fact), and I currently call Letchworth Garden City, UK my home.
+						</p>
+						<p>
+							I believe in making things for the internet that don’t suck, both from a ‘putting joy into the world’ point of view, as well as a ‘not making things shitty for people by not thinking about accessibility and inclusivity’.
+						</p>
+						<p>
+							I believe that trans rights are human rights, that borders shouldn’t exist, that diversity and equity should be front and centre of most things, and that Josie and the Pussycats is the greatest film of all-time.
+						</p>
+					</div>
+					<div class="manifesto-statements">
+						<div class="statement">
+							<div class="statement-text">GENDER CRITICAL VIEWS ARE BIGOTRY</div>
+						</div>
+						
+						<div class="statement">
+							<div class="statement-text">BORDERS ARE BULLSHIT</div>
+						</div>
+						
+						<div class="statement">
+							<div class="statement-text">REFORM UK ARE FASCISTS</div>
+						</div>
+						
+						<div class="statement">
+							<div class="statement-text">DEI IS ESSENTIAL</div>
+						</div>
+						
+						<div class="statement">
+							<div class="statement-text">JOSIE AND THE PUSSYCATS 4LYF</div>
+						</div>
+					</div>
+				</div>
+			</section>
 		</main>
+		<style>
+
+			.index--masthead {
+				position: relative;
+				padding: 0 3rem;
+			}
+			.index--masthead--subhead {
+				font-size: clamp(1rem, 0.75rem + 1vw, 2rem);
+				font-weight: 400;
+				text-transform: uppercase;
+				text-align: justify;
+				text-align-last: justify;
+				display: block;
+				width: 90%;
+				margin: 0 auto;
+				letter-spacing: clamp(0.3rem, 0.25rem + 1vw, 0.7rem);
+			}
+			.index--masthead--head {
+				display: flex;
+				align-items: center;
+				width: 100%;
+				position: absolute;
+				justify-content: center;
+				left: 1rem;
+				line-height: 1;
+			}
+			.index--masthead--head.top {
+				-webkit-clip-path: inset(58% 0 0 0);
+				clip-path: inset(58% 0 0 0);
+			}
+			.index--masthead--head.bottom {
+				-webkit-clip-path: inset(0 0 41% 0);
+  				clip-path: inset(0 0 41%);
+			}
+			.redShadow {  text-shadow:-3px 0 red;}
+			.greenShadow {  text-shadow:-3px 0 red;}
+
+			.glitch {position: absolute}
+			#txt {
+				margin: auto;
+				position: relative;
+				top: 0; left: 0; bottom: 0; right: 0;
+				z-index:2;
+				color:#fff;
+				text-transform:uppercase;
+			}
+			.index--masthead--primary {
+				position: relative;
+				font-family: 'Gideon Roman', serif;
+				font-size: clamp(4rem, 1rem + 16vw, 22rem);
+				font-weight: 400;
+				text-transform: uppercase;
+				z-index: 1;
+				color: var(--black);
+				filter:blur(0.4px);
+			}
+			.index--masthead--secondary {
+				font-family: 'Allura', cursive;
+				font-size: clamp(4rem, 1rem + 12vw, 12rem);
+				font-weight: 400;
+				text-transform: lowercase;
+				color: white;
+				-webkit-text-stroke: 3px var(--black);
+				text-stroke: 3px var(--black);				
+				display: inline-block;
+				margin-left: -0.2em;
+				z-index: 2;
+				position: relative;
+				align-self: flex-start;
+				background-clip: text;
+				filter:blur(0.4px);
+			}
+			.unicorn {
+				width: 565px;
+				height: 400px;
+				background: url('/images/unicorn-sprite.png') no-repeat 0 0;
+				position: absolute;
+				bottom: -170px;
+				z-index: 3;
+			}
+
+			.index--intro {
+				max-width: 31rem;
+				margin: 3rem 0 6rem 5%;
+			}
+
+			.index--intro h2 {
+				font-family: 'Allegreya', serif;
+				font-size: 2.25rem;
+				font-style: italic;
+				font-weight: 300;
+			}
+
+			.manifesto-container {
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+				align-items: center;
+				max-width: 1300px;
+				margin: 0 auto;
+				padding: 0 4rem;
+			}
+
+			@media (max-width: 1200px) {
+				.manifesto-container {
+					flex-direction: column;
+					align-items: center;
+					justify-content: center;
+				}
+			}
+
+			.manifesto-statements {
+				margin-top: 0;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				max-width: 30rem;
+			}
+
+			.statement {
+				margin-bottom: 3rem;
+				text-align: center;
+			}
+
+			.statement-text {
+				font-family: 'Rakkas', serif;
+				font-size: clamp(1.5rem, 1rem + 4vw, 3rem);
+				font-weight: 400;
+				line-height: 1.1;
+				text-transform: uppercase;
+				color: var(--black);
+				text-align: justify;
+				text-align-last: center;
+				text-justify: inter-character;
+				position: relative;
+				word-spacing: 0.2em;
+			}
+
+			.statement-text::after {
+				content: '';
+				position: absolute;
+				bottom: -25px;
+				left: 50%;
+				transform: translateX(-50%);
+				width: 40%;
+				height: 2px;
+				background-color: var(--black);
+			}
+			.statement:last-of-type .statement-text::after {
+				display: none;
+			}
+
+			@media (max-width: 768px) {
+				.statement-text {
+					font-size: clamp(1.5rem, 6vw, 4rem);
+				}
+				
+				.statement {
+					margin-bottom: 2rem;
+				}
+			}
+		</style>
+		<script is:inline>
+			
+			document.addEventListener('DOMContentLoaded', () => {
+				const tl = gsap.timeline({
+					repeat: -1,
+					repeatDelay: 10
+				});
+
+				tl.to('.glitch', {
+					duration: 0.1,
+					skewX: 70,
+					ease: "power4.inOut"
+				})
+				.to('.glitch', {
+					duration: 0.04,
+					skewX: 0,
+					ease: "power4.inOut"
+				})
+				.to('.glitch', {
+					duration: 0.04,
+					opacity: 0
+				})
+				.to('.glitch', {
+					duration: 0.04,
+					opacity: 1
+				})
+				.to('.glitch', {
+					duration: 0.04,
+					x: -20
+				})
+				.to('.glitch', {
+					duration: 0.04,
+					x: 0
+				})
+				.addLabel("split", 0)
+				.to('.top', {
+					duration: 0.1,
+					x: -60,
+					ease: "power4.inOut"
+				}, 'split')
+				.to('.bottom', {
+					duration: 0.1,
+					x: 60,
+					ease: "power4.inOut"
+				}, 'split')
+				.to('.glitch', {
+					duration: 0.08,
+					className: '+=redShadow'
+				}, 'split')
+				.to('#txt', {
+					duration: 0,
+					scale: 1.1
+				}, 'split')
+				.to('#txt', {
+					duration: 0,
+					scale: 1
+				}, "+=0.02")
+				.to('.glitch', {
+					duration: 0.08,
+					className: '-=redShadow'
+				}, "+=0.09")
+				.to('.glitch', {
+					duration: 0.03,
+					className: '+=greenShadow'
+				}, 'split')
+				.to('.glitch', {
+					duration: 0.03,
+					className: '-=greenShadow'
+				}, "+=0.01")
+				.to('.top', {
+					duration: 0.2,
+					x: 0,
+					ease: "power4.inOut"
+				})
+				.to('.bottom', {
+					duration: 0.2,
+					x: 0,
+					ease: "power4.inOut"
+				})
+				.to('.glitch', {
+					duration: 0.02,
+					scaleY: 1.1,
+					ease: "power4.inOut"
+				})
+				.to('.glitch', {
+					duration: 0.04,
+					scaleY: 1,
+					ease: "power4.inOut"
+				});
+			});
+		</script>
+		<script is:inline>
+			// Simple scroll-based sprite animation without GSAP
+			document.addEventListener('DOMContentLoaded', () => {
+				const unicorn = document.querySelector('.unicorn');
+				const totalFrames = 5;
+				const frameWidth = 565;
+				
+				function updateSprite() {
+					const scrollTop = window.pageYOffset;
+					const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+					
+					// Speed multiplier - higher = faster animation
+					const speedMultiplier = 7; // Try values like 1.5, 2, 3, etc.
+					const scrollProgress = (scrollTop * speedMultiplier) / documentHeight; // Remove Math.min to allow continuous looping
+					
+					// Loop through frames continuously
+					const frameProgress = scrollProgress * totalFrames; // Can go beyond totalFrames
+					const currentFrame = Math.floor(frameProgress) % totalFrames; // Loop back to 0
+					const backgroundPosition = -currentFrame * frameWidth;
+					
+					// Move unicorn across screen as you scroll using left positioning
+					const scrollPercent = Math.min(scrollTop / documentHeight, 1);
+					const screenWidth = window.innerWidth;
+					const unicornWidth = 565;
+					
+					// Start at right edge minus 545px, end at left edge minus 545px
+					const startPosition = screenWidth - 545; // Right edge minus 545px
+					const endPosition = -545; // Left edge minus 545px
+					const moveDistance = startPosition - endPosition;
+					const currentLeft = startPosition - (scrollPercent * moveDistance);
+					
+					unicorn.style.backgroundPosition = `${backgroundPosition}px 0`;
+					unicorn.style.left = `${currentLeft}px`;
+				}
+				
+				window.addEventListener('scroll', updateSprite);
+				updateSprite(); // Initial call
+			});
+		</script>
 		<Footer />
 	</body>
 </html>

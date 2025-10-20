@@ -1,0 +1,30 @@
+---
+const { title, as: Tag = 'h3', description } = Astro.props;
+---
+<Tag class="title">
+    &lt;{title}&gt;
+    {description && <p class="description">{description}</p>}
+</Tag>
+
+<style is:global>
+    .title {
+        border-top: 3px solid var(--black);
+        border-bottom: 3px solid var(--black);
+        font-family: 'Gideon Roman', serif;
+        padding: 0.15em 0 0.15em 3vw;
+        margin: 0 0 0.5em;
+        font-size: clamp(3rem, 0.75rem + 10vw, 5rem);
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: left;
+    }
+    .description {
+        font-size: 1.25rem;
+        font-style: italic;
+        margin-bottom: 1em;
+        text-transform: none;
+        font-style: normal;
+        font-family: 'Alegreya Sans', sans-serif;
+        padding-left: 5%;
+    }
+</style>

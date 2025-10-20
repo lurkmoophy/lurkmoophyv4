@@ -6,68 +6,181 @@ import Footer from '../../components/Footer.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+import Title from '../../components/Title.astro';
 
-const posts = (await getCollection('blog')).sort(
+// First, sort all posts by date (newest first)
+const sortedPosts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
+
+// Group posts by month/year
+const groupedPosts: Record<string, any[]> = sortedPosts.reduce((groups: Record<string, any[]>, post: any) => {
+	const monthYear = post.data.pubDate.toLocaleDateString('en-US', { 
+		year: 'numeric', 
+		month: 'long' 
+	});
+	
+	if (!groups[monthYear]) {
+		groups[monthYear] = [];
+	}
+	
+	groups[monthYear].push(post);
+	return groups;
+}, {});
+
+// Sort posts within each month in ascending order (oldest first)
+Object.keys(groupedPosts).forEach(month => {
+	groupedPosts[month].sort((b: any, a: any) => 
+		a.data.pubDate.valueOf() - b.data.pubDate.valueOf()
+	);
+});
+
+// Flatten back to posts array with month headings
+const posts: any[] = [];
+Object.keys(groupedPosts).forEach(month => {
+	posts.push({ type: 'heading', month });
+	posts.push(...groupedPosts[month]);
+});
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<Title title="Writing &amp; Thoughts" description="Below is a collection of my writing, both on this humble site and across the internet. I can't guarantee it's all good, but I can guarantee it all contains words."/>
+			<section>
+				<ul>
+					{
+						posts.map((item) => {
+							if (item.type === 'heading') {
+								return <h3 class="blog--month-heading">{item.month}</h3>;
+							}
+							return (
+								<li>
+									<a href={`/blog/${item.id}/`}>
+									<div class="blog--meta-container">
+										<p class="blog--date">
+											<FormattedDate date={item.data.pubDate} />
+										</p>
+									</div>
+									<div class="blog--post-container">
+										<h4 class="blog--title">{item.data.title}</h4>
+										<p class="blog--description">{item.data.description}</p>
+										{item.data.tags && item.data.tags.length > 0 && (
+											<div class="blog--tags">
+												{item.data.tags.map((tag: string) => (
+													<span class="blog--tag">{tag}</span>
+												))}
+											</div>
+										)}
+									</div>
+									</a>
+								</li>
+							);
+						})
+					}
+				</ul>
+			</section>
+		</main>
 		<style>
-			main {
+			main section {
 				width: 960px;
+				margin: 0 auto;
 			}
 			ul {
 				display: flex;
 				flex-wrap: wrap;
-				gap: 2rem;
 				list-style-type: none;
 				margin: 0;
 				padding: 0;
 			}
 			ul li {
-				width: calc(50% - 1rem);
+				width: 100%;
+				border-top: 2px solid var(--black);
+				margin: 0;
 			}
 			ul li * {
 				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
-				text-align: center;
-			}
-			ul li:first-child img {
-				width: 100%;
-			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
-			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: 12px;
 			}
 			ul li a {
-				display: block;
+				display: flex;
+				align-items: stretch;
 			}
-			.title {
-				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1;
+
+			.blog--meta-container {
+				border-right: 2px solid var(--black);
+				padding: 2rem 1rem;
+				width: 150px;
+				max-width: 150px;
+				min-width: 150px;
+				flex-shrink: 0;
+				flex-grow: 0;
 			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
+				.blog--date {
+					margin: 0;
+					font-family: 'Allegreya', serif;
+					font-style: italic;
+					font-weight: 300;
+					font-size: 1rem;
+					line-height: 1.1;
+				}
+			.blog--post-container {
+				padding: 2rem 1rem 2rem 2rem;
 			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
+
+				.blog--title {
+					margin: 0;
+					line-height: 1;
+					font-family: 'Alegreya', serif;
+					font-style: italic;
+					font-weight: 300;
+					font-size: clamp(1.25rem, 0.75rem + 5vw, 3rem);
+					line-height: 1;
+				}
+				.blog--tag {
+					border: 1px solid var(--black);
+					display: inline-block;
+					font-size: 1rem;
+					color: var(--black);
+					margin: 0;
+					padding: 0.5rem 1rem;
+					border-radius: 0.5rem;
+					text-transform: uppercase;
+				}
+				ul li a:hover h4,
+				ul li a:hover .date,
+				ul li a:hover .blog--tag {
+					color: rgb(var(--accent));
+					cursor: pointer;
+					border-color: rgb(var(--accent));
+				}
+
+			.blog--month-heading {
+				font-family: 'Alegreya', serif;
+				font-style: italic;
+				font-weight: 300;
+				font-size: clamp(1.25rem, 0.75rem + 5vw, 3rem);
+				color: var(--black);
+				margin: 2rem 0 1rem 0;
 			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
+
+			.blog--tags {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.5rem;
+				margin-top: 1rem;
+			}
+
+			.blog--tag {
+				border: 1px solid var(--black);
+				padding: 0.25rem 0.5rem;
+				font-size: 1rem;
+				text-transform: uppercase;
+				border-radius: 2px;
 			}
 			@media (max-width: 720px) {
 				ul {
@@ -85,30 +198,6 @@ const posts = (await getCollection('blog')).sort(
 				}
 			}
 		</style>
-	</head>
-	<body>
-		<Header />
-		<main>
-			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									{post.data.heroImage && (
-										<Image width={720} height={360} src={post.data.heroImage} alt="" />
-									)}
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
-			</section>
-		</main>
 		<Footer />
 	</body>
 </html>

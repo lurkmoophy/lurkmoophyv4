@@ -1,0 +1,39 @@
+---
+title: 'Weeknotes - on being queer and using clothing as armour'
+description: "Once again, I'm trying to make weeknoting a habit again, and we'll see if it lasts beyond February."
+pubDate: 'Jan 03 2025'
+---
+
+Once again, I’m trying to make weeknoting a habit again, and we’ll see if it lasts beyond February. But pessimism aside, considering [I’m back in a role](https://www.linkedin.com/posts/lukeandrewmurphy_im-happy-to-share-that-im-back-in-the-place-activity-7269416854576627713-i_CY?utm_source=share&utm_medium=member_desktop) where writing is one of the primary things I do, so might as well try and make it a proper habit.
+
+## Being queer and using clothing as armour
+
+Clothes have always been a way of masking for me. Depending on the context I’m in for a day, I’ve always felt like I’m putting on a costume of sorts to fit within the role that I’m playing that day. It’s usually bundled up with a combination of how safe I feel in being authentic, how I want to be perceived, and how much I need people to like me. Work is a prime example. I’ve been lucky enough over the last 15 years to more or less work in places that don’t care what I wear. However, what I choose to wear each day is directly related to what I have on that day. Do I need to convince someone of something that I’m not particularly comfortable of, then I’ll likely wear something relatively conservative, or more likely, try and anticipate what they’re going to wear and mirror the things they find most important. Am I confident in what I’m trying to convince someone of, and have more of a belligerent ‘fuck you, I’m the expert here’ attitude? I’m more likely to wear something that’s a bit more authentically me.
+
+Embracing my queer identity five years ago has added an extra layer on it for me too. I’ve had a want and a need to express myself more in clothes, and play a bit more with gender stereotypes. However, for the first couple of years it meant a combination of trying to dress more feminine and also, weirdly, more childlike. Dungarees, friendship bracelets, bright colours, loud shirts with dinosaurs on them… Which also was a bit of a struggle when it comes to reconciling that to the ‘wearing clothes as armour’ idea, because it’s inherently making myself more vulnerable. I bought a couple of dresses because I loved the idea of both the subversion and the floatiness of it, but I’ve only been comfortable enough to wear them in my safe safe safe space (ie on stage in my band, because I have the performance nature of it, and we’ve managed to fit into a beautiful queer-friendly space in the scene).
+
+![__wf_reserved_inherit](https://cdn.prod.website-files.com/5ff33cee2af33d0177d82c9f/6777bcf601388b9dbbe659af_6777bc5f8e7a6bd6053491b6_Screenshot%25202025-01-03%2520at%252010.29.37.png)That person is wearing a rainbow shirt! They must be queer!At the same time, over the past year I’ve been battling with myself over whether this is *actually* me. I know that I’m queer, so why do I feel the need to outwardly perform this to the world to get validation? Also, part of my gender identity is fluid and forever changing, and another part is that I’m always somewhat demi-gender — that is, I almost always feel a combination of man, woman and neither. Because of this, there are parts of ‘masc’ that give me euphoria in the same way that there are parts of ‘femme’ that give me euphoria.
+
+At the moment, I feel like I’ve pulled back my style into a kind of neutral, beige, nothing (literally. I’m currently wearing varying shades of brown head to toe). Part of this is probably because I don’t know where I fit, and I’d prefer to blend into the background.  Part of it feels like a reset point, where I want to find a way to present myself via clothes in a way that feels comfortable. Comfortable in a sense where I feel like I’m actually presenting an authentic version of myself, instead of conforming to other people’s needs. But also, comfortable in that I’m not trying to overplay or ‘perform’ who I am inside. Also, something that won’t make me feel like I’m detracting from what I’m trying to achieve in that moment, whether that’s talking at a conference, convincing folks of a project at work, singing on stage, or just existing in the town I live.
+
+Is that even possible to have a single style that achieves all this?
+
+Possibly not, but that’s my goal for 2025. To find clothes that make me feel euphoric, comfortable and powerful. Although I’m guessing a large part of that is probably changing the way I look at my inside self as well.
+
+![__wf_reserved_inherit](https://cdn.prod.website-files.com/5ff33cee2af33d0177d82c9f/6777bcf601388b9dbbe659aa_6777bc81d712d40c380803d2_Screenshot%25202025-01-03%2520at%252010.31.12.png)Comfortably beige## Current book: An Academy for Liars
+
+![An Academy for Liars: The addictive, horror-drenched new Gothic dark  academia novel everyone will be talking about: Amazon.co.uk: Henderson,  Alexis: ...](https://cdn.prod.website-files.com/5ff33cee2af33d0177d82c9f/6777bcab101d0c97ffd235c8_718SZ3PgezL._AC_UF894%2C1000_QL80_.jpeg)Last year was a big year in reading for me, having read 52 books over the course of the year. I’m still not entirely sure how I kept it up and still enjoyed it by the end, but I’m planning on continuing with books. I’m currently on the last 25 pages of [An Academy for Liars by Alexis Henderson](https://www.goodreads.com/book/show/203956639-an-academy-for-liars), which is kind of a dark academia horror? It’s tropey as all hell, and a pretty good encapsulation of a ‘booktok’ book, but at the same time is an immensely enjoyable read. The vibes are immaculate, and if you wish Harry Potter had more psychological horror, was about people in their mid-twenties, and they all smoked clove cigarettes, this is for you.
+
+## Current music: Knocked Loose - You Won’t Go Before You’re Supposed To
+
+Knocked Loose were a surprise addition to my top ten albums of 2024. I’m the kind of person who enjoys going to a hardcore show, but will never listen to it on the regular. However, I’ve had this album on repeat since September. There’s something inherently commercial and slick about Knocked Loose despite it being completely filthy blastbeats, breakdowns and growls. It’s ended up being my go to album when I want to focus and calm down, which is odd. It’s also an amazing hype up album at the same time. I still don’t know why I love it so much, to be honest, but it’s just hit the spot so well.
+
+## Other articles I’ve been working on
+
+Part of becoming an advocate again means I’ve been writing a lot more. I’ve been loving getting back into code, as well as getting back into diving deep on thoughts and problems around design systems. Here a couple of the articles I’ve been pumping out for zeroheight:
+
+* [A tutorial on using the zeroheight API, Pinecone and OpenAI to query your design system docs](https://zeroheight.com/blog/building-a-chatbot-to-query-your-zeroheight-site-using-the-zeroheight-api-pinecone-and-openai/). This was a fun chance to get my hands dirty with code in a way I’ve never really done before.
+* [How to start building a community around your design system](https://zeroheight.com/blog/how-to-start-building-community-around-your-design-system/). Community has been something I’ve been soapboxing about with design systems for a while, so it was nice to get all my thoughts down in a single article.
+* [Design Systems are Dead. Long live design systems.](https://zeroheight.com/blog/design-systems-are-dead-long-live-design-systems/) Nothing like a pulpy clickbait title to get the blood flowing. But again, it was nice to get a bunch of thoughts I’d been having around the problems we face as an industry. I don’t think I’ve got the answers, but I think it’s a discussion we need to start having a lot more than we do.
+
+‍
