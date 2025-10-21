@@ -1,0 +1,60 @@
+---
+// RecentFilm.astro
+const username = 'lurkmoophy'; // Replace with your Letterboxd username
+const rssUrl = `https://letterboxd.com/${username}/rss/`;
+
+const response = await fetch(rssUrl);
+const rssText = await response.text();
+
+// Parse the RSS XML to get the most recent item
+const itemMatch = rssText.match(/<item>([\s\S]*?)<\/item>/);
+const item = itemMatch ? itemMatch[1] : null;
+
+// Extract the film title - try multiple patterns
+let titleMatch = item?.match(/<title><!\[CDATA\[(.*?)\]\]><\/title>/);
+if (!titleMatch) {
+  // Try without CDATA
+  titleMatch = item?.match(/<title>(.*?)<\/title>/);
+}
+if (!titleMatch) {
+  // Try with HTML entities
+  titleMatch = item?.match(/<title>(.*?)<\/title>/);
+}
+
+const rawTitle = titleMatch ? titleMatch[1] : 'No recent film';
+
+// Clean up the title (removes your username and "watched/reviewed")
+const filmTitle = rawTitle.replace(/^.*?(watched|reviewed)\s+/, '');
+
+// Get the link to the film
+const linkMatch = item?.match(/<link>(.*?)<\/link>/);
+const filmLink = linkMatch ? linkMatch[1] : '#';
+---
+
+<div class="recent-film">
+    <p>Most recent film: </p>
+  <a href={filmLink} target="_blank" rel="noopener noreferrer">
+    <p class="film-title">{filmTitle}</p>
+  </a>
+</div>
+
+<style>
+  .recent-film {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  
+  .film-title {
+    font-size: inherit;
+    color: var(--grey);
+  }
+  
+  .recent-film a {
+    color: var(--grey);
+  }
+  
+  .recent-film a:hover .film-title {
+    color: var(--black);
+  }
+</style>

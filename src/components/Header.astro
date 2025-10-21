@@ -2,6 +2,7 @@
 import { SITE_TITLE } from '../consts';
 import HeaderLink from './HeaderLink.astro';
 import TopTrack from './TopTrack.astro';
+import RecentFilm from './RecentFilm.astro';
 
 const isHomePage = Astro.url.pathname === '/';
 ---
@@ -16,8 +17,20 @@ const isHomePage = Astro.url.pathname === '/';
 		<HeaderLink href="#" class="coming-soon">Speaking (coming soon)</HeaderLink>
 	</nav>
 	{!isHomePage && (
-		<div class="hero-nonHome">
-			<h2>🦄 {SITE_TITLE} | <TopTrack /></h2>
+		<div class="hero-nonHome" id="marquee-container">
+			<div class="marquee" id="marquee">
+				<div class="marquee-content">
+					<div class="marquee-item">
+						<span>🦄 {SITE_TITLE} </span><span class="header-separator">|</span><span> <TopTrack /></span><span class="header-separator">|</span><span> <RecentFilm /></span><span class="header-separator">&bull;</span>
+					</div>
+					<div class="marquee-item" aria-hidden="true">
+						<span>🦄 {SITE_TITLE} </span><span class="header-separator">|</span><span> <TopTrack /></span><span class="header-separator">|</span><span> <RecentFilm /></span><span class="header-separator">&bull;</span>
+					</div>
+					<div class="marquee-item" aria-hidden="true">
+						<span>🦄 {SITE_TITLE} </span><span class="header-separator">|</span><span> <TopTrack /></span><span class="header-separator">|</span><span> <RecentFilm /></span><span class="header-separator">&bull;</span>
+					</div>
+				</div>
+			</div>
 		</div>
 	)}
 </header>
@@ -28,28 +41,61 @@ const isHomePage = Astro.url.pathname === '/';
 	}
 
 	.hero-nonHome {
+		display: flex;
+		align-items: center;
+		font-family: 'Alegreya', serif;
 		font-style: italic;
-		font-size: 1rem;
+		font-size: 1.5rem;
 		color: var(--grey);
-		padding: 1em 0;
+		padding: 0 1em;
 		overflow: hidden;
-		white-space: nowrap;
+		text-wrap: nowrap;
 		width: 100%;
-	}
-	.hero-nonHome h2 {
-		margin: 0;
-		display: inline-block;
-		animation: marquee 20s linear infinite;
-		padding-left: 100%;
+		line-height: 0.7;
+		white-space: nowrap;
 	}
 	
-	@keyframes marquee {
+	.marquee {
+		display: inline-block;
+		animation: scroll 30s linear infinite;
+		animation-play-state: var(--play-state, running);
+	}
+	
+	.marquee-content {
+		display: flex;
+		align-items: center;
+		white-space: nowrap;
+	}
+	
+	.marquee-item {
+		flex-shrink: 0;
+		display: flex;
+		align-items: center;
+		white-space: nowrap;
+	}
+	
+	@keyframes scroll {
 		0% {
 			transform: translateX(0);
 		}
 		100% {
-			transform: translateX(-100%);
+			transform: translateX(-50%);
 		}
+	}
+	
+	/* Smooth transition for animation duration changes */
+	.marquee {
+		transition: animation-duration 0.3s ease;
+	}
+	.hero-nonHome h2 {
+		margin: 0;
+		display: inline-block;
+		font-size: 1.25rem;
+		
+	}
+	.header-separator {
+		margin: 0 0.5rem;
+		font-style: normal;
 	}
 	nav {
 		display: flex;
@@ -130,3 +176,19 @@ const isHomePage = Astro.url.pathname === '/';
 		text-decoration-color: var(--grey);
 	}
 </style>
+
+<script>
+	// Simple pause/resume with smooth transition
+	const marqueeContainer = document.getElementById('marquee-container');
+	const marquee = document.getElementById('marquee');
+	
+	if (marqueeContainer && marquee) {
+		marqueeContainer.addEventListener('mouseenter', () => {
+			marquee.style.setProperty('--play-state', 'paused');
+		});
+		
+		marqueeContainer.addEventListener('mouseleave', () => {
+			marquee.style.setProperty('--play-state', 'running');
+		});
+	}
+</script>
