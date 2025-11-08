@@ -1,21 +1,11 @@
 ---
-// TopTrack.astro
-const apiKey = import.meta.env.LASTFM_API_KEY;
-const username = import.meta.env.LASTFM_USERNAME;
-
-const response = await fetch(
-  `https://ws.audioscrobbler.com/2.0/?method=user.gettoptracks&user=${username}&api_key=${apiKey}&format=json&period=1month&limit=1`
-);
-
-const data = await response.json();
-const topTrack = data.toptracks.track[0];
+// TopTrack.astro - Client-side component
 ---
 
-<div class="top-track">
+<div class="top-track" id="top-track-container">
   <p>Current obsession: </p>
   <img src="/images/spotify-pixel.svg">
-  <a href={topTrack.url} class="track-name">{topTrack.artist.name} - {topTrack.name}</a>
-  
+  <a href="#" class="track-name" id="track-link">Loading...</a>
 </div>
 
 <style>
@@ -38,3 +28,29 @@ const topTrack = data.toptracks.track[0];
     color: var(--black);
   }
 </style>
+
+<script>
+  (async function() {
+    try {
+      const response = await fetch('/.netlify/functions/top-track');
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch top track');
+      }
+      
+      const data = await response.json();
+      
+      const linkElement = document.getElementById('track-link');
+      if (linkElement) {
+        linkElement.href = data.url;
+        linkElement.textContent = `${data.artist} - ${data.name}`;
+      }
+    } catch (error) {
+      console.error('Error fetching top track:', error);
+      const linkElement = document.getElementById('track-link');
+      if (linkElement) {
+        linkElement.textContent = 'No track data';
+      }
+    }
+  })();
+</script>

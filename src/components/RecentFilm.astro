@@ -1,40 +1,12 @@
 ---
-// RecentFilm.astro
-const username = 'lurkmoophy'; // Replace with your Letterboxd username
-const rssUrl = `https://letterboxd.com/${username}/rss/`;
-
-const response = await fetch(rssUrl);
-const rssText = await response.text();
-
-// Parse the RSS XML to get the most recent item
-const itemMatch = rssText.match(/<item>([\s\S]*?)<\/item>/);
-const item = itemMatch ? itemMatch[1] : null;
-
-// Extract the film title - try multiple patterns
-let titleMatch = item?.match(/<title><!\[CDATA\[(.*?)\]\]><\/title>/);
-if (!titleMatch) {
-  // Try without CDATA
-  titleMatch = item?.match(/<title>(.*?)<\/title>/);
-}
-if (!titleMatch) {
-  // Try with HTML entities
-  titleMatch = item?.match(/<title>(.*?)<\/title>/);
-}
-
-const rawTitle = titleMatch ? titleMatch[1] : 'No recent film';
-
-// Clean up the title (removes your username and "watched/reviewed")
-const filmTitle = rawTitle.replace(/^.*?(watched|reviewed)\s+/, '');
-
-// Get the link to the film
-const linkMatch = item?.match(/<link>(.*?)<\/link>/);
-const filmLink = linkMatch ? linkMatch[1] : '#';
+// RecentFilm.astro - Client-side component
+const username = 'lurkmoophy';
 ---
 
-<div class="recent-film">
-    <p>Most recent film: </p>
-  <a href={filmLink} target="_blank" rel="noopener noreferrer">
-    <p class="film-title">{filmTitle}</p>
+<div class="recent-film" id="recent-film-container">
+  <p>Most recent film: </p>
+  <a href="#" target="_blank" rel="noopener noreferrer" id="film-link">
+    <p class="film-title" id="film-title">Loading...</p>
   </a>
 </div>
 
@@ -58,3 +30,57 @@ const filmLink = linkMatch ? linkMatch[1] : '#';
     color: var(--black);
   }
 </style>
+
+<script>
+  (async function() {
+    const username = 'lurkmoophy';
+    const rssUrl = `https://letterboxd.com/${username}/rss/`;
+    
+    try {
+      const response = await fetch(rssUrl);
+      const rssText = await response.text();
+      
+      // Parse the RSS XML to get the most recent item
+      const itemMatch = rssText.match(/<item>([\s\S]*?)<\/item>/);
+      const item = itemMatch ? itemMatch[1] : null;
+      
+      if (!item) {
+        document.getElementById('film-title').textContent = 'No recent film';
+        return;
+      }
+      
+      // Extract the film title - try multiple patterns
+      let titleMatch = item.match(/<title><!\[CDATA\[(.*?)\]\]><\/title>/);
+      if (!titleMatch) {
+        // Try without CDATA
+        titleMatch = item.match(/<title>(.*?)<\/title>/);
+      }
+      
+      const rawTitle = titleMatch ? titleMatch[1] : 'No recent film';
+      
+      // Clean up the title (removes your username and "watched/reviewed")
+      const filmTitle = rawTitle.replace(/^.*?(watched|reviewed)\s+/, '');
+      
+      // Get the link to the film
+      const linkMatch = item.match(/<link>(.*?)<\/link>/);
+      const filmLink = linkMatch ? linkMatch[1] : '#';
+      
+      // Update the DOM
+      const titleElement = document.getElementById('film-title');
+      const linkElement = document.getElementById('film-link');
+      
+      if (titleElement) {
+        titleElement.textContent = filmTitle;
+      }
+      if (linkElement) {
+        linkElement.href = filmLink;
+      }
+    } catch (error) {
+      console.error('Error fetching recent film:', error);
+      const titleElement = document.getElementById('film-title');
+      if (titleElement) {
+        titleElement.textContent = 'No recent film';
+      }
+    }
+  })();
+</script>
