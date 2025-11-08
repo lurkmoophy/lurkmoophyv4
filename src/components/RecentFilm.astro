@@ -33,47 +33,23 @@ const username = 'lurkmoophy';
 
 <script>
   (async function() {
-    const username = 'lurkmoophy';
-    const rssUrl = `https://letterboxd.com/${username}/rss/`;
-    
     try {
-      const response = await fetch(rssUrl);
-      const rssText = await response.text();
+      const response = await fetch('/.netlify/functions/recent-film');
       
-      // Parse the RSS XML to get the most recent item
-      const itemMatch = rssText.match(/<item>([\s\S]*?)<\/item>/);
-      const item = itemMatch ? itemMatch[1] : null;
-      
-      if (!item) {
-        document.getElementById('film-title').textContent = 'No recent film';
-        return;
+      if (!response.ok) {
+        throw new Error('Failed to fetch recent film');
       }
       
-      // Extract the film title - try multiple patterns
-      let titleMatch = item.match(/<title><!\[CDATA\[(.*?)\]\]><\/title>/);
-      if (!titleMatch) {
-        // Try without CDATA
-        titleMatch = item.match(/<title>(.*?)<\/title>/);
-      }
+      const data = await response.json();
       
-      const rawTitle = titleMatch ? titleMatch[1] : 'No recent film';
-      
-      // Clean up the title (removes your username and "watched/reviewed")
-      const filmTitle = rawTitle.replace(/^.*?(watched|reviewed)\s+/, '');
-      
-      // Get the link to the film
-      const linkMatch = item.match(/<link>(.*?)<\/link>/);
-      const filmLink = linkMatch ? linkMatch[1] : '#';
-      
-      // Update the DOM
       const titleElement = document.getElementById('film-title');
       const linkElement = document.getElementById('film-link');
       
       if (titleElement) {
-        titleElement.textContent = filmTitle;
+        titleElement.textContent = data.title || 'No recent film';
       }
       if (linkElement) {
-        linkElement.href = filmLink;
+        linkElement.href = data.link || '#';
       }
     } catch (error) {
       console.error('Error fetching recent film:', error);
