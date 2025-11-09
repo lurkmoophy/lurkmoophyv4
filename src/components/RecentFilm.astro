@@ -3,10 +3,10 @@
 const username = 'lurkmoophy';
 ---
 
-<div class="recent-film" id="recent-film-container">
+<div class="recent-film">
   <p>Most recent film: </p>
-  <a href="#" target="_blank" rel="noopener noreferrer" id="film-link">
-    <p class="film-title" id="film-title">Loading...</p>
+  <a href="#" target="_blank" rel="noopener noreferrer" class="film-link">
+    <p class="film-title">Loading...</p>
   </a>
 </div>
 
@@ -42,21 +42,23 @@ const username = 'lurkmoophy';
       
       const data = await response.json();
       
-      const titleElement = document.getElementById('film-title');
-      const linkElement = document.getElementById('film-link');
+      // Update all instances of the film title and link (for marquee duplicates)
+      const titleElements = document.querySelectorAll('.film-title');
+      const linkElements = document.querySelectorAll('.film-link');
       
-      if (titleElement) {
-        titleElement.textContent = data.title || 'No recent film';
-      }
-      if (linkElement) {
-        linkElement.href = data.link || '#';
-      }
+      titleElements.forEach((element) => {
+        element.textContent = data.title || 'No recent film';
+      });
+      
+      linkElements.forEach((element) => {
+        element.href = data.link || '#';
+      });
     } catch (error) {
       console.error('Error fetching recent film:', error);
-      const titleElement = document.getElementById('film-title');
-      if (titleElement) {
-        titleElement.textContent = 'No recent film';
-      }
+      const titleElements = document.querySelectorAll('.film-title');
+      titleElements.forEach((element) => {
+        element.textContent = 'No recent film';
+      });
     }
   })();
 </script>

@@ -2,10 +2,10 @@
 // TopTrack.astro - Client-side component
 ---
 
-<div class="top-track" id="top-track-container">
+<div class="top-track">
   <p>Current obsession: </p>
   <img src="/images/spotify-pixel.svg">
-  <a href="#" class="track-name" id="track-link">Loading...</a>
+  <a href="#" class="track-name track-link">Loading...</a>
 </div>
 
 <style>
@@ -40,17 +40,19 @@
       
       const data = await response.json();
       
-      const linkElement = document.getElementById('track-link');
-      if (linkElement) {
-        linkElement.href = data.url;
-        linkElement.textContent = `${data.artist} - ${data.name}`;
-      }
+      // Update all instances of the track link (for marquee duplicates)
+      const linkElements = document.querySelectorAll('.track-link');
+      
+      linkElements.forEach((element) => {
+        element.href = data.url || '#';
+        element.textContent = `${data.artist} - ${data.name}` || 'No track data';
+      });
     } catch (error) {
       console.error('Error fetching top track:', error);
-      const linkElement = document.getElementById('track-link');
-      if (linkElement) {
-        linkElement.textContent = 'No track data';
-      }
+      const linkElements = document.querySelectorAll('.track-link');
+      linkElements.forEach((element) => {
+        element.textContent = 'No track data';
+      });
     }
   })();
 </script>
