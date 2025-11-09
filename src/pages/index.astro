@@ -47,23 +47,23 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 					</div>
 					<div class="manifesto-statements">
 						<div class="statement">
-							<div class="statement-text">GENDER CRITICAL VIEWS ARE BIGOTRY</div>
+							<div class="statement-text typewriter">GENDER CRITICAL VIEWS ARE BIGOTRY</div>
 						</div>
 						
 						<div class="statement">
-							<div class="statement-text">BORDERS ARE BULLSHIT</div>
+							<div class="statement-text typewriter">BORDERS ARE BULLSHIT</div>
 						</div>
 						
 						<div class="statement">
-							<div class="statement-text">REFORM UK ARE FASCISTS</div>
+							<div class="statement-text typewriter">REFORM UK ARE FASCISTS</div>
 						</div>
 						
 						<div class="statement">
-							<div class="statement-text">DEI IS ESSENTIAL</div>
+							<div class="statement-text typewriter">DEI IS ESSENTIAL</div>
 						</div>
 						
 						<div class="statement">
-							<div class="statement-text">JOSIE AND THE PUSSYCATS 4LYF</div>
+							<div class="statement-text typewriter">JOSIE AND THE PUSSYCATS 4LYF</div>
 						</div>
 					</div>
 				</div>
@@ -177,7 +177,7 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 				margin-bottom: 3rem;
 				text-align: center;
 			}
-
+			
 			.statement-text {
 				font-family: 'Rakkas', serif;
 				font-size: clamp(1.5rem, 1rem + 4vw, 3rem);
@@ -191,7 +191,35 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 				position: relative;
 				word-spacing: 0.2em;
 			}
-
+			
+			.statement-text.typewriter {
+				/* Original text is invisible but maintains layout */
+				color: var(--off-white);
+			}
+			
+		</style>
+		<style is:global>
+			.statement-text.typewriter .typewriter-overlay {
+				/* Typed text overlay - matches original text styling exactly */
+				position: absolute !important;
+				top: 0 !important;
+				left: 0 !important;
+				width: 100% !important;
+				height: 100% !important;
+				color: var(--black) !important;
+				font-family: 'Rakkas', serif !important;
+				font-size: inherit;
+				font-weight: inherit;
+				line-height: inherit;
+				text-transform: uppercase !important;
+				text-align: left !important;
+				word-spacing: 0.2em !important;
+				white-space: pre-wrap !important;
+				overflow: hidden !important;
+			}
+		</style>
+		<style>
+			
 			.statement-text::after {
 				content: '';
 				position: absolute;
@@ -452,7 +480,8 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 						});
 					} else {
 						// Fallback: Custom scramble effect using GSAP timeline
-						const chars = 'dsjiodsajioolkaslfsahio';
+						// Use uppercase letters that match the original text width
+						const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 						
 						function getRandomChar() {
 							return chars[Math.floor(Math.random() * chars.length)];
@@ -520,6 +549,7 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 						return;
 					}
 					
+					// Now process scramble elements
 					scrambleElements.forEach((element) => {
 						const originalText = element.textContent || element.innerText;
 						
@@ -543,12 +573,20 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 							createScrambleAnimation(element, textToScramble, scrambleInner);
 						} else {
 							// Element is a container - scramble all direct child text elements
-							const childTextElements = element.querySelectorAll('.statement-text, [class*="text"], p, h1, h2, h3, h4, h5, h6');
+							// Skip statement-text elements (no scramble for manifesto statements)
+							const childTextElements = element.querySelectorAll('[class*="text"]:not(.statement-text), p, h1, h2, h3, h4, h5, h6');
 							
 							if (childTextElements.length === 0) {
 								// If no specific children found, try to scramble the element's own text
 								const textContent = element.textContent.trim();
 								if (textContent) {
+									// Store original width to prevent layout shifts
+									const originalWidth = element.getBoundingClientRect().width;
+									if (originalWidth > 0 && element instanceof HTMLElement) {
+										element.style.width = `${originalWidth}px`;
+										element.style.minWidth = `${originalWidth}px`;
+									}
+									
 									const scrambleInner = document.createElement('span');
 									scrambleInner.className = 'scramble-inner';
 									scrambleInner.textContent = textContent;
@@ -559,11 +597,14 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 								return;
 							}
 							
-							// Scramble each child text element individually
+							// Set up scramble animation for each element
 							childTextElements.forEach((childElement) => {
 								const textContent = childElement.textContent.trim();
 								if (!textContent) return;
 								
+								if (!(childElement instanceof HTMLElement)) return;
+								
+								// Create the scramble inner element
 								const scrambleInner = document.createElement('span');
 								scrambleInner.className = 'scramble-inner';
 								scrambleInner.textContent = textContent;
@@ -576,10 +617,73 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 					});
 				}
 				
-				// Start checking once scripts are loaded
-				checkAndInit();
-			})();
-		</script>
+			// Start checking once scripts are loaded
+			checkAndInit();
+		})();
+	</script>
+	<script is:inline>
+		// Typewriter effect for manifesto statements
+		(function() {
+			function waitForGSAP(callback, maxAttempts = 50) {
+				if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+					callback();
+				} else if (maxAttempts > 0) {
+					setTimeout(() => waitForGSAP(callback, maxAttempts - 1), 100);
+				} else {
+					console.error('GSAP or ScrollTrigger failed to load');
+				}
+			}
+			
+			function initTypewriter() {
+				waitForGSAP(() => {
+					gsap.registerPlugin(ScrollTrigger);
+					
+					const typewriterElements = document.querySelectorAll('.statement-text.typewriter');
+					
+					typewriterElements.forEach((element) => {
+						const originalText = element.textContent || '';
+						if (!originalText) return;
+						
+						// Create overlay element for typed text
+						const overlay = document.createElement('div');
+						overlay.className = 'typewriter-overlay';
+						overlay.textContent = '';
+						// Set color using computed style from CSS variable
+						const rootStyle = getComputedStyle(document.documentElement);
+						const blackColor = rootStyle.getPropertyValue('--black').trim() || '#2F2F2F';
+						overlay.style.color = blackColor;
+						element.appendChild(overlay);
+						
+						// Create typewriter animation using GSAP
+						const chars = originalText.split('');
+						
+						// Create a timeline with ScrollTrigger
+						const timeline = gsap.timeline({
+							scrollTrigger: {
+								trigger: element,
+								start: 'top 80%',
+								toggleActions: 'play none none none',
+								once: true
+							}
+						});
+						
+						// Type each character with proper timing
+						chars.forEach((char, index) => {
+							timeline.call(() => {
+								overlay.textContent += char;
+							}, null, index * 0.05);
+						});
+					});
+				});
+			}
+			
+			if (document.readyState === 'loading') {
+				document.addEventListener('DOMContentLoaded', initTypewriter);
+			} else {
+				initTypewriter();
+			}
+		})();
+	</script>
 		<Footer />
 	</body>
 </html>
