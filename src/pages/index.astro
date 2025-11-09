@@ -24,12 +24,12 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 				<div class="unicorn"></div>
 			</section>
 			<section class="index--intro">
-				<h2>&lt;intro&gt;</h2>
+				<h2 class="scramble">&lt;intro&gt;</h2>
 				<p>This is the personal site (and portfolio) of Luke Murphy, the Australian-cum-British designer, developer, writer, speaker and general reprobate.</p>
 				<p>I am currently building this site as I go, so it might be buggy af. Want to follow the progress? Follow me on <a href="https://bsky.app/profile/lurkmoophy.bsky.social">Bluesky</a>.</p>
 			</section>
 			<section class="index--section">
-				<Title title="Manifesto" />
+				<Title title="Manifesto" class="scramble" />
 				<div class="manifesto-container">
 					<div class="text-container">
 						<p class="dropcap">
@@ -112,16 +112,25 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 				color: white;
 				-webkit-text-stroke: 3px var(--black);
 				text-stroke: 3px var(--black);
-				align-self: flex-start;
+				align-self: center;
 				flex-shrink: 0;
 			}
 			.unicorn {
 				width: 565px;
 				height: 400px;
 				background: url('/images/unicorn-sprite.png') no-repeat 0 0;
+				background-size: 500% 100%; /* 5 frames = 500% width */
 				position: absolute;
 				bottom: -230px;
 				z-index: 3;
+			}
+			
+			@media (max-width: 1200px) {
+				.unicorn {
+					width: clamp(300px, 50vw, 565px);
+					height: auto;
+					aspect-ratio: 565 / 400;
+				}
 			}
 
 			.index--intro {
@@ -197,6 +206,74 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 			}
 
 			@media (max-width: 768px) {
+				.index--masthead {
+					padding: 0;
+					width: 100vw;
+					margin-left: calc(-50vw + 50%);
+					margin-right: calc(-50vw + 50%);
+				}
+				
+				.index--masthead--subhead {
+					width: 100%;
+					margin: 2rem auto 0;
+					text-align: center;
+					text-align-last: center;
+				}
+				
+				.index--masthead--head {
+					margin: 0.25rem 0 1rem;
+					width: 100%;
+				}
+				
+				.index--masthead--primary {
+					font-size: clamp(6rem, 8vw, 8rem);
+				}
+				
+				.index--masthead--secondary {
+					font-size: clamp(4rem, 6vw, 5rem);
+					-webkit-text-stroke: 2px var(--black);
+					text-stroke: 2px var(--black);
+					margin-op:
+				}
+				
+				.unicorn {
+					width: 100%;
+					max-width: 565px;
+					min-width: 150px;
+					height: auto;
+					aspect-ratio: 565 / 400;
+					background-size: 500% 100%; /* 5 frames = 500% width */
+					position: relative;
+					top: 0;
+					bottom: auto;
+					margin: -75px auto 0;
+					left: auto;
+				}
+				
+				.index--intro {
+					margin: 2rem 1rem 4rem;
+					max-width: 100%;
+				}
+				
+				.index--intro h2 {
+					font-size: 1.75rem;
+				}
+				
+				.manifesto-container {
+					padding: 0 1.5rem;
+					flex-direction: column;
+				}
+				
+				.text-container {
+					max-width: 100%;
+					margin-bottom: 2rem;
+				}
+				
+				.manifesto-statements {
+					max-width: 100%;
+					width: 100%;
+				}
+				
 				.statement-text {
 					font-size: clamp(1.5rem, 6vw, 4rem);
 				}
@@ -205,45 +282,298 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 					margin-bottom: 2rem;
 				}
 			}
+			
+			@media (max-width: 480px) {
+				.index--masthead {
+					padding: 0;
+					width: 100vw;
+					margin-left: calc(-50vw + 50%);
+					margin-right: calc(-50vw + 50%);
+				}
+				
+				.index--masthead--subhead {
+					font-size: 0.875rem;
+					letter-spacing: 0.2rem;
+					margin: 1.5rem auto 0;
+				}
+				
+				.index--masthead--primary {
+					font-size: clamp(4rem, 12vw, 6rem);
+				}
+				
+				.index--masthead--secondary {
+					font-size: clamp(3rem, 8vw, 4rem);
+					-webkit-text-stroke: 1.5px var(--black);
+					text-stroke: 1.5px var(--black);
+				}
+				
+				.unicorn {
+					width: 100%;
+					max-width: 565px;
+					min-width: 120px;
+					position: relative;
+					top: 0;
+					bottom: auto;
+					left: auto;
+				}
+				
+				.index--intro {
+					margin: 1.5rem 1rem 3rem;
+				}
+				
+				.index--intro h2 {
+					font-size: 1.5rem;
+				}
+				
+				.manifesto-container {
+					padding: 0 1rem;
+				}
+				
+				.statement-text {
+					font-size: clamp(1.25rem, 7vw, 3rem);
+					word-spacing: 0.1em;
+				}
+			}
 		</style>
 		<script is:inline>
 			// Simple scroll-based sprite animation without GSAP
 			document.addEventListener('DOMContentLoaded', () => {
 				const unicorn = document.querySelector('.unicorn');
 				const totalFrames = 5;
-				const frameWidth = 565;
 				
 				function updateSprite() {
+					if (!unicorn) return;
+					
 					const scrollTop = window.pageYOffset;
 					const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
 					
+					// Get actual unicorn dimensions (responsive)
+					const unicornRect = unicorn.getBoundingClientRect();
+					const unicornWidth = unicornRect.width;
+					
+					// Check if we're on mobile (unicorn is relatively positioned)
+					const isMobile = window.getComputedStyle(unicorn).position === 'relative';
+					
 					// Speed multiplier - higher = faster animation
-					const speedMultiplier = 7; // Try values like 1.5, 2, 3, etc.
-					const scrollProgress = (scrollTop * speedMultiplier) / documentHeight; // Remove Math.min to allow continuous looping
+					const speedMultiplier = 7;
+					const scrollProgress = (scrollTop * speedMultiplier) / documentHeight;
 					
 					// Loop through frames continuously
-					const frameProgress = scrollProgress * totalFrames; // Can go beyond totalFrames
-					const currentFrame = Math.floor(frameProgress) % totalFrames; // Loop back to 0
-					const backgroundPosition = -currentFrame * frameWidth;
+					const frameProgress = scrollProgress * totalFrames;
+					const currentFrame = Math.floor(frameProgress) % totalFrames;
 					
-					// Move unicorn across screen as you scroll using left positioning
-					const scrollPercent = Math.min(scrollTop / documentHeight, 1);
-					const screenWidth = window.innerWidth;
-					const unicornWidth = 565;
+					// Calculate background position in pixels
+					// With background-size: 500%, the background is 5× the element width
+					// Each frame is exactly 1× the element width
+					// So we move by -unicornWidth pixels for each frame
+					const backgroundPositionX = -(currentFrame * unicornWidth);
 					
-					// Start at right edge minus 545px, end at left edge minus 545px
-					const startPosition = screenWidth - 545; // Right edge minus 545px
-					const endPosition = -545; // Left edge minus 545px
-					const moveDistance = startPosition - endPosition;
-					const currentLeft = startPosition - (scrollPercent * moveDistance);
+					// Update sprite frame
+					unicorn.style.backgroundPosition = `${backgroundPositionX}px 0`;
 					
-					unicorn.style.backgroundPosition = `${backgroundPosition}px 0`;
-					unicorn.style.left = `${currentLeft}px`;
+					// Only move unicorn horizontally on desktop (absolute positioning)
+					if (!isMobile) {
+						const scrollPercent = Math.min(scrollTop / documentHeight, 1);
+						const screenWidth = window.innerWidth;
+						
+						// Calculate offset to keep unicorn partially visible
+						// Offset is 20px less than unicorn width to keep it partially visible
+						const offset = unicornWidth - 20;
+						
+						// Start at right edge minus offset, end at left edge minus offset
+						const startPosition = screenWidth - offset;
+						const endPosition = -offset;
+						const moveDistance = startPosition - endPosition;
+						const currentLeft = startPosition - (scrollPercent * moveDistance);
+						
+						unicorn.style.left = `${currentLeft}px`;
+					} else {
+						// On mobile, reset left positioning
+						unicorn.style.left = '';
+					}
 				}
 				
 				window.addEventListener('scroll', updateSprite);
+				window.addEventListener('resize', updateSprite); // Update on resize
 				updateSprite(); // Initial call
 			});
+		</script>
+		<script is:inline>
+			// Scramble text in elements with .scramble class
+			(function() {
+				// Wait for GSAP and ScrambleTextPlugin to be available
+				function checkAndInit() {
+					if (typeof window === 'undefined') return;
+					
+					if (typeof gsap === 'undefined') {
+						setTimeout(checkAndInit, 100);
+						return;
+					}
+					
+					// Register GSAP plugins
+					if (typeof ScrollTrigger !== 'undefined') {
+						gsap.registerPlugin(ScrollTrigger);
+					}
+					if (typeof ScrambleTextPlugin !== 'undefined') {
+						gsap.registerPlugin(ScrambleTextPlugin);
+					}
+					
+					// Wait for DOM to be ready
+					if (document.readyState === 'loading') {
+						document.addEventListener('DOMContentLoaded', initScramble);
+					} else {
+						initScramble();
+					}
+				}
+				
+				function createScrambleAnimation(element, textToScramble, scrambleInner) {
+					// Try to use ScrambleTextPlugin if available, otherwise use custom implementation
+					if (typeof ScrambleTextPlugin !== 'undefined') {
+						// Use official ScrambleTextPlugin with ScrollTrigger
+						gsap.to(scrambleInner, {
+							duration: 2,
+							scrambleText: {
+								text: textToScramble,
+								chars: "fwqhiooiwfqhiofwqokljlsdakml",
+								revealDelay: 0.5,
+								tweenLength: false
+							},
+							scrollTrigger: {
+								trigger: element,
+								start: "top 80%",
+								toggleActions: "play none none none",
+								once: true
+							}
+						});
+					} else {
+						// Fallback: Custom scramble effect using GSAP timeline
+						const chars = 'dsjiodsajioolkaslfsahio';
+						
+						function getRandomChar() {
+							return chars[Math.floor(Math.random() * chars.length)];
+						}
+						
+						function scrambleText(original, progress) {
+							let result = '';
+							const revealLength = Math.floor(original.length * progress);
+							
+							for (let i = 0; i < original.length; i++) {
+								if (original[i] === ' ') {
+									result += ' ';
+								} else if (i < revealLength) {
+									// Revealed character
+									result += original[i];
+								} else {
+									// Scrambled character
+									result += getRandomChar();
+								}
+							}
+							return result;
+						}
+						
+						// Create timeline for scramble effect (no repeat)
+						const tl = gsap.timeline({
+							scrollTrigger: {
+								trigger: element,
+								start: "top 80%",
+								toggleActions: "play none none none",
+								once: true
+							}
+						});
+						
+						// Scramble phase
+						tl.to({ progress: 0 }, {
+							duration: 0.2,
+							progress: 1,
+							onUpdate: function() {
+								scrambleInner.textContent = scrambleText(textToScramble, 0);
+							},
+							ease: 'none'
+						});
+						
+						// Reveal phase
+						tl.to({ progress: 0 }, {
+							duration: 0.7,
+							progress: 1,
+							onUpdate: function() {
+								const p = this.progress();
+								scrambleInner.textContent = scrambleText(textToScramble, p);
+							},
+							ease: 'power2.out'
+						});
+						
+						// Hold at full text
+						tl.set(scrambleInner, { textContent: textToScramble });
+					}
+				}
+				
+				function initScramble() {
+					const scrambleElements = document.querySelectorAll('.scramble');
+					
+					if (scrambleElements.length === 0) {
+						console.warn('No elements with .scramble class found');
+						return;
+					}
+					
+					scrambleElements.forEach((element) => {
+						const originalText = element.textContent || element.innerText;
+						
+						// Extract text between < and >
+						// The HTML entities &lt; and &gt; are already decoded in textContent
+						const match = originalText.match(/<(.+?)>/);
+						
+						if (match) {
+							// Element has text in <text> format
+							const textToScramble = match[1]; // The text between < and >
+							
+							// Create new structure with brackets and scramble span
+							element.innerHTML = '&lt;<span class="scramble-inner">' + textToScramble + '</span>&gt;';
+							const scrambleInner = element.querySelector('.scramble-inner');
+							
+							if (!scrambleInner) {
+								console.error('Failed to create scramble inner element');
+								return;
+							}
+							
+							createScrambleAnimation(element, textToScramble, scrambleInner);
+						} else {
+							// Element is a container - scramble all direct child text elements
+							const childTextElements = element.querySelectorAll('.statement-text, [class*="text"], p, h1, h2, h3, h4, h5, h6');
+							
+							if (childTextElements.length === 0) {
+								// If no specific children found, try to scramble the element's own text
+								const textContent = element.textContent.trim();
+								if (textContent) {
+									const scrambleInner = document.createElement('span');
+									scrambleInner.className = 'scramble-inner';
+									scrambleInner.textContent = textContent;
+									element.innerHTML = '';
+									element.appendChild(scrambleInner);
+									createScrambleAnimation(element, textContent, scrambleInner);
+								}
+								return;
+							}
+							
+							// Scramble each child text element individually
+							childTextElements.forEach((childElement) => {
+								const textContent = childElement.textContent.trim();
+								if (!textContent) return;
+								
+								const scrambleInner = document.createElement('span');
+								scrambleInner.className = 'scramble-inner';
+								scrambleInner.textContent = textContent;
+								childElement.innerHTML = '';
+								childElement.appendChild(scrambleInner);
+								
+								createScrambleAnimation(childElement, textContent, scrambleInner);
+							});
+						}
+					});
+				}
+				
+				// Start checking once scripts are loaded
+				checkAndInit();
+			})();
 		</script>
 		<Footer />
 	</body>

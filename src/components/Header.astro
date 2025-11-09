@@ -175,6 +175,53 @@ const isHomePage = Astro.url.pathname === '/';
 		text-decoration-thickness: 3px;
 		text-decoration-color: var(--grey);
 	}
+	
+	@media (max-width: 768px) {
+		nav {
+			flex-wrap: wrap;
+		}
+		
+		nav a {
+			font-size: 0.75rem;
+			padding: 0.75em 0.25em;
+			flex: 1 1 calc(50% - 3px);
+			min-width: 0;
+		}
+		
+		nav a:nth-of-type(odd) {
+			border-right: 3px solid var(--black);
+		}
+		
+		nav a:nth-of-type(even) {
+			border-right: none;
+		}
+		
+		nav a:nth-of-type(5),
+		nav a:nth-of-type(6) {
+			border-bottom: 3px solid var(--black);
+		}
+		
+		.hero-nonHome {
+			font-size: 1rem;
+			padding: 0 0.5em;
+		}
+		
+		.header-separator {
+			margin: 0 0.25rem;
+		}
+	}
+	
+	@media (max-width: 480px) {
+		nav a {
+			font-size: 0.65rem;
+			padding: 0.5em 0.25em;
+			line-height: 1.2;
+		}
+		
+		.hero-nonHome {
+			font-size: 0.875rem;
+		}
+	}
 </style>
 
 <script>
