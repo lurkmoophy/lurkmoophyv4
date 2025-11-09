@@ -1,8 +1,8 @@
 ---
 const { title, as: Tag = 'h3', description } = Astro.props;
 ---
-<Tag class="title">
-    &lt;{title}&gt;
+<Tag class="title" id={`title-${title.toLowerCase().replace(/\s+/g, '-')}`}>
+    &lt;{title}&gt; <span class="title-marquee">&lt;{title}&gt; &lt;{title}&gt; &lt;{title}&gt; </span>
     {description && <p class="description">{description}</p>}
 </Tag>
 
@@ -17,6 +17,12 @@ const { title, as: Tag = 'h3', description } = Astro.props;
         font-weight: 400;
         text-transform: uppercase;
         text-align: left;
+        overflow: hidden;
+        text-wrap: nowrap;
+    }
+    .title-marquee {
+        color: var(--grey);
+        opacity: 0.5;
     }
     .description {
         font-size: 1.25rem;
@@ -28,3 +34,63 @@ const { title, as: Tag = 'h3', description } = Astro.props;
         padding-left: 5%;
     }
 </style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const titleElements = document.querySelectorAll('.title');
+        
+        function updateLetterSpacing() {
+            titleElements.forEach((titleEl) => {
+                const title = titleEl;
+                const rect = title.getBoundingClientRect();
+                const viewportHeight = window.innerHeight;
+                
+                // Calculate when title enters viewport (top of title reaches bottom of viewport)
+                const titleTop = rect.top;
+                
+                // Start animation when title is 100vh above viewport, end when title is at top of viewport
+                const startPoint = viewportHeight;
+                const endPoint = 0;
+                
+                // Calculate scroll progress (0 = wide spacing, 1 = normal spacing)
+                let progress = 0;
+                
+                if (titleTop < startPoint && titleTop > endPoint) {
+                    // Title is in the animation range
+                    progress = 1 - ((titleTop - endPoint) / (startPoint - endPoint));
+                } else if (titleTop <= endPoint) {
+                    // Title has passed the top, use normal spacing
+                    progress = 1;
+                } else {
+                    // Title hasn't entered animation range yet, use wide spacing
+                    progress = 0;
+                }
+                
+                // Clamp progress between 0 and 1
+                progress = Math.max(0, Math.min(1, progress));
+                
+                // Interpolate letter spacing: from 0.5em (wide) to 0em (normal)
+                const maxSpacing = 0.5; // em units
+                const minSpacing = 0; // em units
+                const letterSpacing = minSpacing + (maxSpacing * (1 - progress));
+                
+                if (title instanceof HTMLElement) {
+                    title.style.letterSpacing = `${letterSpacing}em`;
+                    
+                    // Reset letter spacing for description to keep it normal
+                    const description = title.querySelector('.description');
+                    if (description instanceof HTMLElement) {
+                        description.style.letterSpacing = 'normal';
+                    }
+                }
+            });
+        }
+        
+        // Update on scroll and resize
+        window.addEventListener('scroll', updateLetterSpacing);
+        window.addEventListener('resize', updateLetterSpacing);
+        
+        // Initial call
+        updateLetterSpacing();
+    });
+</script>
