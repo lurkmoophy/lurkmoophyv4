@@ -16,10 +16,25 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 		<main>
 			<section class="index--masthead">
 				<h2 class="index--masthead--subhead">The Personal Homepage of Luke Murphy</h2>
+				<svg>
+					<defs>
+						<filter id="distort">
+							<feTurbulence baseFrequency="0 0.1" numOctaves="10" result="noise" />
+							<feDisplacementMap id="displacement" in="SourceGraphic" in2="noise" scale="20" xChannelSelector="R" yChannelSelector="Y" />
+						</filter>
+					</defs>
+				</svg>
+				<svg>
+					<defs>
+						<filter id="blur">
+							<feGaussianBlur in="SourceGraphic" stdDeviation="10,0" />
+						</filter>
+					</defs>
+				</svg>
 				<h1 class="index--masthead--head">
-					<span class="index--masthead--primary">Ace </span>
-					<span class="index--masthead--secondary">of </span>
-					<span class="index--masthead--primary">Cups</span>
+					<span class="index--masthead--primary" data-text="Ace ">Ace </span>
+					<span class="index--masthead--secondary" data-text="of ">of </span>
+					<span class="index--masthead--primary" data-text="Cups">Cups</span>
 				</h1>
 				<div class="unicorn"></div>
 			</section>
@@ -75,6 +90,9 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 				position: relative;
 				padding: 0 3rem;
 			}
+			.index--masthead svg {
+				position: absolute;
+			}
 			.index--masthead--subhead {
 				font-size: clamp(1rem, 0.75rem + 1vw, 2rem);
 				font-weight: 400;
@@ -95,6 +113,22 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 				flex-wrap: nowrap;
 				white-space: nowrap;
 				margin: 0.25rem 0 2rem;
+			}
+			.index--masthead--head span {
+				filter: url(#distort);
+				position: relative;
+			}
+			.index--masthead--head span:before {
+				content: attr(data-text);
+				position: absolute;
+				top: 0;
+				left: 0;
+				filter: url(#blur);
+				opacity: 0.5;
+				display: block;
+				pointer-events: none;
+				z-index: -1;
+				white-space: nowrap;
 			}
 			.index--masthead--primary {
 				font-family: 'Gideon Roman', serif;
@@ -683,6 +717,118 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 				initTypewriter();
 			}
 		})();
+	</script>
+	<script is:inline>
+		// Animate displacement filter scale: flickering at top, exponential scroll-based below
+		document.addEventListener('DOMContentLoaded', () => {
+			const displacementMap = document.getElementById('displacement');
+			if (!displacementMap) return;
+			
+			const minScale = 10;
+			const maxScale = 500;
+			const exponent = 2; // Exponential curve (higher = more exponential growth)
+			const flickerMin = 0;
+			const flickerMax = 10;
+			const flickerSpeed = 50; // Milliseconds between flicker updates during flicker phase
+			const minFlickerDuration = 200; // Minimum milliseconds to flicker
+			const maxFlickerDuration = 800; // Maximum milliseconds to flicker
+			const minStillDuration = 500; // Minimum milliseconds to be still
+			const maxStillDuration = 2000; // Maximum milliseconds to be still
+			
+			let flickerAnimationId = null;
+			let isFlickering = false;
+			let isFlickerPhase = false; // true = flickering, false = still
+			let flickerStartTime = 0;
+			let flickerDuration = 0;
+			
+			function startFlickering() {
+				if (isFlickering) return;
+				isFlickering = true;
+				isFlickerPhase = true; // Start with flickering
+				flickerStartTime = 0; // Reset timing
+				
+				function flickerLoop() {
+					if (!isFlickering) return;
+					
+					const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+					// Only flicker if we're at the very top
+					if (scrollTop !== 0) {
+						isFlickering = false;
+						return;
+					}
+					
+					if (isFlickerPhase) {
+						// Flickering phase: rapidly change values
+						const randomScale = flickerMin + Math.random() * (flickerMax - flickerMin);
+						displacementMap.setAttribute('scale', randomScale.toFixed(2));
+						
+						// Check if we need to start a new flicker phase
+						const now = Date.now();
+						if (flickerStartTime === 0) {
+							// Start new flicker phase
+							flickerStartTime = now;
+							flickerDuration = minFlickerDuration + Math.random() * (maxFlickerDuration - minFlickerDuration);
+						}
+						
+						// Check if flicker phase should end
+						if (now - flickerStartTime >= flickerDuration) {
+							// Switch to still phase
+							isFlickerPhase = false;
+							flickerStartTime = 0;
+							displacementMap.setAttribute('scale', flickerMin.toFixed(2));
+							
+							// Stay still for a random duration
+							const stillDuration = minStillDuration + Math.random() * (maxStillDuration - minStillDuration);
+							flickerAnimationId = setTimeout(() => {
+								// Switch back to flickering phase
+								isFlickerPhase = true;
+								flickerStartTime = 0;
+								flickerLoop();
+							}, stillDuration);
+						} else {
+							// Continue flickering
+							flickerAnimationId = setTimeout(flickerLoop, flickerSpeed);
+						}
+					}
+				}
+				
+				flickerLoop();
+			}
+			
+			function stopFlickering() {
+				isFlickering = false;
+				if (flickerAnimationId) {
+					clearTimeout(flickerAnimationId);
+					flickerAnimationId = null;
+				}
+			}
+			
+			function updateScale() {
+				const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+				const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+				
+				// Calculate scroll progress (0 to 1)
+				const scrollProgress = Math.min(Math.max(scrollTop / documentHeight, 0), 1);
+				
+				// If at the top, use flickering effect
+				if (scrollTop === 0) {
+					startFlickering();
+					return; // Flickering function will handle the update
+				} else {
+					stopFlickering();
+					
+					// Apply exponential curve: scale increases exponentially as you scroll down
+					const exponentialProgress = Math.pow(scrollProgress, exponent);
+					const scale = minScale + (maxScale - minScale) * exponentialProgress;
+					
+					// Update the scale attribute
+					displacementMap.setAttribute('scale', scale.toFixed(2));
+				}
+			}
+			
+			window.addEventListener('scroll', updateScale);
+			updateScale(); // Initial call
+		});
 	</script>
 		<Footer />
 	</body>
