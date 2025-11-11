@@ -6,7 +6,7 @@ import RecentFilm from './RecentFilm.astro';
 
 const isHomePage = Astro.url.pathname === '/';
 ---
-
+<div class="static-bg"></div>
 <header>
 	<nav>
 		<HeaderLink href="/">Home</HeaderLink>
@@ -35,6 +35,17 @@ const isHomePage = Astro.url.pathname === '/';
 	)}
 </header>
 <style>
+
+	.static-bg {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-image: url('/images/white-noise-colourful.gif');
+		opacity: 0.15;
+		z-index: -1;
+	}
 	header {
 		margin: 0;
 		padding: 0;
