@@ -62,23 +62,23 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 					</div>
 					<div class="manifesto-statements">
 						<div class="statement">
-							<div class="statement-text typewriter">GENDER CRITICAL VIEWS ARE BIGOTRY</div>
+							<div class="statement-text" data-text="GENDER CRITICAL VIEWS ARE BIGOTRY">GENDER CRITICAL VIEWS ARE BIGOTRY</div>
 						</div>
 						
 						<div class="statement">
-							<div class="statement-text typewriter">BORDERS ARE BULLSHIT</div>
+							<div class="statement-text" data-text="BORDERS ARE BULLSHIT">BORDERS ARE BULLSHIT</div>
 						</div>
 						
 						<div class="statement">
-							<div class="statement-text typewriter">REFORM UK ARE FASCISTS</div>
+							<div class="statement-text" data-text="REFORM UK ARE FASCISTS">REFORM UK ARE FASCISTS</div>
 						</div>
 						
 						<div class="statement">
-							<div class="statement-text typewriter">DEI IS ESSENTIAL</div>
+							<div class="statement-text" data-text="DEI IS ESSENTIAL">DEI IS ESSENTIAL</div>
 						</div>
 						
 						<div class="statement">
-							<div class="statement-text typewriter">JOSIE AND THE PUSSYCATS 4LYF</div>
+							<div class="statement-text" data-text="JOSIE AND THE PUSSYCATS 4LYF">JOSIE AND THE PUSSYCATS 4LYF</div>
 						</div>
 					</div>
 				</div>
@@ -225,32 +225,20 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 				position: relative;
 				word-spacing: 0.2em;
 			}
-			
-			.statement-text.typewriter {
-				/* Original text is invisible but maintains layout */
-				color: var(--off-white);
+
+			.statement-text::before {
+				content: attr(data-text);
+				position: absolute;
+				top: 0;
+				left: 0;
+				opacity: 0.3;
+				width: 100%;
+				height: 100%;
+				filter: url(#blur);
+				color: var(--black);
 			}
 			
-		</style>
-		<style is:global>
-			.statement-text.typewriter .typewriter-overlay {
-				/* Typed text overlay - matches original text styling exactly */
-				position: absolute !important;
-				top: 0 !important;
-				left: 0 !important;
-				width: 100% !important;
-				height: 100% !important;
-				color: var(--black) !important;
-				font-family: 'Rakkas', serif !important;
-				font-size: inherit;
-				font-weight: inherit;
-				line-height: inherit;
-				text-transform: uppercase !important;
-				text-align: left !important;
-				word-spacing: 0.2em !important;
-				white-space: pre-wrap !important;
-				overflow: hidden !important;
-			}
+			
 		</style>
 		<style>
 			
@@ -653,69 +641,6 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 				
 			// Start checking once scripts are loaded
 			checkAndInit();
-		})();
-	</script>
-	<script is:inline>
-		// Typewriter effect for manifesto statements
-		(function() {
-			function waitForGSAP(callback, maxAttempts = 50) {
-				if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-					callback();
-				} else if (maxAttempts > 0) {
-					setTimeout(() => waitForGSAP(callback, maxAttempts - 1), 100);
-				} else {
-					console.error('GSAP or ScrollTrigger failed to load');
-				}
-			}
-			
-			function initTypewriter() {
-				waitForGSAP(() => {
-					gsap.registerPlugin(ScrollTrigger);
-					
-					const typewriterElements = document.querySelectorAll('.statement-text.typewriter');
-					
-					typewriterElements.forEach((element) => {
-						const originalText = element.textContent || '';
-						if (!originalText) return;
-						
-						// Create overlay element for typed text
-						const overlay = document.createElement('div');
-						overlay.className = 'typewriter-overlay';
-						overlay.textContent = '';
-						// Set color using computed style from CSS variable
-						const rootStyle = getComputedStyle(document.documentElement);
-						const blackColor = rootStyle.getPropertyValue('--black').trim() || '#2F2F2F';
-						overlay.style.color = blackColor;
-						element.appendChild(overlay);
-						
-						// Create typewriter animation using GSAP
-						const chars = originalText.split('');
-						
-						// Create a timeline with ScrollTrigger
-						const timeline = gsap.timeline({
-							scrollTrigger: {
-								trigger: element,
-								start: 'top 80%',
-								toggleActions: 'play none none none',
-								once: true
-							}
-						});
-						
-						// Type each character with proper timing
-						chars.forEach((char, index) => {
-							timeline.call(() => {
-								overlay.textContent += char;
-							}, null, index * 0.05);
-						});
-					});
-				});
-			}
-			
-			if (document.readyState === 'loading') {
-				document.addEventListener('DOMContentLoaded', initTypewriter);
-			} else {
-				initTypewriter();
-			}
 		})();
 	</script>
 	<script is:inline>
