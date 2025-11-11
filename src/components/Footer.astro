@@ -1,32 +1,155 @@
 ---
-const today = new Date();
----
+import { execSync } from 'child_process';
 
+const today = new Date();
+
+// Get last git commit date
+let lastUpdated: Date | null = null;
+try {
+	const gitDate = execSync('git log -1 --format=%ci', { encoding: 'utf-8' }).trim();
+	if (gitDate) {
+		lastUpdated = new Date(gitDate);
+	}
+} catch (error) {
+	// If git is not available or not a git repo, fall back to build time
+	lastUpdated = new Date();
+}
+
+const formatDate = (date: Date) => {
+	return date.toLocaleDateString('en-us', {
+		year: 'numeric',
+		month: 'short',
+		day: 'numeric',
+	});
+};
+---
+<img src="/images/footer-top.svg" class="footer-top" />
 <footer>
-	&copy; {today.getFullYear()} lurkmoophy. All rights reserved.
+	<div class="footer-content">
+		<p class="footer-content--version">† v4.1</p>
+	{lastUpdated && (
+		<p class="last-updated">
+			Last updated: {formatDate(lastUpdated)}
+		</p>
+	)}
+	</div>
+	<div class="footer-content">
+		<p class="footer-content--header">Shit I do</p>
+		<a href="/blog">Writing</a>
+		<a class="coming-soon">Product Design (coming soon)</a>
+		<a class="coming-soon">Side Projects (coming soon)</a>
+		<a class="coming-soon">Illustration (coming soon)</a>
+		<a class="coming-soon">Speaking (coming soon)</a>
+		<p class="footer-content--header">Other shit</p>
+		<a class="coming-soon">About (coming soon)</a>
+		<a class="coming-soon">Now (coming soon)</a>
+		<a class="coming-soon">RSS (coming soon)</a>
+	</div>
+	<div class="footer-content">
+		<p class="footer-content--header">Elsewhere on the internet</p>
+		<a href="https://bsky.app/profile/lurkmoophy.bsky.social">Bluesky</a>
+		<a href="https://github.com/lurkmoophy">GitHub</a>
+		<a href="https://www.linkedin.com/in/lukeandrewmurphy/">LinkedIn</a>
+		<a href="https://www.instagram.com/lurkmoophy/">Instagram</a>
+	</div>
+	<div class="footer-content">
+		<p class="footer-content--header">Contact</p>
+		<a href="mailto:lurkmoophy@gmail.com">lurkmoophy@gmail.com</a>
+	</div>
+	<div class="footer-bottom">
+		<span>&copy; {today.getFullYear()} lurkmoophy.</span> <span>Made with sticky tape and dreams.</span>
 	</div>
 </footer>
 <style>
 	footer {
-		padding: 2em 1em 6em 1em;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		padding: 3em 3em;
 		background: var(--black);
 		color: var(--white);
 		text-align: center;
 		width: 95%;
-		margin: 0 auto;
+		margin: 0 auto 1rem;
+		border-radius: 0 0 10px 10px;
+		font-size: 0.875rem;
+		text-transform: uppercase;
+		font-family: 'Gideon Roman', serif;
+		max-width: 1600px;
 	}
 
-	.social-links {
-		display: flex;
-		justify-content: center;
-		gap: 1em;
-		margin-top: 1em;
+	.last-updated {
+		margin-top: 0.5em;
+		font-size: 0.75rem;
+		opacity: 0.8;
+		max-width: 100px;
 	}
-	.social-links a {
+
+	.footer-top {
+		width: 95%;
+		height: auto;
+		margin: 0 auto;
+		border-radius: 0;
+		max-width: 1600px;
+	}
+
+	.footer-content {
+		text-align: left;
+		flex-basis: 25%;
+	}
+
+	@media (max-width: 768px) {
+		.footer-content {
+			flex-basis: 50%;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.footer-content {
+			flex-basis: 100%;
+		}
+	}
+
+	.footer-content--header {
+		font-size: 0.875rem;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: var(--grey);
+	}
+
+	.footer-content--version {
+		font-size: 1.75rem;
+		opacity: 0.8;
+	}
+
+	.footer-content a {
+		text-decoration: underline;
+		color: var(--white);
+		display: block;
+		font-family: 'Alegreya Sans', sans-serif;
+		margin-bottom: 0.25rem;
+	}
+
+	.footer-content a:hover {
+		color: var(--grey);
+	}
+
+	.footer-content a.coming-soon {
+		color: var(--grey);
 		text-decoration: none;
-		color: var(--white);
 	}
-	.social-links a:hover {
-		color: var(--white);
+
+	.footer-bottom {
+		align-self: flex-end;
+		font-size: 0.75rem;
+		opacity: 0.8;
+		flex-basis: 100%;
+		width: 100%;
+		margin-top: 5em;
+		display: flex;
+		justify-content: space-between;
+	}
+	.footer-bottom span {
+		display: block;
 	}
 </style>

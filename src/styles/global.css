@@ -43,6 +43,7 @@ body {
 	background-image: url('/images/white-noise-colourful.gif');
 	background-color: rgba(255, 255, 255, 0.8);
 	background-blend-mode: lighten;
+	transform:translate3d(0,0,0);
 }
 main {
 	width: 100%;
