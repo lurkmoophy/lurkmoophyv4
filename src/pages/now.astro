@@ -1,0 +1,107 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import Header from '../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import Title from '../components/Title.astro';
+
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<Title title="Now" />
+            <section class="page-content">
+                <div class="page-intro">
+                    <p>Current things I'm focusing on, hobbies, side quests and assorted miscellani.</p>
+                    <p>Read more at <a href="https://nownownow.com/about">nownownow.com</a></p>
+                </div>
+                <div class="page-content-inner">
+                    <h2 class="scramble">&lt;November 2025&gt;</h2>
+                    <h3>Professionally</h3>
+                    <p>As part of my advocacy work at <a href="https://zeroheight.com">zeroheight</a>, my focus is on untangling the messy area of <a href="https://zeroheight.com/blog/figma-variables-and-design-tokens-part-one-variable-architecture/">Variables and Design Tokens</a>, especially as they relate to multi-brand design systems, and the challenges of building something scalable and maintainable.</p>
+                    <p>I'm also pretty interested in <a href="https://zeroheight.com/blog/why-you-shouldnt-use-ai-to-write-documentation/">how AI can be used with design systems</a>, and how we can do it in a way that is actually helpful (mostly in the areas of governance, documentation delivery, and measurement), and not just promising code and design generation.</p>
+                    <p>I'm also building out the survey for next year's <a href="https://zeroheight.com/resource/design-system-report-2025/">Design System Report</a>, and preparing for the <a href="https://awards.zeroheight.com/">Design System Awards</a> in December!</p>
+                    <h3>Side quests</h3>
+                    <p>I'm still working on my vinyl subscription service, <a href="https://nothingsoundsgood.club">Nothing Sounds Good</a>, making the releases better each month, and spending way too much time on the zine and prints.</p>
+                    <p>My band, <a href="https://open.spotify.com/artist/6PQwcg9SjBaPxGhqWeSIs5?si=ZtnMRfaESBi6WduhqbZl7Q">Brutalligators</a>, are releasing our second album, 'Still Here', at the end of the November, so doing promo and prepping for all the shows. We also need to record the second batch of <a href=="https://open.spotify.com/show/1jK2IvUeh5pvmWrr4teV8l?si=9bfca9e3c6514dc0">podcasts</a>, where we talk through the album, what went into the songs, and how we recorded.</p>
+                    <p>I'm also still working on my website! Finding time every couple of days to mess about and add something else unhinged.</p>
+                    <h3>Personally</h3>
+                    <p>It's Christmas next month! Anyone who knows me knows that I'm already donning Christmas jumpers and listening to <a href="https://open.spotify.com/artist/7LzVSaw5sNrK7s1fyAWzQZ?si=c0e595db2c574380">Sunturns</a> on repeat. I'm also really looking forward to <a href="https://letterboxd.com/film/wicked-for-good/">Wicked: For Good</a> coming out this month, and can't wait to dive into as many trashy <a href="https://app.thestorygraph.com/books-read/lurkmoophy?year=0">Christmas novels</a> as I can get my hands on.</p>
+                </div>
+            </section>
+		</main>
+		<Footer />
+        <style>
+            .page-content {
+                width: 100%;
+                margin: 4rem auto;
+                padding: 0 1em;
+            }
+            .page-intro {
+                max-width: 43rem;
+                font-size: 1.25rem;
+                font-style: italic;
+                font-family: 'Gideon Roman', serif;
+                font-weight: 400;
+                line-height: 1.2;
+                margin: 7rem 0;
+            }
+
+            @media screen and (min-width: 768px) {
+                .page-intro {
+                    margin-left: 10%;
+                    font-size: 2.25rem;
+                }
+            }
+            .page-content-inner {
+                max-width: 43rem;
+                font-size: 1rem;
+                line-height: 1.4;
+                margin-bottom: 7rem;
+            }
+
+            @media screen and (min-width: 768px) {
+                .page-content-inner {
+                    margin-left: 15%;
+                    font-size: 1.5rem;
+                }
+            }
+
+            .page-content-inner h2 {
+                font-size: 2.5rem;
+                font-weight: 400;
+                font-style: italic;
+                margin-bottom: 4rem;
+                color: var(--grey-dark);
+            }
+
+            .page-content-inner h3 {
+                font-size: 1.25rem;
+                text-transform: uppercase;
+                font-family: Alegreya Sans, sans-serif;
+                font-weight: 400;
+                margin-bottom: 0.5rem;
+                color: var(--grey);
+                letter-spacing: 0.1em;
+            }
+
+            .page-content-inner p {
+                font-size: 1.25rem;
+                max-width: 33rem;
+            }
+
+            .page-content-inner a {
+                text-decoration: underline;
+                text-decoration-style: dotted;
+                text-decoration-thickness: 3px;
+            }
+            </style>
+	</body>
+</html>

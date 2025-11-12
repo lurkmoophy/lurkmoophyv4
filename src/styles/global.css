@@ -17,8 +17,8 @@
 	--green: #72EFB0;
 	--purple: #B770CA;
 	--grey: #808080;
-	--gray-light: 229, 233, 240;
-	--gray-dark: 34, 41, 57;
+	--grey-light: rgb(229, 233, 240);
+	--grey-dark: rgb(96, 96, 89);
 
 	--accent: var(--purple);
 	--accent-dark: color-mix(in srgb, var(--accent) 85%, black);
@@ -142,9 +142,6 @@ hr {
 	body {
 		font-size: 18px;
 	}
-	main {
-		padding: 1em;
-	}
 }
 
 .text-container {
@@ -167,6 +164,12 @@ p.dropcap:first-child:first-letter {
 	font-style: normal;
 	font-size: 1.1em;
 	transform: translateY(0.05em);
+}
+
+main .page-content {
+	width: 100%;
+	margin: 0 auto;
+	padding-top: 0;
 }
 
 .sr-only {
