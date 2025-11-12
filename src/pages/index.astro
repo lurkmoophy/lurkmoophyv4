@@ -39,9 +39,13 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 				<div class="unicorn"></div>
 			</section>
 			<section class="index--intro">
-				<h2 class="scramble">&lt;intro&gt;</h2>
+				<h2 class="scramble small-heading">&lt;intro&gt;</h2>
 				<p>This is the personal site (and portfolio) of Luke Murphy, the Australian-cum-British designer, developer, writer, speaker and general reprobate.</p>
 				<p>I am currently building this site as I go, so it might be buggy af. Want to follow the progress? Follow me on <a href="https://bsky.app/profile/lurkmoophy.bsky.social">Bluesky</a>.</p>
+			</section>
+			<section class="aside masthead--aside">
+				<h3 class="scramble small-heading">&lt;<span class="emoji">🍷</span> Why Ace of Cups?&gt;</h3>
+				<p>The Ace of Cups is a card of creativity, emotional beginnings, and love. It's a reminder that we all have the ability to create our own reality. As a perpetual side quest starter, I thought it was a pretty good summation of how I want to approach life, even if being a sad little emo sometimes gets in the way.</p>
 			</section>
 			<section class="index--section">
 				<Title title="Manifesto" class="scramble" />
@@ -84,7 +88,7 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 				</div>
 			</section>
 		</main>
-		<style>
+		<style is:global>
 
 			.index--masthead {
 				position: relative;
@@ -140,8 +144,9 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 			}
 			.index--masthead--secondary {
 				font-family: 'Allura', cursive;
-				font-size: clamp(4rem, 1rem + 12vw, 12rem);
+				font-size: clamp(4rem, 1rem + 12vw, 10rem);
 				font-weight: 400;
+				font-style: italic;
 				text-transform: lowercase;
 				color: white;
 				-webkit-text-stroke: 3px var(--black);
@@ -149,6 +154,7 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 				align-self: center;
 				flex-shrink: 0;
 				z-index: 2;
+				margin-right: 15px;
 			}
 			.unicorn {
 				width: 565px;
@@ -173,12 +179,45 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 				margin: 3rem 0 6rem 5%;
 			}
 
-			.index--intro h2 {
+			.small-heading {
 				font-family: 'Allegreya', serif;
 				font-size: 2.25rem;
 				font-style: italic;
 				font-weight: 300;
 			}
+
+			h3.small-heading {
+				font-size: 1.5rem;
+			}
+
+			.aside {
+				background: var(--black);
+				color: var(--white);
+				border-radius: var(--radius);
+				padding: 3rem;
+				margin: 2rem auto;
+				width: 95%;
+				max-width: 600px;
+				outline: 4px solid var(--white);
+				outline-offset: -20px;
+				position: relative;
+			}
+
+			.aside p {
+				font-size: 1rem;
+				line-height: 1.4;
+			}
+
+			@media screen and (min-width: 1000px) {
+				.aside {
+					max-width: 400px;
+					margin-right: 10%;
+					margin-top: -10rem;
+					margin-bottom: -2.75rem;
+					z-index: 5;
+				}
+			}
+			
 
 			.manifesto-container {
 				display: flex;
@@ -651,7 +690,7 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 			
 			const minScale = 10;
 			const maxScale = 500;
-			const exponent = 2; // Exponential curve (higher = more exponential growth)
+			const exponent = 0.7; // Exponential curve (higher = more exponential growth)
 			const flickerMin = 0;
 			const flickerMax = 10;
 			const flickerSpeed = 50; // Milliseconds between flicker updates during flicker phase
