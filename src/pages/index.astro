@@ -520,7 +520,7 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 					}
 				}
 				
-				function createScrambleAnimation(element, textToScramble, scrambleInner) {
+				function createScrambleAnimation(element, textToScramble, scrambleInner, htmlToScramble) {
 					// Try to use ScrambleTextPlugin if available, otherwise use custom implementation
 					if (typeof ScrambleTextPlugin !== 'undefined') {
 						// Use official ScrambleTextPlugin with ScrollTrigger
@@ -537,6 +537,12 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 								start: "top 80%",
 								toggleActions: "play none none none",
 								once: true
+							},
+							onComplete: function() {
+								// Restore HTML if it was provided
+								if (htmlToScramble) {
+									scrambleInner.innerHTML = htmlToScramble;
+								}
 							}
 						});
 					} else {
@@ -597,8 +603,12 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 							ease: 'power2.out'
 						});
 						
-						// Hold at full text
-						tl.set(scrambleInner, { textContent: textToScramble });
+						// Hold at full text, then restore HTML if provided
+						if (htmlToScramble) {
+							tl.set(scrambleInner, { innerHTML: htmlToScramble });
+						} else {
+							tl.set(scrambleInner, { textContent: textToScramble });
+						}
 					}
 				}
 				
@@ -610,28 +620,34 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 						return;
 					}
 					
-					// Now process scramble elements
-					scrambleElements.forEach((element) => {
-						const originalText = element.textContent || element.innerText;
+				// Now process scramble elements
+				scrambleElements.forEach((element) => {
+					const originalHTML = element.innerHTML;
+					
+					// Extract content between < and >, preserving HTML
+					// Match both &lt;...&gt; (encoded) and <...> (decoded) formats
+					// Use a more specific pattern to handle nested HTML tags
+					const match = originalHTML.match(/^(?:&lt;|<)(.+?)(?:&gt;|>)$/) || originalHTML.match(/(?:&lt;|<)(.+?)(?:&gt;|>)/);
+					
+					if (match) {
+						// Element has text in <text> format
+						const htmlToScramble = match[1]; // The HTML content between < and >
 						
-						// Extract text between < and >
-						// The HTML entities &lt; and &gt; are already decoded in textContent
-						const match = originalText.match(/<(.+?)>/);
+						// Get plain text version for scrambling animation
+						const tempDiv = document.createElement('div');
+						tempDiv.innerHTML = htmlToScramble;
+						const textToScramble = tempDiv.textContent || tempDiv.innerText || '';
 						
-						if (match) {
-							// Element has text in <text> format
-							const textToScramble = match[1]; // The text between < and >
-							
-							// Create new structure with brackets and scramble span
-							element.innerHTML = '&lt;<span class="scramble-inner">' + textToScramble + '</span>&gt;';
-							const scrambleInner = element.querySelector('.scramble-inner');
-							
-							if (!scrambleInner) {
-								console.error('Failed to create scramble inner element');
-								return;
-							}
-							
-							createScrambleAnimation(element, textToScramble, scrambleInner);
+						// Create new structure with brackets and scramble span containing the HTML
+						element.innerHTML = '&lt;<span class="scramble-inner">' + htmlToScramble + '</span>&gt;';
+						const scrambleInner = element.querySelector('.scramble-inner');
+						
+						if (!scrambleInner) {
+							console.error('Failed to create scramble inner element');
+							return;
+						}
+						
+						createScrambleAnimation(element, textToScramble, scrambleInner, htmlToScramble);
 						} else {
 							// Element is a container - scramble all direct child text elements
 							// Skip statement-text elements (no scramble for manifesto statements)

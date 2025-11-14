@@ -14,7 +14,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 <html lang="en">
 	<head>
 		<BaseHead title={title} description={description} />
-		<style>
+		<style is:global>
 			main {
 				width: 100%;
 				max-width: 100%;
@@ -39,16 +39,19 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				filter: brightness(1.9);
 				opacity: 0.5;
 				object-fit: cover;
+				filter: saturate(0) brightness(4) contrast(0.5);
 			}
 			.prose {
 				font-size: 1.5rem;
 				width: 100%;
 				max-width: 26em;
 				margin: 0 0 0 10vw;
-				padding: 4rem 0;
+				padding: 4rem 0 0 0;
 				color: var(--black);
 			}
-
+			.prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+				line-height: 1;
+			}
 			
 			.title {
 				position: absolute;
@@ -64,7 +67,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				font-weight: 300;
 				font-size: clamp(3rem, 0.75rem + 10vw, 7rem);
 				text-align: left;
-				line-height: 1;
+				line-height: 0.8;
 				color: var(--black);
 				margin: 0;
 			}
@@ -99,6 +102,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			.crt-none::after {
 				animation: none !important;
 			}
+
 		</style>
 	</head>
 
@@ -125,6 +129,9 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				</div>
 				<div class="prose">	
 					<slot />
+				</div>
+				<div class="prose-meta">
+					Posted on <FormattedDate date={pubDate} />.
 				</div>
 			</article>
 		</main>
@@ -275,6 +282,15 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				padding-right: 0.75rem;
 				padding-left: 3px;
 				margin-bottom: 1rem;
+			}
+			.prose-meta {
+				width: 100%;
+				max-width: 26em;
+				margin: 0 0 0 10vw;
+				padding: 0 0 4rem 0;
+				color: var(--black);
+				font-size: 1rem;
+				font-style: italic;
 			}
 		</style>
 		<script>

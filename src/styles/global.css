@@ -161,9 +161,9 @@ p.dropcap:first-child:first-letter {
 }
 
 .emoji {
-	font-style: normal;
-	font-size: 1.1em;
-	transform: translateY(0.05em);
+	font-style: normal !important;
+	font-size: 1.1em !important;
+	transform: translateY(0.05em) !important;
 }
 
 main .page-content {
