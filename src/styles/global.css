@@ -172,6 +172,122 @@ main .page-content {
 	padding-top: 0;
 }
 
+.page-content {
+	width: 100%;
+	margin: 4rem auto;
+	padding: 0 1em;
+}
+.page-intro {
+	max-width: 43rem;
+	font-size: 1.25rem;
+	font-style: italic;
+	font-family: 'Gideon Roman', serif;
+	font-weight: 400;
+	line-height: 1.2;
+	margin: 5.25rem 0;
+}
+
+@media screen and (min-width: 768px) {
+	.page-intro {
+		margin-left: 10%;
+		font-size: 2.25rem;
+	}
+}
+.page-content-inner {
+	max-width: 43rem;
+	font-size: 1rem;
+	line-height: 1.4;
+	margin-bottom: 7rem;
+	position: relative;
+}
+
+@media screen and (min-width: 768px) {
+	.page-content-inner {
+		margin-left: 15%;
+		font-size: 1.5rem;
+	}
+}
+
+.page-content-inner h2 {
+	font-size: 2.5rem;
+	font-weight: 400;
+	font-style: italic;
+	margin-bottom: 4rem;
+	color: var(--grey-dark);
+}
+
+.page-content-inner h3 {
+	font-size: 1.25rem;
+	text-transform: uppercase;
+	font-family: Alegreya Sans, sans-serif;
+	font-weight: 400;
+	margin-bottom: 0.5rem;
+	color: var(--grey);
+	letter-spacing: 0.1em;
+}
+
+.page-content-inner p {
+	font-size: 1.25rem;
+	max-width: 33rem;
+}
+
+.page-content-inner a {
+	text-decoration: underline;
+	text-decoration-style: dotted;
+	text-decoration-thickness: 3px;
+}
+
+.page-content-inner ul {
+	padding-left: 0;
+	margin-left: 2rem;
+	margin-bottom: 2rem;
+}
+
+@media screen and (min-width: 798px) {
+	.page-content-inner ul {
+		margin-left: 0;
+		margin-left: 0;
+	}
+}
+
+.page-content-inner ul li {
+	list-style-type: none;
+	font-size: 1.25rem;
+	max-width: 28rem;
+	margin-bottom: 0.5rem;
+}
+
+.page-content-inner ul li::before {
+	content: '†';
+	margin-right: 0.5rem;
+	margin-left: -1em;
+	font-family: 'Alegreya', serif;
+}
+
+.aside {
+	background: var(--black);
+	color: var(--white);
+	border-radius: var(--radius);
+	padding: 3rem 4rem;
+	margin: 2rem auto;
+	width: 95%;
+	max-width: 600px;
+	outline: 4px solid var(--white);
+	outline-offset: -20px;
+	position: relative;
+}
+
+.aside p {
+	font-size: 1rem;
+	line-height: 1.4;
+}
+
+@media screen and (min-width: 1000px) {
+	.aside {
+		z-index: 5;
+	}
+}
+
 .sr-only {
 	border: 0;
 	padding: 0;

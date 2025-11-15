@@ -1,0 +1,112 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import FormattedDate from "../components/FormattedDate.astro";
+import Header from "../components/Header.astro";
+import {SITE_DESCRIPTION, SITE_TITLE} from '../consts';
+import Title from '../components/Title.astro';
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    </head>
+    <body>
+        <Header />
+        <main>
+            <Title title="Changelog" />
+            <section class="page-content">
+                <div class="page-intro">
+                    <p>A catalogue of the changes made to lurkmoophy.com. But, really, who cares?</p>
+                </div>
+                <div class="page-content-inner">
+                    <nav class="changelog-nav aside">
+                        <ul>
+                            <li><a href="#nov-25">November 2025</a></li>
+                            <li><a href="#oct-25">October 2025</a></li>
+                        </ul>
+                    </nav>
+                    <h2 class="release-heading" id="nov-25">
+                        <FormattedDate date="15 Nov 2025" />
+                    </h2>
+                    <ul>
+                        <li>Added Changelog page. How meta.</li>
+                    </ul>
+                    <h2 class="release-heading">
+                        <FormattedDate date="12 Nov, 2025" />
+                    </h2>
+                    <ul>
+                        <li>Added the <a href="/now">Now</a> page.</li>
+                        <li>Added the aside to the homepage (the bit that talks about Ace of Cups).</li>
+                    </ul>
+                    <h2 class="release-heading">
+                        <FormattedDate date="11 Nov, 2025" />
+                    </h2>
+                    <ul>
+                        <li>Added in a bunch of visual effects, including svg and blur filters, and the static background.</li>
+                        <li>Added the footer so it looks all pretty, and actually works.</li>
+                    </ul>
+                    <h2 class="release-heading">
+                        <FormattedDate date="9 Nov, 2025" />
+                    </h2>
+                    <ul>
+                        <li>Fixed a bunch of responsive issues for the heading, and the unicorn. Still not perfect, but will do for now.</li>
+                        <li>Fixed the Top Track and Recent Film connections on the header so they actually update.</li>
+                    </ul>
+                    <h2 class="release-heading" id="oct-25">
+                        <FormattedDate date="20 Oct, 2025" />
+                    </h2>
+                    <ul>
+                        <li>Uploaded the first version of the site!</li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+        <Footer />
+    </body>
+    <style>
+
+        html {
+            scroll-behavior: smooth;
+        }
+        .release-heading {
+            font-size: 1.75rem;
+            margin-bottom: 0;
+        }
+        .release-heading::before {
+            content: '—';
+            margin-right: 0.5rem;
+            margin-left: 0.5rem;
+            font-family: 'Alegreya', serif;
+        }
+
+        @media screen and (min-width: 768px) {
+            .release-heading {
+                margin-left: -1rem;
+            }
+        }
+
+        .changelog-nav {
+            display: flex;
+            justify-content: center;
+            padding: 2.5rem 3rem;
+        }
+
+        .changelog-nav ul {
+            margin: 0;
+        }
+
+
+        @media screen and (min-width: 1000px) {
+            .changelog-nav {
+                max-width: 300px;
+                position: sticky;
+                top: 20px;
+                margin-bottom: -10rem;
+                margin-left: auto;
+                margin-right: -30%;
+            }
+        }
+    </style>
+</html>

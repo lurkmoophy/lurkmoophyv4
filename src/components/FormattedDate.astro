@@ -1,14 +1,22 @@
 ---
 interface Props {
-	date: Date;
+	date: Date | string;
 }
 
 const { date } = Astro.props;
+
+// Convert to Date object if it's a string
+const dateObj = typeof date === 'string' ? new Date(date) : date;
+
+// Validate that we have a valid date
+if (isNaN(dateObj.getTime())) {
+	throw new Error(`Invalid date provided to FormattedDate: ${date}`);
+}
 ---
 
-<time datetime={date.toISOString()}>
+<time datetime={dateObj.toISOString()}>
 	{
-		date.toLocaleDateString('en-us', {
+		dateObj.toLocaleDateString('en-us', {
 			year: 'numeric',
 			month: 'short',
 			day: 'numeric',
