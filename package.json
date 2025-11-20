@@ -5,6 +5,10 @@
   "scripts": {
     "dev": "netlify dev",
     "dev:astro": "astro dev",
+    "compress-posters": "tsx src/scripts/compress-posters.ts",
+    "extract-poster-metadata": "tsx src/scripts/extract-poster-metadata.ts",
+    "process-posters": "npm run compress-posters && npm run extract-poster-metadata",
+    "prebuild": "npm run process-posters",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
@@ -19,6 +23,10 @@
     "gsap": "^3.13.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "sharp": "^0.34.3"
+    "sharp": "^0.34.3",
+    "tesseract.js": "^5.1.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2"
   }
 }

@@ -1,0 +1,735 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import type { ImageMetadata } from 'astro';
+import { Image, getImage } from 'astro:assets';
+import { readFileSync } from 'fs';
+import { join } from 'path';
+
+interface Poster {
+	id: string;
+	filename: string;
+	large: string;
+	medium: string;
+	bandName: string | null;
+	date: string | null;
+	venue: string | null;
+	location: string | null;
+	rawText: string;
+}
+
+// Parse date string to Date object for sorting
+function parseDate(dateStr: string | null): Date | null {
+	if (!dateStr) return null;
+	
+	const monthNames: Record<string, number> = {
+		'jan': 0, 'feb': 1, 'mar': 2, 'apr': 3, 'may': 4, 'jun': 5,
+		'jul': 6, 'aug': 7, 'sep': 8, 'oct': 9, 'nov': 10, 'dec': 11
+	};
+	
+	// Match "Month YYYY" format
+	const match = dateStr.match(/^([A-Za-z]{3})\s+(\d{4})$/);
+	if (match) {
+		const month = monthNames[match[1].toLowerCase()];
+		const year = parseInt(match[2]);
+		if (month !== undefined && year) {
+			return new Date(year, month, 1);
+		}
+	}
+	
+	// Try to parse just year
+	const yearMatch = dateStr.match(/^(\d{4})$/);
+	if (yearMatch) {
+		return new Date(parseInt(yearMatch[1]), 11, 31); // End of year if only year
+	}
+	
+	return null;
+}
+
+// Import all letter images using Astro's glob import
+const letterImagesGlob = import.meta.glob<{ default: ImageMetadata }>('../assets/letters/*.svg', { eager: true });
+
+// Get all variants for each letter in the word with optimized URLs and variant numbers
+async function getLetterImages(word: string): Promise<Array<{ letter: string; variants: ImageMetadata[]; variantUrls: string[]; variantNumbers: number[] }>> {
+	// Group images by letter with variant numbers
+	const imagesByLetter: Record<string, Array<{ image: ImageMetadata; variantNumber: number }>> = {};
+	
+	for (const [path, module] of Object.entries(letterImagesGlob)) {
+		const match = path.match(/\/([A-Z])-(\d+)\.svg$/i);
+		if (match) {
+			const letter = match[1].toUpperCase();
+			const variantNumber = parseInt(match[2]);
+			if (!imagesByLetter[letter]) {
+				imagesByLetter[letter] = [];
+			}
+			imagesByLetter[letter].push({ image: module.default, variantNumber });
+		}
+	}
+	
+	// Get optimized URLs for all variants
+	const result = await Promise.all(
+		word
+			.toUpperCase()
+			.split('')
+			.filter(char => char !== ' ')
+			.map(async (letter) => {
+				const letterVariants = imagesByLetter[letter] || [];
+				if (letterVariants.length === 0) return null;
+				
+				// Sort by variant number to maintain order
+				letterVariants.sort((a, b) => a.variantNumber - b.variantNumber);
+				
+				// Get optimized URLs for all variants
+				const variantData = await Promise.all(
+					letterVariants.map(async ({ image, variantNumber }) => {
+						const optimized = await getImage({ src: image });
+						return { url: optimized.src, variantNumber };
+					})
+				);
+				
+				return {
+					letter,
+					variants: letterVariants.map(v => v.image),
+					variantUrls: variantData.map(v => v.url),
+					variantNumbers: variantData.map(v => v.variantNumber)
+				};
+			})
+	);
+	
+	return result.filter((item): item is { letter: string; variants: ImageMetadata[]; variantUrls: string[]; variantNumbers: number[] } => item !== null);
+}
+
+// Read posters data at build time
+const postersFilePath = join(process.cwd(), 'src/data/posters.json');
+let posters: Poster[] = [];
+
+try {
+	const postersData = readFileSync(postersFilePath, 'utf-8');
+	const allPosters = JSON.parse(postersData) as Poster[];
+	
+	// Sort by date (newest to oldest)
+	posters = allPosters.sort((a, b) => {
+		const dateA = parseDate(a.date);
+		const dateB = parseDate(b.date);
+		
+		// Items with dates come first, sorted newest to oldest
+		if (dateA && dateB) {
+			return dateB.getTime() - dateA.getTime();
+		}
+		if (dateA && !dateB) return -1;
+		if (!dateA && dateB) return 1;
+		// Both have no date - keep original order
+		return 0;
+	});
+} catch (error) {
+	console.warn('Could not load posters.json, using empty array:', error);
+	posters = [];
+}
+
+// Get letter images for "ILLUSTRATION"
+const letterImagesData = await getLetterImages('ILLUSTRATION');
+
+// Select initial variants ensuring adjacent letters don't match
+const letterImages: Array<typeof letterImagesData[0] & { initialIndex: number; initialVariantNumber: number }> = [];
+
+letterImagesData.forEach((letterData, index) => {
+	const { letter, variants, variantUrls, variantNumbers } = letterData;
+	
+	// Get previous letter's initial variant number
+	const prevInitialVariantNumber = index > 0 
+		? letterImages[index - 1].initialVariantNumber
+		: null;
+	
+	// Select initial variant avoiding previous letter's variant number
+	const availableInitialIndices = prevInitialVariantNumber !== null
+		? variantNumbers.map((num, i) => num !== prevInitialVariantNumber ? i : -1).filter(i => i !== -1)
+		: variants.map((_, i) => i);
+	
+	const initialIndex = availableInitialIndices.length > 0
+		? availableInitialIndices[Math.floor(Math.random() * availableInitialIndices.length)]
+		: Math.floor(Math.random() * variants.length);
+	
+	letterImages.push({
+		...letterData,
+		initialIndex,
+		initialVariantNumber: variantNumbers[initialIndex]
+	});
+});
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Illustration - ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<div class="illustration-title">
+				<h1 class="sr-only">Illustration</h1>
+				<div class="letter-title-container">
+					{letterImages.map(({ letter, variants, variantUrls, variantNumbers, initialIndex, initialVariantNumber }, index) => {
+						const initialVariant = variants[initialIndex];
+						
+						return (
+							<div 
+								class="letter-wrapper" 
+								data-letter-index={index} 
+								data-variants={JSON.stringify(variantUrls)}
+								data-variant-numbers={JSON.stringify(variantNumbers)}
+								data-initial-variant-number={initialVariantNumber}
+							>
+								<Image 
+									src={initialVariant}
+									alt=""
+									class="letter-image"
+									aria-hidden="true"
+								/>
+							</div>
+						);
+					})}
+				</div>
+			</div>
+            <section class="page-content">
+                <div class="page-intro">
+                    <p>As a side hobby, I illustrate gig posters for bands around the world. Everything I create is bespoke, and work in a wide range of styles (thanks ADHD). If you're interested in commissioning me to do a poster for your gig, get in touch at <a href="mailto:luke@htmfpresents.com">luke@htmfpresents.com</a>.</p>
+                </div>
+                <div class="bento-container">
+                    <div class="bento-grid">
+                        {posters.map((poster, index) => (
+                            <div class="bento-item">
+                                <img 
+                                    src={poster.large} 
+                                    alt={poster.bandName || poster.filename}
+                                    loading="lazy"
+                                />
+                                <div class="bento-item-overlay">
+                                    {poster.bandName && (
+                                        <div class="bento-item-band">{poster.bandName}</div>
+                                    )}
+                                    {poster.date && (
+                                        <div class="bento-item-date">{poster.date}</div>
+                                    )}
+                                    {poster.venue && (
+                                        <div class="bento-item-venue">{poster.venue}</div>
+                                    )}
+                                    {poster.location && (
+                                        <div class="bento-item-location">{poster.location}</div>
+                                    )}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+
+    .page-intro {
+        font-size: 1.5rem;
+        margin-top: 0;
+    }
+    .illustration-title {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 3rem 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .letter-title-container {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        flex-wrap: nowrap;
+        padding: 0 1rem;
+        box-sizing: border-box;
+    }
+
+    .letter-wrapper {
+        position: relative;
+        display: inline-block;
+        cursor: grab;
+        user-select: none;
+        touch-action: none;
+    }
+
+    .letter-wrapper:active {
+        cursor: grabbing;
+    }
+
+    .letter-image {
+        height: auto;
+        width: auto;
+        min-width: 7vw;
+        max-width: 8vw;
+        max-height: 8rem;
+        display: block;
+        object-fit: contain;
+        flex-shrink: 0;
+    }
+
+    /* Scale letters to fit container while maintaining aspect ratio */
+    @media screen and (min-width: 1200px) {
+        .letter-image {
+            max-height: 10rem;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        .letter-title-container {
+            gap: 0.25rem;
+            padding: 0 0.5rem;
+        }
+        
+        .letter-image {
+            max-height: 5rem;
+        }
+    }
+
+    /* Ensure letters don't overflow on very small screens */
+    @media screen and (max-width: 480px) {
+        .letter-image {
+            max-height: 3.5rem;
+        }
+        
+        .letter-title-container {
+            gap: 0.15rem;
+        }
+    }
+
+    .bento-container {
+        width: 95%;
+        max-width: 1800px;
+        margin: 3rem auto 0;
+        position: relative;
+    }
+
+    .bento-grid {
+        --gap: 1.5rem;
+        --min-item-width: 200px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(var(--min-item-width), 1fr));
+        gap: var(--gap);
+        /* Let items determine row height based on their aspect-ratio */
+        grid-auto-rows: auto;
+    }
+
+    .bento-item {
+        background-color: var(--off-white);
+        border-radius: var(--radius);
+        border: 2px solid var(--grey-light);
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        aspect-ratio: 1 / 1.414; /* Always maintain A4/A3 portrait ratio */
+    }
+
+    .bento-item:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .bento-item-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+        padding: 1.5rem 1rem 1rem;
+        color: var(--white);
+        opacity: 0;
+        transition: opacity 0.2s ease;
+        pointer-events: none;
+    }
+
+    .bento-item:hover .bento-item-overlay {
+        opacity: 1;
+    }
+
+    .bento-item-band {
+        font-weight: 600;
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+        font-family: 'Alegreya Sans', sans-serif;
+        text-transform: uppercase;
+    }
+
+    .bento-item-date,
+    .bento-item-venue,
+    .bento-item-location {
+        font-size: 0.875rem;
+        margin-bottom: 0.25rem;
+        opacity: 0.9;
+    }
+
+    /* Responsive adjustments */
+    @media screen and (min-width: 768px) {
+        .bento-grid {
+            --gap: 2rem;
+            --min-item-width: 250px;
+        }
+    }
+
+    @media screen and (min-width: 1024px) {
+        .bento-grid {
+            --gap: 2.5rem;
+            --min-item-width: 280px;
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+        .bento-container {
+            width: 100%;
+        }
+        
+        .bento-grid {
+            --gap: 1rem;
+            --min-item-width: 150px;
+        }
+    }
+
+    /* Image styling */
+    .bento-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+</style>
+
+<script>
+    // Reusable function to animate a single letter
+    function animateLetter(wrapper: Element, finalVariantIndex: number, allWrappers: Element[]) {
+        const gsap = (window as any).gsap;
+        const variantsData = wrapper.getAttribute('data-variants');
+        if (!variantsData) return;
+        
+        const variants: string[] = JSON.parse(variantsData);
+        if (variants.length <= 1) return;
+        
+        const img = wrapper.querySelector('.letter-image') as HTMLImageElement;
+        if (!img) return;
+        
+        const finalVariant = variants[finalVariantIndex];
+        
+        // Shuffle variants for more interesting animation
+        const shuffledVariants = [...variants].sort(() => Math.random() - 0.5);
+        
+        // Kill any existing timeline for this letter
+        if ((wrapper as any)._timeline) {
+            (wrapper as any)._timeline.kill();
+        }
+        
+        // Create timeline for this letter
+        const tl = gsap.timeline();
+        (wrapper as any)._timeline = tl;
+        
+        // Two-phase timing: ~2s of constant 0.1s intervals, then eased slowdown
+        // Add randomness to make each letter unique
+        
+        // Randomize total duration (3.5-4.5 seconds)
+        const totalDuration = 3.5 + Math.random() * 1.0;
+        
+        // Randomize the transition point between fast and slow phases (1.8-2.2 seconds)
+        const fastPhaseDuration = 1.8 + Math.random() * 0.4;
+        const slowPhaseDuration = totalDuration - fastPhaseDuration;
+        
+        // Randomize the final interval (0.4-0.6 seconds)
+        const fastInterval = 0.1;
+        const slowStartInterval = 0.1;
+        const slowEndInterval = 0.4 + Math.random() * 0.2;
+        
+        // Randomize the easing curve power (2-4 for variation)
+        const easePower = 2 + Math.random() * 2;
+        
+        let currentTime = 0;
+        let changeIndex = 0;
+        
+        // Phase 1: Fast constant cycling for ~2 seconds (with randomness)
+        while (currentTime < fastPhaseDuration) {
+            const variantIndex = changeIndex % shuffledVariants.length;
+            const variantSrc = shuffledVariants[variantIndex];
+            
+            tl.call(() => {
+                img.src = variantSrc;
+            }, null, currentTime);
+            
+            currentTime += fastInterval;
+            changeIndex++;
+        }
+        
+        // Phase 2: Eased slowdown over the remaining time
+        const slowPhaseStartTime = currentTime;
+        while (currentTime < totalDuration) {
+            // Calculate progress within the slow phase (0 to 1)
+            const slowPhaseProgress = (currentTime - slowPhaseStartTime) / slowPhaseDuration;
+            
+            // Use ease out curve with randomized power for variation
+            const easedProgress = 1 - Math.pow(1 - slowPhaseProgress, easePower);
+            const currentInterval = slowStartInterval + (slowEndInterval - slowStartInterval) * easedProgress;
+            
+            // Schedule the change
+            const variantIndex = changeIndex % shuffledVariants.length;
+            const variantSrc = shuffledVariants[variantIndex];
+            
+            tl.call(() => {
+                img.src = variantSrc;
+            }, null, currentTime);
+            
+            currentTime += currentInterval;
+            changeIndex++;
+        }
+        
+        // Set final variant at the end (ensuring it doesn't match adjacent letters)
+        tl.call(() => {
+            img.src = finalVariant;
+        }, null, totalDuration);
+    }
+    
+    // Wait for GSAP to be available
+    function initLetterAnimation() {
+        if (typeof window === 'undefined' || !(window as any).gsap) {
+            setTimeout(initLetterAnimation, 100);
+            return;
+        }
+
+        const gsap = (window as any).gsap;
+        const letterWrappers = Array.from(document.querySelectorAll('.letter-wrapper'));
+        
+        // First pass: determine final variants ensuring adjacent letters don't match
+        const finalVariantIndices: number[] = [];
+        
+        letterWrappers.forEach((wrapper, index) => {
+            const variantNumbersData = wrapper.getAttribute('data-variant-numbers');
+            if (!variantNumbersData) {
+                finalVariantIndices.push(0);
+                return;
+            }
+            
+            const variantNumbers: number[] = JSON.parse(variantNumbersData);
+            const variants: string[] = JSON.parse(wrapper.getAttribute('data-variants') || '[]');
+            
+            // Get previous letter's final variant number
+            let prevFinalVariantNumber: number | null = null;
+            if (index > 0 && finalVariantIndices.length > 0) {
+                const prevVariantNumbersData = letterWrappers[index - 1].getAttribute('data-variant-numbers');
+                if (prevVariantNumbersData) {
+                    const prevVariantNumbers: number[] = JSON.parse(prevVariantNumbersData);
+                    prevFinalVariantNumber = prevVariantNumbers[finalVariantIndices[index - 1]];
+                }
+            }
+            
+            // Get next letter's initial variant number (to avoid matching at end)
+            const nextInitialVariantNumber = index < letterWrappers.length - 1
+                ? parseInt(letterWrappers[index + 1].getAttribute('data-initial-variant-number') || '0')
+                : null;
+            
+            // Select final variant avoiding both previous and next letter's variant numbers
+            const availableIndices = variantNumbers
+                .map((num, i) => {
+                    if (prevFinalVariantNumber !== null && num === prevFinalVariantNumber) return -1;
+                    if (nextInitialVariantNumber !== null && num === nextInitialVariantNumber) return -1;
+                    return i;
+                })
+                .filter(i => i !== -1);
+            
+            const finalIndex = availableIndices.length > 0
+                ? availableIndices[Math.floor(Math.random() * availableIndices.length)]
+                : Math.floor(Math.random() * variants.length);
+            
+            finalVariantIndices.push(finalIndex);
+        });
+        
+        // Second pass: animate each letter and add click handlers
+        letterWrappers.forEach((wrapper, index) => {
+            const variantsData = wrapper.getAttribute('data-variants');
+            if (!variantsData) return;
+            
+            const variants: string[] = JSON.parse(variantsData);
+            if (variants.length <= 1) return; // No need to animate if only one variant
+            
+            const finalVariantIndex = finalVariantIndices[index];
+            
+            // Animate the letter initially
+            animateLetter(wrapper, finalVariantIndex, letterWrappers);
+            
+            // Add drag handler to restart animation
+            let isDragging = false;
+            let startY = 0;
+            let currentY = 0;
+            let dragDistance = 0;
+            const dragThreshold = 30; // Minimum pixels to drag before triggering animation
+            const maxDrag = 80; // Maximum drag distance for visual feedback
+            const friction = 0.3; // Friction coefficient (0-1, lower = more resistance)
+            
+            const gsap = (window as any).gsap;
+            
+            function getEventY(e: MouseEvent | TouchEvent): number {
+                if ('touches' in e) {
+                    return e.touches[0].clientY;
+                }
+                return e.clientY;
+            }
+            
+            function applyDragTransform(distance: number) {
+                // Apply friction: the further you drag, the more resistance
+                // Using a square root function for natural-feeling resistance
+                const resistedDistance = Math.sqrt(distance / maxDrag) * maxDrag * (1 - friction);
+                gsap.set(wrapper, { y: resistedDistance });
+            }
+            
+            function resetDrag() {
+                gsap.to(wrapper, {
+                    y: 0,
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+            }
+            
+            function triggerAnimation() {
+                // Recalculate final variant to avoid matching adjacent letters
+                const variantNumbersData = wrapper.getAttribute('data-variant-numbers');
+                if (!variantNumbersData) return;
+                
+                const variantNumbers: number[] = JSON.parse(variantNumbersData);
+                const wrapperIndex = letterWrappers.indexOf(wrapper);
+                
+                // Get previous letter's final variant number
+                let prevFinalVariantNumber: number | null = null;
+                if (wrapperIndex > 0) {
+                    const prevVariantNumbersData = letterWrappers[wrapperIndex - 1].getAttribute('data-variant-numbers');
+                    if (prevVariantNumbersData) {
+                        const prevVariantNumbers: number[] = JSON.parse(prevVariantNumbersData);
+                        const prevImg = letterWrappers[wrapperIndex - 1].querySelector('.letter-image') as HTMLImageElement;
+                        if (prevImg) {
+                            const prevCurrentSrc = prevImg.src;
+                            const prevVariants = JSON.parse(letterWrappers[wrapperIndex - 1].getAttribute('data-variants') || '[]');
+                            const prevVariantIndex = prevVariants.indexOf(prevCurrentSrc);
+                            if (prevVariantIndex !== -1) {
+                                prevFinalVariantNumber = prevVariantNumbers[prevVariantIndex];
+                            }
+                        }
+                    }
+                }
+                
+                // Get next letter's initial variant number
+                const nextInitialVariantNumber = wrapperIndex < letterWrappers.length - 1
+                    ? parseInt(letterWrappers[wrapperIndex + 1].getAttribute('data-initial-variant-number') || '0')
+                    : null;
+                
+                // Select final variant avoiding both previous and next letter's variant numbers
+                const availableIndices = variantNumbers
+                    .map((num, i) => {
+                        if (prevFinalVariantNumber !== null && num === prevFinalVariantNumber) return -1;
+                        if (nextInitialVariantNumber !== null && num === nextInitialVariantNumber) return -1;
+                        return i;
+                    })
+                    .filter(i => i !== -1);
+                
+                const newFinalIndex = availableIndices.length > 0
+                    ? availableIndices[Math.floor(Math.random() * availableIndices.length)]
+                    : Math.floor(Math.random() * variants.length);
+                
+                // Restart animation with new final variant
+                animateLetter(wrapper, newFinalIndex, letterWrappers);
+            }
+            
+            // Mouse events
+            wrapper.addEventListener('mousedown', (e: Event) => {
+                const mouseEvent = e as MouseEvent;
+                isDragging = true;
+                startY = mouseEvent.clientY;
+                currentY = startY;
+                dragDistance = 0;
+                mouseEvent.preventDefault();
+            });
+            
+            const handleMouseMove = (e: Event) => {
+                if (!isDragging) return;
+                const mouseEvent = e as MouseEvent;
+                
+                currentY = mouseEvent.clientY;
+                dragDistance = Math.max(0, currentY - startY); // Only allow downward drag
+                applyDragTransform(dragDistance);
+            };
+            
+            const handleMouseUp = () => {
+                if (!isDragging) return;
+                
+                if (dragDistance >= dragThreshold) {
+                    // Trigger animation
+                    resetDrag();
+                    triggerAnimation();
+                } else {
+                    // Reset without triggering
+                    resetDrag();
+                }
+                
+                isDragging = false;
+                dragDistance = 0;
+            };
+            
+            document.addEventListener('mousemove', handleMouseMove);
+            document.addEventListener('mouseup', handleMouseUp);
+            
+            // Touch events
+            wrapper.addEventListener('touchstart', (e: Event) => {
+                const touchEvent = e as TouchEvent;
+                isDragging = true;
+                startY = getEventY(touchEvent);
+                currentY = startY;
+                dragDistance = 0;
+                touchEvent.preventDefault();
+            });
+            
+            const handleTouchMove = (e: Event) => {
+                if (!isDragging) return;
+                const touchEvent = e as TouchEvent;
+                
+                currentY = getEventY(touchEvent);
+                dragDistance = Math.max(0, currentY - startY); // Only allow downward drag
+                applyDragTransform(dragDistance);
+                touchEvent.preventDefault();
+            };
+            
+            const handleTouchEnd = () => {
+                if (!isDragging) return;
+                
+                if (dragDistance >= dragThreshold) {
+                    // Trigger animation
+                    resetDrag();
+                    triggerAnimation();
+                } else {
+                    // Reset without triggering
+                    resetDrag();
+                }
+                
+                isDragging = false;
+                dragDistance = 0;
+            };
+            
+            document.addEventListener('touchmove', handleTouchMove);
+            document.addEventListener('touchend', handleTouchEnd);
+        });
+    }
+
+    // Start animation when page loads
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initLetterAnimation);
+    } else {
+        initLetterAnimation();
+    }
+</script>
+
