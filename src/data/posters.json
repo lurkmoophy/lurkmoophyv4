@@ -1,5 +1,16 @@
 [
   {
+    "id": "crywank-sheff-a3",
+    "filename": "crywank-sheff-a3",
+    "large": "/images/posters/large/crywank-sheff-a3.webp",
+    "medium": "/images/posters/medium/crywank-sheff-a3.webp",
+    "bandName": "Crywank",
+    "date": "January 2026",
+    "venue": null,
+    "location": "Sheffield",
+    "rawText": null
+  },
+  {
     "id": "a3-brutsslash",
     "filename": "A3-brutsslash.jpg",
     "large": "/images/posters/large/a3-brutsslash.webp",
