@@ -1,0 +1,314 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import Header from '../../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+import Title from '../../components/Title.astro';
+
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title="Lurkmoophy - Living Posters - Crywank " description="An experiment in doing responsive, animated posters. This one is for Crywank, the DIY legend, and their show in Sheffield in Jan 2026." />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<Title title="Living Poster - Crywank" />
+            <section class="page-content">
+                <div class="page-intro">
+                    <p>An experiment in doing responsive, animated posters. This one is for Crywank, the DIY legend, and their show in Sheffield in Jan 2026.</p>
+                </div>
+                <div class="page-content-inner">
+                    <div class="poster-container">
+                        <div class="poster-background"></div>
+                        <div class="poster-promoter">
+                            <span>Heart Tattoo Promo Presents</span>
+                            <img src="/images/living-posters/crywank/red-circle-min.png" class="poster-red-circle" loading="lazy" />
+                            <img src="/images/living-posters/crywank/htp-presents-min.png" class="poster-htp-presents" loading="lazy" />
+                            <img src="/images/living-posters/crywank/red-circle-min.png" class="poster-red-circle" loading="lazy" />
+                        </div>
+                        <div class="poster-divider">
+                            <img src="/images/living-posters/crywank/red-box-min.png" loading="lazy" />
+                        </div>
+                        <h2 class="poster-headline-band">
+                            <span>Crywank</span>
+                            <img src="/images/living-posters/crywank/crywank-min.png" loading="lazy" />
+                        </h2>
+                        <div class="poster-illustration">
+                            <div class="poster-dog-wrapper" id="poster-dog-wrapper">
+                                <img src="/images/living-posters/crywank/dog-min.png" id="poster-dog" loading="lazy" />
+                                <div class="poster-illustration-eye">
+                                    <img src="/images/living-posters/crywank/dog-eye-open-min.png" id="poster-illustration-eye-open" class="active" loading="lazy" />
+                                    <img src="/images/living-posters/crywank/dog-eye-closed-min.png" id="poster-illustration-eye-closed" loading="lazy" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="poster-details">
+                            <div class="poster-details-support-eyebrow">
+                                <span>With support from</span>
+                                <img src="/images/living-posters/crywank/with-support-min.png" loading="lazy" />
+                            </div>
+                            <div class="poster-details-support-band">
+                                <img src="/images/living-posters/crywank/gordian-stimm-min.png" loading="lazy" />
+                                <span>Gordian Stimm</span>
+                            </div>
+                            <div class="poster-divider">
+                                <img src="/images/living-posters/crywank/red-box-min.png" loading="lazy" />
+                            </div>
+                            <div class="poster-details-venue">
+                                <span>Yellow Arch, Sheffield</span>
+                                <img src="/images/living-posters/crywank/venue-min.png" loading="lazy" />
+                            </div>
+                            <div class="poster-details-meta">
+                                <div class="poster-details-date">
+                                    <span>19 Jan 2026</span>
+                                    <img src="/images/living-posters/crywank/date-min.png" loading="lazy" />
+                                </div>
+                                <div class="poster-details-price">
+                                    <span>16+ £13</span>
+                                    <img src="/images/living-posters/crywank/price-min.png" loading="lazy" />
+                                </div>
+                            </div>
+                            
+                        </div>
+                </div>
+            </section>
+		</main>
+		<Footer />
+        <style>
+            .page-content-inner {
+                max-width: 100%;
+                margin-left: 0;
+            }
+
+            .poster-container {
+                background: white;
+                padding: 3rem 2rem;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+                box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+            }
+            @media screen and (max-width: 538px) {
+                .poster-container {
+                    max-height: 590px;
+                }
+            }
+            .poster-container:after {
+                content: "";
+                display: block;
+                width: 100%;
+                height: 100%;
+                box-shadow: 0 0 200px rgba(0,0,0,0.3) inset;
+                position: absolute;
+                top: 0; left: 0;
+            }
+
+            .poster-background {
+                position: absolute;
+                display: block;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: url('/images/living-posters/crywank/paper-texture.webp') repeat;
+                z-index: 5;
+                mix-blend-mode: multiply;
+                opacity: 0.5;
+            }
+
+            .poster-container * span {
+                visibility: hidden;
+                position: absolute;
+                height: 0;
+            }
+
+            .poster-promoter {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+                margin-left: auto;
+                margin: 0 auto;
+            }
+            .poster-red-circle {
+                width: 5%;
+                height: auto;
+            }
+            .poster-htp-presents {
+                width: 75%;
+                height: auto;
+            }
+
+            .poster-divider {
+                margin: 2rem auto;
+                width: 100%;
+                img {
+                    height: 40px;
+                    width: 100%;
+                }
+            }
+            @media screen and (max-width: 768px) {
+                .poster-divider {
+                    margin: 1rem auto;
+                    img {
+                        height: 30px;
+                    }
+                }
+                
+            }
+
+            @media screen and (max-width: 530px) {
+                .poster-divider {
+                    margin: 0.25rem auto;
+                    img {
+                        height: 10px;
+                    }
+                }
+            }
+
+            .poster-illustration {
+                position: relative;
+                margin-top: -25%;
+            }
+            @media screen and (max-width: 530px) {
+                .poster-illustration {
+                    margin-top: -47%;
+                }
+            }
+            .poster-dog-wrapper {
+                position: relative;
+                display: inline-block;
+                transform-origin: 50% 70%;
+            }
+            .poster-illustration-eye {
+                position: absolute;
+                top: 18.5%;
+                left: 27.5%;
+                width: 12.45%;
+                height: auto;
+            }
+            .poster-illustration-eye img {
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+            .poster-illustration-eye img.active {
+                display: block;
+            }
+            .poster-illustration-eye img:not(.active) {
+                display: none;
+            }
+
+            @keyframes dog-snigger {
+                0% { transform: rotate(0deg); }
+                15% { transform: rotate(-2deg); }
+                30% { transform: rotate(2deg); }
+                45% { transform: rotate(-2deg); }
+                60% { transform: rotate(2deg); }
+                75% { transform: rotate(-1deg); }
+                100% { transform: rotate(0deg); }
+            }
+
+            .dog-snigger {
+                animation: dog-snigger 0.6s ease-in-out;
+            }
+
+            .poster-details-support-eyebrow {
+                margin-top: -10%;
+                width: 25%;
+                img {
+                    width: 100%;
+                    height: auto;
+                }
+            }
+            @media screen and (max-width: 530px) {
+                .poster-details-support-eyebrow {
+                    margin-top: -14%;
+                }
+            }
+            .poster-details-support-band {
+                width: 100%;
+            }
+            .poster-details-support-band img {
+                width: 100%;
+                height: auto;
+            }
+            .poster-details-venue {
+                width: 100%;
+            }
+            .poster-details-venue img {
+                width: 100%;
+                height: auto;
+            }
+            .poster-details-meta {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+            }
+            .poster-details-meta div {
+                width: 50%;
+            }
+            .poster-details-meta div img {
+                height: 60px;
+                width: auto;
+            }
+            @media screen and (max-width: 530px) {
+                .poster-details-meta div img {
+                    height: 20px;
+                }
+            }
+            .poster-details-date {
+                display: flex;
+                justify-content: flex-start;
+            }
+            .poster-details-price {
+                display: flex;
+                justify-content: flex-end;
+            }
+        </style>
+        <script is:inline>
+            if (typeof window !== "undefined") {
+                const openEye = document.getElementById('poster-illustration-eye-open');
+                const closedEye = document.getElementById('poster-illustration-eye-closed');
+                const dogWrapper = document.getElementById('poster-dog-wrapper');
+
+                if (openEye && closedEye) {
+                    const blink = () => {
+                        openEye.classList.remove('active');
+                        closedEye.classList.add('active');
+
+                        setTimeout(() => {
+                            closedEye.classList.remove('active');
+                            openEye.classList.add('active');
+                        }, 150);
+                    };
+
+                    // Start blinking every 3 seconds
+                    setInterval(blink, 3000);
+                }
+
+                if (dogWrapper) {
+                    const snigger = () => {
+                        dogWrapper.classList.add('dog-snigger');
+
+                        // remove class after animation so it can retrigger
+                        setTimeout(() => {
+                            dogWrapper.classList.remove('dog-snigger');
+                        }, 700);
+                    };
+
+                    // start sniggering every 10 seconds
+                    setInterval(snigger, 10000);
+                }
+            }
+        </script>
+	</body>
+</html>

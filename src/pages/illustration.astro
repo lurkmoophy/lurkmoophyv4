@@ -18,6 +18,7 @@ interface Poster {
 	venue: string | null;
 	location: string | null;
 	rawText: string;
+	livingUrl: string | null;
 }
 
 // Parse date string to Date object for sorting
@@ -198,29 +199,41 @@ letterImagesData.forEach((letterData, index) => {
                 </div>
                 <div class="bento-container">
                     <div class="bento-grid">
-                        {posters.map((poster, index) => (
-                            <div class="bento-item">
-                                <img 
-                                    src={poster.large} 
-                                    alt={poster.bandName || poster.filename}
-                                    loading="lazy"
-                                />
-                                <div class="bento-item-overlay">
-                                    {poster.bandName && (
-                                        <div class="bento-item-band">{poster.bandName}</div>
-                                    )}
-                                    {poster.date && (
-                                        <div class="bento-item-date">{poster.date}</div>
-                                    )}
-                                    {poster.venue && (
-                                        <div class="bento-item-venue">{poster.venue}</div>
-                                    )}
-                                    {poster.location && (
-                                        <div class="bento-item-location">{poster.location}</div>
-                                    )}
+                        {posters.map((poster, index) => {
+                            const posterContent = (
+                                <>
+                                    <img 
+                                        src={poster.large} 
+                                        alt={poster.bandName || poster.filename}
+                                        loading="lazy"
+                                    />
+                                    <div class="bento-item-overlay">
+                                        {poster.bandName && (
+                                            <div class="bento-item-band">{poster.bandName}</div>
+                                        )}
+                                        {poster.date && (
+                                            <div class="bento-item-date">{poster.date}</div>
+                                        )}
+                                        {poster.venue && (
+                                            <div class="bento-item-venue">{poster.venue}</div>
+                                        )}
+                                        {poster.location && (
+                                            <div class="bento-item-location">{poster.location}</div>
+                                        )}
+                                    </div>
+                                </>
+                            );
+
+                            return poster.livingUrl ? (
+                                <a href={poster.livingUrl} class="bento-item">
+                                    {posterContent}
+                                </a>
+                            ) : (
+                                <div class="bento-item">
+                                    {posterContent}
                                 </div>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
                 </div>
             </section>
@@ -334,6 +347,12 @@ letterImagesData.forEach((letterData, index) => {
         cursor: pointer;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
         aspect-ratio: 1 / 1.414; /* Always maintain A4/A3 portrait ratio */
+    }
+
+    a.bento-item {
+        text-decoration: none;
+        color: inherit;
+        display: block;
     }
 
     .bento-item:hover {
