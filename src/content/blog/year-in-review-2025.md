@@ -244,7 +244,7 @@ Technically still running, but my god, sales have slowed down. [It's still there
 
 I'm hoping 2026 settles down slightly in terms of side quests... I want to grow Nothing Sounds Good to a point where it at least runs itself (packaging vinyl each month does not fill me with joy). I'd love to keep up the gym habit and not look like a fat piece of shit. I'd also not like to start any long-term commitments this year, as I feel I've already got a few of those.
 
-In saying that, I still have the band. I've also said yes to helping out with [Indiefjord](https://indiefjord.com/), which I've been attending and DJing at since 2016. WDC will be back in 2027, and I'm sure I'll be promoting a hell of a lot of gigs. So basically, not adding anything *else* to me plate would be helpful.
+In saying that, I still have the band. I've also said yes to helping out with [Indiefjord](https://indiefjord.com/), which I've been attending and DJing at since 2016. WDC will be back in 2026, and I'm sure I'll be promoting a hell of a lot of gigs. So basically, not adding anything *else* to me plate would be helpful.
 
 </div>
 
