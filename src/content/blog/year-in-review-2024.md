@@ -257,12 +257,16 @@ To cap it all off here are the things I think are going to be in and out for 202
 
 ### Ins
 
-- Giving a shit
+- Giving a shit (time for empathy)
 - Physical shit (bring back magazines)
 - Shandying ridiculous beers
 - Nu-metal (and then emo)
+- Working from a fjord
 - Substack (ew)
 - Reading long-form content
+- Personal websites tended like gardens
+- Actual gardening
+- A million subscriptions
 - People actually going to small gigs
 - Being weird on the internet (in a good way)
 - Horse skulls on sticks
@@ -275,9 +279,13 @@ To cap it all off here are the things I think are going to be in and out for 202
 - AI slop
 - Stepping on other people's joy
 - Being a fascist
+- Going to the office
 - Beige
 - Nicki Minaj (fuck her)
+- Social networks (apart from Bluesky and Discord)
+- Spicy Margeritas
 - Hangovers
+- Limewire
 - Post-punk
 - Straight white guys with podcasts
 
