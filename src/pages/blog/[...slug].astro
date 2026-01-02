@@ -13,8 +13,24 @@ type Props = CollectionEntry<'blog'>;
 
 const post = Astro.props;
 const { Content } = await render(post);
+
+// If customLayout is specified, dynamically import it
+let CustomLayout = null;
+if (post.data.customLayout) {
+	try {
+		CustomLayout = (await import(`../../layouts/${post.data.customLayout}.astro`)).default;
+	} catch (e) {
+		console.warn(`Custom layout "${post.data.customLayout}" not found, falling back to default BlogPost layout.`);
+	}
+}
 ---
 
-<BlogPost {...post.data}>
-	<Content />
-</BlogPost>
+{CustomLayout ? (
+	<CustomLayout {...post.data}>
+		<Content />
+	</CustomLayout>
+) : (
+	<BlogPost {...post.data}>
+		<Content />
+	</BlogPost>
+)}
