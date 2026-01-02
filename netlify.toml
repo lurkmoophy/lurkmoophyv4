@@ -6,6 +6,11 @@
   NODE_VERSION = "18"
 
 [[redirects]]
+  from = "/blog/year-in-review-2024"
+  to = "/blog/year-in-review-2025"
+  status = 301
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
