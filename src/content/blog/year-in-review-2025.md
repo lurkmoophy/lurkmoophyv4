@@ -14,7 +14,10 @@ customLayout: "YearInReview"
 <div class="yir25--intro">
 <img src="/images/yir25-header.png" alt="Luke looking special" class="yir25-intro-image" />
 
-I absolutely love end-of-year lists and wrapups. At the risk of sounding like an insufferable tech bro (ew), I love collecting data on my own habits. Not in a 'optimise my life' kind of way, more because I'm curious to see how things change over time. This year I set myself a goal of going to the gym 52 times, which is more than I've ever done, and managed 93. Go me. I also set myself a goal of sucking on cancer sticks less than 52 days of the year, and did 74. Boo me. Small steps, I suppose. Anyway, I thought I'd catalogue a bunch of the things that brought me joy this year.
+I absolutely love end-of-year lists and wrapups. I also spend way too much time logging things I consume and enjoy. Not so much in a 'quantify my life and optimise' way of the quantifiable-self tech bro movement, but more so I can look back and see what I've been spending my time on because I have the memory of a pigeon. 2025 was an eventful year – I got married (Marriage 2: Electric Boogaloo), started another company that will drain my money, switched back to advocacy in my [day job](https://www.zeroheight.com/), released an album, asnd built too many Lego sets. 2025 was also a slightly troubling year, in that the world feels like it's actively going to shit, and not really turning around quickly enough. 
+
+While I figure out my thoughts on 2025, I think it's good to look back and see what brought joy. So, here we go... a whole bunch of lists. Let's go.
+
 </div>
 
 ## My year in music
