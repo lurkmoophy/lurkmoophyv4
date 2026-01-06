@@ -7,6 +7,7 @@ import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
 import Title from '../../components/Title.astro';
+import Masthead from '../../components/Masthead.astro';
 
 // First, sort all posts by date (newest first)
 const sortedPosts = (await getCollection('blog')).sort(
@@ -51,7 +52,7 @@ Object.keys(groupedPosts).forEach(month => {
 	<body>
 		<Header />
 		<main>
-			<Title title="Writing &amp; Thoughts" description="Below is a collection of my writing, both on this humble site and across the internet. I can't guarantee it's all good, but I can guarantee it all contains words."/>
+			<Masthead title="Writing" description="Below is a collection of my writing, both on this humble site and across the internet. I can't guarantee it's all good, but I can guarantee it all contains words."/>
 			<section>
 				<ul>
 					{

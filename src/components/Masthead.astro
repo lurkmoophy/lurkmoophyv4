@@ -1,0 +1,178 @@
+---
+const { title, as: Tag = 'h1', description } = Astro.props;
+
+// Split title into letters for individual animation
+const letters = title.split('').map((letter: string, index: number) => ({
+    char: letter === ' ' ? '\u00A0' : letter, // Replace spaces with non-breaking space
+    isSpace: letter === ' ',
+    id: `letter-${index}`,
+}));
+---
+<div class="masthead">
+    <Tag class="masthead__title" id={`title-${title.toLowerCase().replace(/\s+/g, '-')}`}>
+        <span class="masthead__title-text">
+            {letters.map((letter: { char: string; id: string }) => (
+                <span class="masthead__letter" data-letter-id={letter.id}>
+                    {letter.char}
+                </span>
+            ))}
+        </span>
+        <img src="/images/hand-illustration.svg" alt="Hand illustration" class="masthead__hand" />
+    </Tag>
+    {description && <p class="description">{description}</p>}
+    <div class="masthead__divider"></div>
+</div>
+
+<style is:global>
+    .masthead {
+        max-width: 100%;
+    }
+
+    .masthead__title {
+        font-family: 'Gideon Roman', serif;
+        font-size: clamp(2.5rem, 0.75rem + 15vw, 15rem);
+        font-weight: 500;
+        text-transform: uppercase;
+        text-align: left;
+        overflow: hidden;
+        text-wrap: nowrap;
+        filter: blur(0.7px);
+        display: flex;
+        overflow: visible;
+        margin: 0 1rem;
+        width: 95%;
+    }
+
+    @media (max-width: 768px) {
+        .masthead__title {
+            flex-wrap: wrap;
+        }
+    }
+
+    .masthead__letter {
+        display: inline-block;
+        transition: transform 0.1s linear;
+    }
+
+    .masthead__hand {
+        transform: scaleX(-1);
+        width: 20%;
+        height: auto;
+    }
+
+    @media (max-width: 768px) {
+        .masthead__hand {
+            display: none;
+        }
+    }
+
+    .masthead__hand:hover {
+        animation: poke 1.5s linear;
+    }
+    .description {
+        font-size: 1.25rem;
+        font-style: italic;
+        margin-bottom: 1em;
+        text-transform: none;
+        font-style: normal;
+        font-family: 'Alegreya Sans', sans-serif;
+        margin-left: 15%;
+        max-width: 30rem;
+        width: 90%;
+    }
+
+    @media (max-width: 768px) {
+        .description {
+            margin-left: 2rem;
+        }
+    }
+
+    .masthead__divider {
+        height: 20px;
+        width: 70%;
+        margin: 2rem 0 2rem auto;
+        background-image: url('/images/slash-bg.svg');
+        background-repeat: repeat-x;
+        opacity: 0.5;
+    }
+
+    @media (max-width: 768px) {
+        .masthead__divider {
+            width: 100%;
+            margin: 1rem auto;
+        }
+    }
+
+    @keyframes poke {
+        0% {
+            transform: translateX(0) scaleX(-1);
+        }
+        80% {
+            transform: translateX(0) scaleX(-1);
+        }
+        90% {
+            transform: translateX(-30px) scaleX(-1);
+        }
+        100% {
+            transform: translateX(0) scaleX(-1);
+        }
+    }
+</style>
+
+<script>
+    // @ts-nocheck
+    (function() {
+        const titleId = `title-${document.querySelector('.masthead__title')?.id || 'default'}`;
+        const letters = document.querySelectorAll('.masthead__letter');
+        // Calculate 10vh in pixels
+        const maxOffset = window.innerHeight * 0.03;
+        
+        // Store initial random offsets
+        const offsets = [];
+        
+        // Apply random vertical offset to each letter on load
+        letters.forEach((letter, index) => {
+            // Generate random offset between -10vh and 10vh
+            const randomOffset = (Math.random() * 2 - 1) * maxOffset;
+            offsets[index] = randomOffset;
+            letter.style.transform = `translateY(${randomOffset}px)`;
+        });
+        
+        // Reset letters to default position as user scrolls
+        let lastScrollY = window.scrollY;
+        
+        function handleScroll() {
+            const currentScrollY = window.scrollY;
+            const scrollDelta = Math.abs(currentScrollY - lastScrollY);
+            
+            // Calculate progress (0 to 1) based on scroll position
+            // Adjust the divisor to control how much scrolling is needed to reset
+            const scrollThreshold = 100; // pixels of scrolling to fully reset
+            const scrollProgress = Math.min(currentScrollY / scrollThreshold, 1);
+            
+            letters.forEach((letter, index) => {
+                const initialOffset = offsets[index];
+                // Interpolate from initial offset to 0 based on scroll progress
+                const currentOffset = initialOffset * (1 - scrollProgress);
+                letter.style.transform = `translateY(${currentOffset}px)`;
+            });
+            
+            lastScrollY = currentScrollY;
+        }
+        
+        // Throttle scroll events for performance
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    handleScroll();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+        
+        // Initial call to set up the state
+        handleScroll();
+    })();
+</script>

@@ -1,0 +1,584 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import Masthead from '../components/Masthead.astro';
+import Title from '../components/Title.astro';
+import { readFileSync } from 'fs';
+import { join } from 'path';
+
+interface SpeakingEvent {
+	eventName: string;
+	talkTitle: string | null;
+	location: string;
+	date: string;
+	link: string | null;
+}
+
+// Read speaking events data at build time
+const eventsFilePath = join(process.cwd(), 'src/data/speaking-events.json');
+let allEvents: SpeakingEvent[] = [];
+
+try {
+	const eventsData = readFileSync(eventsFilePath, 'utf-8');
+	allEvents = JSON.parse(eventsData) as SpeakingEvent[];
+} catch (error) {
+	console.warn('Could not load speaking-events.json, using empty array:', error);
+	allEvents = [];
+}
+
+// Split events into upcoming and past based on date
+const now = new Date();
+now.setHours(0, 0, 0, 0); // Reset time to start of day for accurate comparison
+
+const upcomingEvents = allEvents
+	.filter(event => {
+		const eventDate = new Date(event.date);
+		eventDate.setHours(0, 0, 0, 0);
+		return eventDate >= now;
+	})
+	.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
+const pastEvents = allEvents
+	.filter(event => {
+		const eventDate = new Date(event.date);
+		eventDate.setHours(0, 0, 0, 0);
+		return eventDate < now;
+	})
+	.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    </head>
+    <body>
+        <Header />
+        <main>
+            <Masthead title="Speaking" />
+            <section class="page-content">
+                <div class="speaking-page-intro">
+                    <div class="speaking-page-intro__text">
+                        <p class="leading-tag">01 - Oh look, an intro</p>
+                        <p class="leading-text">Over the past 15 years, I've been fortunate enough to speak at conferences around the world, including events like <a href="https://www.hatchconference.com/">Hatch</a>, <a href="https://designmatters.io/">Design Matters</a>, <a href="https://converge.zeroheight.com/">Converge</a>, and <a href="https://www.thedrum.com/news/future-web-design-arrived-five-top-talks-web-design-conference">Future of Web Design</a>.</p>
+                        <p>I've spoken about a wide range of topics, including design, design systems, typography, creativity, and CSS.</p>
+                        <p>If you're interested in having me speak at your event, <a href="mailto:lurkmoophy@gmail.com">get in touch</a>.</p>
+                    </div>
+                    <div class="speaking-page-intro__image">
+                        <img id="speaking-image" src="/images/luke-speaking-_0000-min.jpg" alt="Look mum, it's me speaking at a conference!"/>
+                    </div>
+                </div>
+                <div class="speaking-page-content">
+                    <div class="speaking-page-content__events">
+                        <h3 class="scramble small-heading">&lt;Upcoming Events&gt;</h3>
+                        <ul class="speaking-page-content__list">
+                            {upcomingEvents.length > 0 ? (
+                                upcomingEvents.map((event) => (
+                                    <li>
+                                        <p class="speaking-page-content__list-date"><FormattedDate date={event.date} /></p>
+                                        <h4>{event.eventName}</h4>
+                                        {event.talkTitle && (
+                                            event.link ? (
+                                                <h5><a href={event.link}>{event.talkTitle}</a></h5>
+                                            ) : (
+                                                <h5>{event.talkTitle}</h5>
+                                            )
+                                        )}
+                                        <p>{event.location}</p>
+                                    </li>
+                                ))
+                            ) : (
+                                <li><p>No upcoming events scheduled.</p></li>
+                            )}
+                        </ul>
+                        <h3 class="scramble small-heading">&lt;Past Events&gt;</h3>
+                        <ul class="speaking-page-content__list">
+                            {pastEvents.map((event) => (
+                                <li>
+                                    <p class="speaking-page-content__list-date"><FormattedDate date={event.date} /></p>
+                                    <h4>{event.eventName}</h4>
+                                    {event.talkTitle && (
+                                        event.link ? (
+                                            <h5><a href={event.link}>{event.talkTitle}</a></h5>
+                                        ) : (
+                                            <h5>{event.talkTitle}</h5>
+                                        )
+                                    )}
+                                    <p>{event.location}</p>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                    <div class="speaking-page-content__aside">
+                        <div class="speaking-page-content__testimonials">
+                            <h3 class="small-heading">Don't trust me, trust the reviews</h3>
+                            <p class="testimonial">
+                                “Empowering, masterful storytelling that combined business impact with humanity. I cite this talk a lot even years later”
+                            </p>
+                            <p class="testimonial-author">
+                                - Kevin Hawkins, VP of Product Experience at Monta
+                            </p>
+                            <p class="testimonial">
+                                “I saw [Luke's] talk on desire paths 12 years ago and now I can’t unsee them.”
+                            </p>
+                            <p class="testimonial-author">
+                                - Sam Beckham, Engineering Manager at Github
+                            </p>
+                            <p class="testimonial">
+                                "Luke deserves a raise. Best MC of all the design conferences and events I've been to."
+                            </p>
+                            <p class="testimonial-author">
+                                - Converge attendee
+                            </p>
+                        </div>
+                        <div class="speaking-page-content__compering">
+                            <h3 class="small-heading">Compering</h3>
+                            <p>As well as speaking, I have also compered a number of conferences and events since 2016, including WDC, Converge, Native Summit, London JS Conf, and the Design System Awards.</p>
+                            <p>Looking for an MC for your event? You should get in touch!</p>
+                        </div>
+                        <div class="speaking-page-content__podcasts">
+                            <h3 class="small-heading">Podcasts</h3>
+                            <p>As well as speaking at conferences, I've also hosted a number of podcasts since 2012, as well as being a guest on a few others.</p>
+                            <ul>
+                                <li>
+                                    <a href="https://open.spotify.com/show/0B7uAAhjEGQi66Fo3Bd8Dx">Design Systems WTF - host</a>
+                                </li>
+                                <li>
+                                    <a href="https://open.spotify.com/show/7A7pOj3UEg6O6Au7ys5sA5?si=d902454fdb964ea6">DesignOps Island Discs - host</a>
+                                </li>
+                                <li>
+                                    <a href="https://systems-of-harm.fireside.fm/ep2-luke-murphy">Systems of Harm - guest</a>
+                                </li>
+                                <li>
+                                    <a href="https://bencallahan.com/the-question">The Question - guest</a>
+                                </li>
+                                <li>
+                                    <a href="https://open.spotify.com/show/4lV3kSiW1CCrFmDqxBcIBQ">Thistbh - guest</a>
+                                </li>
+                                <li>
+                                    <a href="https://makelifeworkpodcast.com/luke-murphy/">Make Life Work - guest</a>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                    </div>
+                </div>
+            </section>
+            <Title title="Talks" />
+            <div class="speaking-page-content__sub-content">
+                <p class="leading-text">Fancy asking me to speak at your event? Here are the current talks that I'm especially interested in giving.</p>
+                <div class="speaking-page-content__talk-idea">
+                    <h4>Design Systems are Dead. Long Live Design Systems.</h4>
+                    <p>Design systems need to die — or at least, design systems as we know them. The way we've commodified the discipline, wrapped it in jargon, and positioned ourselves as a "different" kind of team has made it nearly impossible for the people who control budgets to actually understand what we do. We're at the peak of inflated expectations, sliding into the trough of disillusionment, and the way out isn't better branding, it's radical simplification. If we want buy-in, we need to stop talking about "design systems" and start talking about platform, operations, and enablement in language that actually makes sense to the rest of the org.</p>
+                    <p>In this talk, I'll argue for de-commodifying design systems entirely: breaking them down into their constituent parts and positioning them as core product infrastructure rather than a separate, magical discipline. The goal isn't to kill what we do, but to integrate it so deeply into how product teams work that it becomes invisible. That's the path to the plateau of productivity: cut the bullshit, communicate value in terms people understand, and stop treating design systems like a niche specialism that needs defending.</p>
+                    <p class="talk-history"><span>Talk given at:</span> This talk hasn't been given yet.</p>
+                </div>
+                <div class="speaking-page-content__talk-idea">
+                    <h4>Nobody will read your documentation</h4>
+                    <p>Most design system documentation lives on a nice little website somewhere, maybe it even looks beautiful, but nobody's actually reading it. If you're in Figma, VS Code, or reviewing a PR, you're doing your actual job, not browsing docs in a forgotten browser tab. This is why so much documentation ends up stale and ignored: we've been thinking about it wrong.</p> 
+                    <p>The future of documentation isn't prettier sites. It's serving the information to people where they need it, when they need it. In this talk, I'll take us through the history of structured content, how the brave new world of MCP servers and AI can finally get us there, and what we need to do to set it up. Think Figma plugins surfacing usage guidelines contextually, VS Code showing accessibility notes inline, or AI code tools simply using your documentation to build interfaces that adhere to your design system rules.</p>
+                    <p class="talk-history"><span>Talk given at:</span> A proto-version of this talk was delivered at Converge 2023 in San Francisco.</p>
+                </div>
+                <div class="speaking-page-content__talk-idea">
+                    <h4>Fail Better</h4>
+                    <p>Luke’s life is a masterclass in failure, spanning tech startups, art projects, theatre companies, and even marriages. If there’s a way to fail, Luke has found it, tried it, and probably failed at it.</p>  
+                    <p>Join us for a session where Luke will attempt to put a positive spin on his greatest flops. You might not leave inspired to embrace failure, but you’ll definitely enjoy a little schadenfreude. After all, nothing says “light evening entertainment” like someone else’s relentless string of screw-ups.</p>
+                    <p class="talk-history"><span>Talk given at:</span> Side Quest, Design Matters Copenhagen 2024.</p>
+                </div>
+                <div class="speaking-page-content__talk-idea">
+                    <h4>Or something else?</h4>
+                    <p class="talk-other-ideas">These are just the talks that I currently have ready to go. I'm always open to crafting talks for specific conferences. At the moment, I'm particularly interested in speaking about <span>design systems</span>, <span>token architecture</span>, <span>queering design</span>, <span>delight in design systems</span>, <span>enshittifcation via design systems</span>, and <span>Josie and the Pussycats</span>.</p>
+                </div>
+            </div>
+            <Title title="Want me to talk?" />
+            <div class="speaking-page-content__get-in-touch">
+                <h3 class="small-heading">How to get me to speak at your event</h3>
+                <p>I'm pretty easy going when it comes to events, but I also recognise that speaking comes with a heck of a lot of privilege, and I want to use that privilege to make help make tech events more inclusive. I understand that that smaller meetups and community conferences might not be able to handle all the requirements below, so just chat to me and hopefully we can work something out.</p>
+                <h4>Speaker rider:</h4>
+                <ul>
+                    <li>Even though my job means that I can't accept payment to speak, I will only speak at conferences that compensate their speakers. Speakers can't pay their bills with exposure.</li>
+                    <li>I don't need travel and accommodation expenses covered, as my company can cover these costs.</li>
+                    <li>It should go without saying, but a ticket to the full event is required.</li>
+                    <li>Ideally, you'll proide a wireless microphone (ideally not a handheld) and a comfort monitor on stage.</li>
+                    <li>Youre event must have a Code of Conduct in place. It's 2026, so if you don't, you should probably get on that. There are some good examples out there, like the <a href="https://confcodeofconduct.com/">ConfCodeOfConduct</a> project.</li>
+                    <li>I don't speak at events that don't care about diversity. If you're lineup is entirely straight, white, cis men, I'm probably not going to be interested.</li>
+                </ul>
+                <h4>Still with me?</h4>
+                <p>You can email me at <a href="mailto:lurkmoophy@gmail.com">lurkmoophy@gmail.com</a> or <a href="https://www.linkedin.com/in/lukeandrewmurphy/">shoot me a message on LinkedIn</a>.</p>
+                <p>For best results, please include the following details if you can:</p>
+                <ul>
+                    <li>Confirmation you have read this rider with questions/any criteria you are unable to meet</li>
+                    <li>Conference name, website, date of events, location</li>
+                    <li>Tentative/confirmed speaker list</li>
+                    <li>What you are interested in having me speak about</li>
+                </ul>
+            </div>
+        </main>
+        <Footer />
+    </body>
+</html>
+
+<style>
+    .speaking-page-intro {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1200px;
+        margin: 4rem auto;
+        flex-wrap: wrap;
+    }
+    @media (max-width: 768px) {
+        .speaking-page-intro {
+            margin: 2rem auto;
+        }
+    }
+    .speaking-page-intro__text {
+        flex: 1;
+    }
+
+    @media (max-width: 768px) {
+        .speaking-page-intro__text {
+            order: 2;
+        }
+    }
+    .speaking-page-intro__text p {
+        max-width: 33rem;
+    }
+
+    .leading-tag {
+        text-transform: uppercase;
+        color: var(--grey);
+        margin-bottom: 0.5rem;
+    }
+    .leading-text {
+        font-size: clamp(1.5rem, 0.75rem + 2vw, 2.25rem);
+        font-family: 'Alegreya Sans', sans-serif;
+        font-weight: 400;
+        line-height: 1.2;
+        margin-top: 0;
+        margin-bottom: 2rem;
+    }
+    .leading-text a {
+        position: relative;
+        padding-left: 1.1em;
+        text-decoration: none;
+        color: var(--accent);
+    }
+
+    .leading-text a:hover {
+        text-decoration: underline;
+        text-decoration-thickness: 3px;
+    }
+    .leading-text a::before {
+        content: '→';
+        position: absolute;
+        left: 0;
+        font-size: 0.8em;
+        transform: rotate(-45deg) translateY(10px);
+        transition: transform 0.1s ease-in-out;
+    }
+    .leading-text a:hover::before {
+        transform: rotate(0deg) translateY(8px);
+    }
+    .speaking-page-intro__image {
+        flex-basis: 40%;
+    }
+    @media (max-width: 768px) {
+        .speaking-page-intro__image {
+            flex-basis: 100%;
+            order: 1;
+        }
+    }
+    .speaking-page-intro__image img {
+        width: 100%;
+        height: auto;
+        overflow: hidden;
+        filter: grayscale(90%) hue-rotate(0deg) invert(0%) opacity(100%) saturate(100%) sepia(20%);
+    }
+
+    .speaking-page-content {
+        display: flex;
+        max-width: 1200px;
+        margin: 0 auto;
+        flex-wrap: wrap;
+    }
+    .speaking-page-content__events {
+        flex-basis: 50%;
+        flex-grow: 1;
+    }
+
+    @media (max-width: 768px) {
+        .speaking-page-content__events {
+            flex-basis: 100%;
+        }
+    }
+
+    .speaking-page-content__aside {
+        flex-basis: 40%;
+    }
+    @media (max-width: 768px) {
+        .speaking-page-content__aside {
+            flex-basis: 100%;
+        }
+    }
+
+    .speaking-page-content__aside > div {
+        margin-bottom: 4rem;
+        border: 2px solid var(--grey);
+        border-radius: 1rem;
+        padding: 2rem 3rem;
+    }
+
+    @media (max-width: 768px) {
+        .speaking-page-content__aside > div {
+            padding: 1rem 2rem;
+            margin-bottom: 2rem;
+        }
+    }
+
+    .speaking-page-content__aside h3 {
+        font-family: 'Alegreya Sans', sans-serif;
+        font-weight: 400;
+        text-transform: uppercase;
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+        letter-spacing: 0.1rem;
+        color: var(--grey);
+    }
+    .speaking-page-content__list {
+    }
+
+    .speaking-page-content__list-date {}
+
+    .speaking-page-content__list li {
+        list-style-type: none;
+        padding-left: 0;
+        margin-bottom: 2rem;
+        max-width: 28rem;
+    }
+    .speaking-page-content__list li:before {
+        content: '†';
+        margin-right: 0.5rem;
+        margin-left: -1em;
+        font-family: 'Alegreya', serif;
+        position: absolute;
+    }
+    .speaking-page-content__list h4 {
+        font-family: 'Allegreya Sans', sans-serif;
+        text-transform: uppercase;
+        font-size: 1rem;
+        font-weight: 300;
+        margin-bottom: 0.25rem;
+        margin-top: 1rem;
+    }
+
+    .speaking-page-content__list h4:before {
+        content: '→';   
+        margin-right: 0.5rem;
+        font-family: 'Alegreya', serif;
+    }
+
+    .speaking-page-content__list h5 {
+        font-size: clamp(2rem, 0.75rem + 2vw, 2.5rem);
+        font-weight: 300;
+        font-style: italic;
+        margin-bottom: 0;
+        line-height: 1;
+    }
+    .speaking-page-content__list h5 a {
+        color: inherit;
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 2px;
+    }
+    .speaking-page-content__list h5 a:hover {
+        text-decoration-thickness: 2px;
+    }
+    .speaking-page-content__list p {
+        font-size: 1.25rem;
+        font-weight: 300;
+        font-style: italic;
+        margin: 0;
+        margin-top: 0.75rem;
+    }
+
+    .testimonial {
+        font-family: 'Alegreya', serif;
+        font-size: 1.25rem;
+        font-weight: 300;
+        margin: 0.75rem 0 0.5rem 0;
+    }
+    .testimonial-author {
+        font-size: 1rem;
+        font-weight: 300;
+        font-style: italic;
+        margin: 0 0 1.5rem 2rem;
+    }
+
+    .speaking-page-content__sub-content {
+        width: 95%;
+        max-width: 1000px;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        justify-content: space-between;
+        padding: 6rem 0;
+    }
+
+    @media (max-width: 768px) {
+        .speaking-page-content__sub-content {
+            padding: 2rem 0;
+        }
+    }
+
+    .speaking-page-content__sub-content .leading-text {
+        max-width: 23em;
+        margin: 0 0 4rem;
+    }
+
+    @media (max-width: 768px) {
+        .speaking-page-content__sub-content .leading-text {
+            margin: 0 0 2rem;
+        }
+    }
+
+    .speaking-page-content__talk-idea {
+        padding: 2rem 3rem;
+        border: 2px solid var(--grey);
+        border-radius: 1rem;
+        flex-basis: 45%;
+        flex-grow: 1;
+    }
+    @media (max-width: 768px) {
+        .speaking-page-content__talk-idea {
+            flex-basis: 100%;
+            padding: 1rem 2rem;
+        }
+    }
+    .speaking-page-content__talk-idea h4 {
+        font-size: 1.75rem;
+        font-weight: 400;
+        margin-bottom: 1rem;
+    }
+
+    .talk-history {
+        font-style: italic;
+        font-size: 1rem;
+    }
+
+    .talk-history span {
+        text-transform: uppercase;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 0.875rem;
+        letter-spacing: 0.1em;
+    }
+
+    .talk-other-ideas {
+        font-style: italic;
+    }
+
+    .talk-other-ideas span {
+        text-decoration: underline;
+        text-decoration-style: dotted;
+        text-decoration-thickness: 3px;
+        text-decoration-color: var(--accent);
+        text-decoration-skip-ink: none;
+        padding: 0.1rem 0.25rem;
+    }
+
+    .speaking-page-content__get-in-touch {
+        width: 90%;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 6rem 0;
+    }
+
+    @media (max-width: 768px) {
+        .speaking-page-content__get-in-touch {
+            padding: 2rem 0;
+        }
+    }
+</style>
+
+<script>
+    if (typeof window !== "undefined") {
+        const imageElement = document.getElementById('speaking-image');
+        const imageContainer = imageElement?.closest('.speaking-page-intro__image');
+        
+        if (imageElement && imageContainer) {
+            const imageCount = 6; // Images 0000 through 0005
+            const imageBasePath = '/images/luke-speaking-_';
+            
+            // Preload all images for smooth transitions
+            const images = [];
+            for (let i = 0; i < imageCount; i++) {
+                const img = new Image();
+                const paddedNumber = String(i).padStart(4, '0');
+                img.src = `${imageBasePath}${paddedNumber}-min.jpg`;
+                images.push(img);
+            }
+            
+            let lastImageIndex = -1;
+            
+            const updateImage = () => {
+                const rect = imageContainer.getBoundingClientRect();
+                const imageHeight = rect.height;
+                const windowHeight = window.innerHeight;
+                
+                // Start: when image enters viewport (top of image at bottom of viewport)
+                // End: when image has scrolled past (top of image at -imageHeight from top of viewport)
+                // This gives us a longer scroll range for smoother, closer increments
+                const scrollStart = windowHeight; // Image enters viewport
+                const scrollEnd = -imageHeight; // Image scrolled past
+                const scrollRange = scrollStart - scrollEnd; // Total scroll distance
+                
+                // Current position relative to viewport
+                const imageTop = rect.top;
+                
+                // Calculate scroll progress (0 to 1)
+                // 0 = image just entering viewport
+                // 1 = image fully scrolled past
+                const scrollProgress = scrollRange > 0 
+                    ? Math.max(0, Math.min(1, (scrollStart - imageTop) / scrollRange))
+                    : 0;
+                
+                // Map scroll progress to image index (0 to 5)
+                const imageIndex = Math.floor(scrollProgress * (imageCount - 1));
+                
+                // Only update if the index has changed
+                if (imageIndex !== lastImageIndex && imageIndex >= 0 && imageIndex < imageCount) {
+                    const paddedNumber = String(imageIndex).padStart(4, '0');
+                    imageElement.src = `${imageBasePath}${paddedNumber}-min.jpg`;
+                    lastImageIndex = imageIndex;
+                }
+            };
+            
+            // Throttle scroll events for better performance
+            let ticking = false;
+            const handleScroll = () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        updateImage();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            };
+            
+            // Initial image update
+            updateImage();
+            
+            // Listen to scroll events
+            window.addEventListener('scroll', handleScroll, { passive: true });
+            
+            // Also update on resize in case viewport changes
+            window.addEventListener('resize', handleScroll, { passive: true });
+        }
+    }
+</script>
+
