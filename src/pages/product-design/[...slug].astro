@@ -1,0 +1,58 @@
+---
+import { getCollection, render } from 'astro:content';
+import CaseStudy from '../../layouts/CaseStudy.astro';
+
+export async function getStaticPaths() {
+	const caseStudies = await getCollection('productDesign' as any);
+	return caseStudies.map((caseStudy: any) => ({
+		params: { slug: caseStudy.id },
+		props: caseStudy,
+	}));
+}
+
+const caseStudy: any = Astro.props;
+const { Content } = await render(caseStudy);
+
+// Extract H2 headings from markdown content
+function extractHeadings(markdown: string): Array<{ text: string; id: string }> {
+	const h2Regex = /^##\s+(.+)$/gm;
+	const headings: Array<{ text: string; id: string }> = [];
+	let match;
+
+	while ((match = h2Regex.exec(markdown)) !== null) {
+		const text = match[1].trim();
+		const id = text
+			.toLowerCase()
+			.trim()
+			.replace(/[^\w\s-]/g, '')
+			.replace(/[\s_-]+/g, '-')
+			.replace(/^-+|-+$/g, '');
+		headings.push({ text, id });
+	}
+
+	return headings;
+}
+
+const headings = caseStudy.body ? extractHeadings(caseStudy.body) : [];
+
+// If customLayout is specified, dynamically import it
+let CustomLayout = null;
+if (caseStudy.data.customLayout) {
+	try {
+		CustomLayout = (await import(`../../layouts/${caseStudy.data.customLayout}.astro`)).default;
+	} catch (e) {
+		console.warn(`Custom layout "${caseStudy.data.customLayout}" not found, falling back to default CaseStudy layout.`);
+	}
+}
+---
+
+{CustomLayout ? (
+	<CustomLayout {...caseStudy.data} headings={headings}>
+		<Content />
+	</CustomLayout>
+) : (
+	<CaseStudy {...caseStudy.data} headings={headings}>
+		<Content />
+	</CaseStudy>
+)}
+

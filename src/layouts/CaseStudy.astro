@@ -1,0 +1,460 @@
+---
+import { Image } from 'astro:assets';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import Header from '../components/Header.astro';
+
+type Props = {
+	title: string;
+	description: string;
+	pubDate: Date;
+	updatedDate?: Date;
+	timeline?: string;
+	heroImage?: string;
+	customLayout?: string;
+	client?: string;
+	role?: string;
+	tags?: string[];
+	headings?: Array<{ text: string; id: string }>;
+};
+
+const { title, description, pubDate, updatedDate, heroImage, client, role, tags, timeline, headings = [] } = Astro.props;
+
+// Split title into words for individual wrapping
+const titleWords = title.split(' ').map((word: string, index: number) => ({
+	word: word,
+	id: `title-word-${index}`,
+}));
+---
+
+<html lang="en" class="case-study">
+	<head>
+		<BaseHead title={title} description={description} />
+		<style is:global>
+
+			.case-study body {
+
+			}
+
+			.static-bg {
+				display: none;
+			}
+			main {
+				width: 100%;
+				max-width: 100%;
+				margin: 0;
+				padding-top: 0;
+			}
+
+
+			.case-study__back-link {
+				display: inline-block;
+				margin-bottom: 2rem;
+				font-size: 1.25rem;
+				font-style: italic;
+				color: var(--grey);
+				text-decoration: none;
+				border-bottom: 2px solid var(--grey);
+				padding-bottom: 0.15rem;
+				padding-left: 2rem;
+			}
+
+			.case-study__back-link:hover {
+				border-color: var(--accent);
+			}
+			
+			.case-study__title {
+				text-align: center;
+				line-height: 1;
+				width: 90%;
+				margin: 4rem auto 5rem;
+			}
+
+			@media (max-width: 450px) {
+				.case-study__title {
+					text-align: left;
+					width: 90%;
+				}
+			}
+			.case-study__title h1 {
+				font-family: 'gideon roman', serif;
+				font-weight: 300;
+				font-size: clamp(3rem, 0.75rem + 15vw, 12rem);
+				line-height: 0.8;
+				color: var(--black);
+				padding: 2rem 4rem;
+				margin: 0;
+			}
+
+			@media (max-width: 450px) {
+				.case-study__title h1 {
+					padding: 2rem 0;
+				}
+			}
+
+				.case-study__title span:first-of-type {
+					font-style: italic;
+					margin-left: -20%;
+				}
+				@media (max-width: 450px) {
+					.case-study__title span:first-of-type {
+						margin-left: 0;
+					}
+				}
+
+				.case-study__title span:nth-of-type(2n) {
+					display: flex;
+					align-items: center;
+					margin-left: 20%;
+				}
+
+				@media (max-width: 450px) {
+					.case-study__title span:nth-of-type(2n) {
+						margin-left: 0;
+					}
+				}
+
+				.case-study__title span:nth-of-type(2n):before {
+					content: "";
+					width: 20%;
+					height: 8px;
+					background-color: var(--black);
+					display: inline-block;
+				}
+
+				@media (max-width: 450px) {
+					.case-study__title span:nth-of-type(2n):before {
+						display: none;
+					}
+				}
+
+				.case-study__title span:nth-of-type(3n) {
+					align-items: center;
+					margin-left: 5%;
+				}
+
+				@media (max-width: 450px) {
+					.case-study__title span:nth-of-type(3n) {
+						margin-left: 0;
+					}
+				}
+			
+			.case-study__meta {
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+				align-items: flex-start;
+				gap: 3rem;
+				border-top: 2px solid color-mix(in srgb, var(--grey) 30%, transparent);
+				margin-top: 4rem;
+				padding: 2rem 3rem;
+				max-width: 1800px;
+				margin-left: auto;
+				margin-right: auto;
+			}
+
+			@media (max-width: 768px) {
+				.case-study__meta {
+					flex-wrap: wrap;
+				}
+			}
+
+			.case-study__information-container {
+				display: flex;
+				flex-direction: column;
+				gap: 1rem;
+				flex-basis: 50%;
+			}
+
+			@media (max-width: 768px) {
+				.case-study__information-container {
+					flex-basis: 100%;
+				}
+			}
+
+			.case-study__description {
+				font-size: clamp(1rem, 0.75rem + 1vw, 1.25rem);
+				flex-basis: 40%;
+				margin: 0;
+				font-weight: 300;
+			}
+
+			.case-study__meta-items {
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+				gap: 1rem;
+				font-size: 1rem;
+				text-transform: uppercase;
+				margin-top: 1rem;
+			}
+
+			.case-study__meta-items p {
+				margin: 0;
+			}
+
+			.case-study__meta-item-label {
+				font-weight: 300;
+				text-transform: uppercase;
+				color: var(--grey);
+				display: block;
+				margin: 0;
+			}
+			.case-study__meta-tag {
+				display: block;
+			}
+
+			.date {
+				margin-bottom: 0.5em;
+				color: var(--grey);
+				font-size: 2rem;
+			}
+			.case-study-meta {
+				margin-top: 0.5em;
+				font-size: 1.25rem;
+				color: var(--grey);
+			}
+			.last-updated-on {
+				font-style: italic;
+			}
+
+			/* Smooth scroll behavior */
+			html {
+				scroll-behavior: smooth;
+			}
+
+			/* Ensure headings have IDs for anchor links */
+			.prose h2 {
+				scroll-margin-top: 2rem;
+			}
+
+			/* Table of Contents styles */
+			.case-study__table-of-contents {
+				margin: 0;
+				font-size: 1.15rem;
+			}
+
+			.case-study__table-of-contents ul {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+			}
+
+			.case-study__table-of-contents li {
+				margin: 0.1rem 0;
+			}
+
+			.case-study__table-of-contents li:before {
+				content: "—–";
+			}
+
+			.case-study__table-of-contents a {
+				color: var(--black);
+				text-decoration: none;
+				transition: color 0.2s ease;
+			}
+
+			.case-study__table-of-contents a:hover {
+				color: rgb(var(--accent));
+				text-decoration: underline;
+			}
+
+			.case-study__content {
+				margin: 6rem 5%;
+			}
+
+			.case-study__content h2 {
+				font-size: clamp(2rem, 0.5rem + 5vw, 3rem);
+				margin: 0;
+				font-family: 'Gideon Roman', serif;
+				line-height: 1.1;
+				margin-bottom: 2.5rem;
+				margin-top: 4.5rem;
+				margin-left: calc((100% - 35rem) / 2);
+				counter-increment: h2;
+				position: relative;
+			}
+
+			@media (max-width: 768px) {
+				.case-study__content h2 {
+					margin-left: 2.5em;
+				}
+			}
+
+			.case-study__content h2:before {
+				content: "0"counter(h2) " — ";
+				position: absolute;
+				left: -2.5em;
+			}
+
+			@media (max-width: 768px) {
+				.case-study__content h2:before {
+				}
+			}
+
+			.case-study__content p {
+				font-size: 1.15rem;
+				max-width: 34rem;
+				margin: 0 auto 1.5rem;
+			}
+
+			.case-study .prose-meta {
+				font-size: 1rem;
+				color: var(--grey);
+				text-align: center;
+				margin: 2rem auto;
+			}
+
+			.case-study__photos {
+				width: 90%;
+				max-width: 1800px;
+				margin: 3rem auto;
+			}
+
+			.case-study__photos div {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				gap: 1rem;
+			}
+
+			.case-study__photos img {
+				width: auto;
+				max-width: 60%;
+				height: 100%;
+				object-fit: contain;
+				margin: 0 auto;
+			}
+
+			.case-study__photos video {
+				width: auto;
+				max-width: 100%;
+				height: 100%;
+			}
+
+			.case-study__video p:first-of-type {
+				max-width: 100%;
+				margin-bottom: 0;
+			}
+
+			.case-study__video {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				gap: 0;
+			}
+
+			.case-study__content .case-study__photos__caption {
+				font-size: 1rem;
+				color: var(--grey);
+				margin-top: 1rem;
+				font-style: italic;
+			}
+
+			.case-study__photos__two-up {
+				display: flex;
+				justify-content: space-between;
+				gap: 2rem;
+				align-items: flex-start;
+				flex-grow: 1;
+			}
+
+			@media (max-width: 768px) {
+				.case-study__photos__two-up {
+					flex-wrap: wrap;
+				}
+			}
+
+			.case-study__photos.case-study__photos__two-up img {
+				max-width: 100%;
+			}
+
+			.case-study__photos__two-up div {
+				width: 50%;
+				height: auto;
+				flex-grow: 1;
+				display: flex;
+				flex-direction: column;
+				justify-content: flex-start;
+				gap: 1rem;
+			}
+
+
+			@media (max-width: 768px) {
+				.case-study__photos__two-up div {
+					width: 100%;
+				}
+			}
+
+			.border {
+				box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+			}
+
+		</style>
+	</head>
+
+	<body>
+		<Header />
+		<main>
+			<article>
+				<a href="/product-design/" class="case-study__back-link">← Back to case studies</a>
+                <div class="case-study__title">
+
+                    <h1>
+						{titleWords.map((item: { word: string; id: string }, index: number) => (
+							<>
+								<span class="case-study__title-word" data-word-id={item.id}>
+									{item.word}
+								</span>
+								{index < titleWords.length - 1 && ' '}
+							</>
+						))}
+					</h1>
+				</div>
+				<div class="case-study__meta">
+					<div class="case-study__information-container">
+						{description && <p class="case-study__description">{description}</p>}
+						<div class="case-study__meta-items">
+							<!-- INSERT_YOUR_CODE -->
+							{tags && tags.length > 0 && (
+								<p class="case-study__meta-item">
+									<span class="case-study__meta-item-label">Disciplines</span>{" "}
+									{tags.map((tag, idx) => (
+										<span class="case-study__meta-tag">
+											{tag}
+										</span>
+									))}
+								</p>
+							)}
+							{client && <p class="case-study__meta-item"><span class="case-study__meta-item-label">Company</span> {client}</p>}
+							{timeline && <p class="case-study__meta-item"><span class="case-study__meta-item-label">Timeline</span> {timeline}</p>}
+						</div>
+					</div>
+					{headings.length > 0 && (
+						<div class="case-study__table-of-contents">
+							<p class="case-study__meta-item-label">Table of Contents</p>
+							<ul>
+								{headings.map((heading) => (
+									<li>
+										<a href={`#${heading.id}`}>{heading.text}</a>
+									</li>
+								))}
+							</ul>
+						</div>
+					)}
+				</div>
+				<div class="case-study__content">	
+					<slot />
+				</div>
+				<div class="prose-meta">
+					Posted on <FormattedDate date={pubDate} />.
+				</div>
+			</article>
+		</main>		
+		<Footer />
+	</body>
+</html>
+

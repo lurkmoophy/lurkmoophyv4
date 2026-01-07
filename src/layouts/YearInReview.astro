@@ -15,14 +15,14 @@ type Props = {
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 ---
 
-<html lang="en">
+<html lang="en" class="year-in-review-page">
 	<head>
 		<BaseHead title={title} description={description} />
 		<link href="https://fonts.googleapis.com/css2?family=Jacquard+24&family=Martian+Mono:wght@100..800&display=swap" rel="stylesheet">
 		<style is:global>
-			/* Custom styles for year-in-review post */
+			/* Custom styles for year-in-review post - scoped to .year-in-review-page */
 
-			:root {
+			.year-in-review-page {
 				--yir25-background: #f7dbe9;
 				--yir250-text: #3a282d;
 				--yir25-text-light: #66545a;
@@ -32,27 +32,31 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				interpolate-size: allow-keywords;
 			}
 			
-			body {
+			.year-in-review-page body {
 				background: var(--yir25-background);
 			}
 
-			.static-bg {
+			.year-in-review-page .static-bg {
 				display: none;
 			}
 			
-			h1, h2, h3, h4, h5, h6 {
+			.year-in-review-page h1, 
+			.year-in-review-page h2, 
+			.year-in-review-page h3, 
+			.year-in-review-page h4, 
+			.year-in-review-page h5, 
+			.year-in-review-page h6 {
 				font-family: var(--yir25-font);
 				font-weight: 400;
 				color: var(--yir25-text);
 			}
 
-			.year-in-review {
-				/* Add your custom styles here */
+			.year-in-review-page .year-in-review {
 				width: 100%;
 				padding: 2rem 0;
 			}
 			
-			.year-in-review-header {
+			.year-in-review-page .year-in-review-header {
 				display: flex;
 				align-items: center;
 				justify-content: flex-start;
@@ -60,7 +64,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				padding: 0 5vw;
 			}
 			
-			.year-in-review-tag {
+			.year-in-review-page .year-in-review-tag {
 				display: block;
 				background: var(--yir25-accent);
 				color: var(--yir25-text);
@@ -72,7 +76,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				border-radius: 1.5rem;
 			}
 			
-			.year-in-review-date {
+			.year-in-review-page .year-in-review-date {
 				display: block;
 				background: var(--yir25-accent);
 				color: var(--yir25-text);
@@ -84,8 +88,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				border-radius: 1.5rem;
 			}
 			
-			.year-in-review-content {
-				/* Customize your content area styling here */
+			.year-in-review-page .year-in-review-content {
 				font-size: 1.25rem;
 				line-height: 1.8;
 				color: var(--black);
@@ -93,67 +96,67 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				width: 100%;
 			}
 
-			.year-in-review-content h1,
-			.year-in-review-content h2,
-			.year-in-review-content h3,
-			.year-in-review-content h4,
-			.year-in-review-content h5,
-			.year-in-review-content h6 {
+			.year-in-review-page .year-in-review-content h1,
+			.year-in-review-page .year-in-review-content h2,
+			.year-in-review-page .year-in-review-content h3,
+			.year-in-review-page .year-in-review-content h4,
+			.year-in-review-page .year-in-review-content h5,
+			.year-in-review-page .year-in-review-content h6 {
 				text-shadow: -5px 5px 0 var(--yir25-accent);
 				line-height: 0.6;
 			}
 
-			.year-in-review-content h2 {
+			.year-in-review-page .year-in-review-content h2 {
 				font-size: clamp(5rem, 0.75rem + 10vw, 7.5rem);
 				margin: 5rem 0;
 				padding-left: 5%;
 			}
 
 			@media (max-width: 768px) {
-				.year-in-review-content h2 {
+				.year-in-review-page .year-in-review-content h2 {
 					margin: 3rem 0;
 				}
 			}
 
-			.year-in-review-content h3 {
+			.year-in-review-page .year-in-review-content h3 {
 				font-size: clamp(2rem, 0.75rem + 10vw, 5.5rem);
 				margin: 3rem 0;
 				padding-left: 5%;
 			}
 
-			.year-in-review-content p {
+			.year-in-review-page .year-in-review-content p {
 				max-width: 43rem;
 				margin-left: 10%;
 			}
 
 			@media (max-width: 768px) {
-				.year-in-review-content p {
+				.year-in-review-page .year-in-review-content p {
 					margin-left: 0;
 					padding: 0 5%;
 				}
 			}
 
-			.yir25--masthead-title {
+			.year-in-review-page .yir25--masthead-title {
 				padding: 0 5vw;
-				h1 {
-					font-size: clamp(3rem, 0.75rem + 20vw, 16rem);
-					line-height: 0.6;
-					max-width: 100%;
-					position: relative;
-					color: var(--yir25-text);
-					text-shadow: -5px 5px 0 var(--yir25-accent);
-				}
-
-				p {
-					font-size: clamp(1rem, 0.75rem + 10vw, 1.75rem);
-					line-height: 1.1;
-					font-style: italic;
-					margin: 5rem 0 5rem 20%;
-
-				}
 			}
 
-			.yir25-intro-image {
+			.year-in-review-page .yir25--masthead-title h1 {
+				font-size: clamp(3rem, 0.75rem + 20vw, 16rem);
+				line-height: 0.6;
+				max-width: 100%;
+				position: relative;
+				color: var(--yir25-text);
+				text-shadow: -5px 5px 0 var(--yir25-accent);
+			}
+
+			.year-in-review-page .yir25--masthead-title p {
+				font-size: clamp(1rem, 0.75rem + 10vw, 1.75rem);
+				line-height: 1.1;
+				font-style: italic;
+				margin: 5rem 0 5rem 20%;
+			}
+
+			.year-in-review-page .yir25-intro-image {
 				width: 50%;
 				position: absolute;
 				z-index: -1;
@@ -162,7 +165,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			}
 
 			@media (max-width: 768px) {
-				.yir25-intro-image {
+				.year-in-review-page .yir25-intro-image {
 					width: 100%;
 					position: relative;
 					z-index: 1;
@@ -173,14 +176,12 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			}
 
 			@media (max-width: 768px) {
-				.yir25--masthead-title {
-					p {
-						margin: 3rem 0;
-					}
+				.year-in-review-page .yir25--masthead-title p {
+					margin: 3rem 0;
 				}
 			}
 
-			.yir25--intro {
+			.year-in-review-page .yir25--intro {
 				font-size: clamp(1rem, 0.75rem + 8vw, 1.75rem);
 				max-width: 43rem;
 				line-height: 1.4;
@@ -189,12 +190,12 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			}
 
 			@media (max-width: 768px) {
-				.yir25--intro {
+				.year-in-review-page .yir25--intro {
 					margin: 0 5vw 3rem;
 				}
 			}
 
-			.yir25--list {
+			.year-in-review-page .yir25--list {
 				background-image: url('/images/yir25-halftone-pattern.png');
 				background-size: 5px 5px;
 				background-repeat: repeat;
@@ -202,13 +203,13 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				margin: 5rem 0;
 			}
 
-			.yir25--list h3 {
+			.year-in-review-page .yir25--list h3 {
 				transform: translateY(-50%);
 				margin: 0;
 				margin-bottom: 3rem;
 			}
 
-			.yir25--list ol {
+			.year-in-review-page .yir25--list ol {
 				margin-block-start: 0;
 				padding-inline-start: 0;
 				position: relative;	
@@ -216,24 +217,26 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				padding-right: 5%;	
 				padding-left: 15%;
 				list-style-type: none;
-					li {
-						position: relative;
-						counter-increment: film-counter;
-						padding-left: 3rem;
-						&::before {
-							content: counter(film-counter) ".";
-							position: absolute;
-							left: 0;
-							top: 0;
-							font-size: clamp(1.25rem, 0.75rem + 5vw, 5rem);
-							font-weight: 900;
-							color: var(--yir25-accent);
-							line-height: 0.6;
-						}
-					}
 			}
 
-			.yir25--list--hm {
+			.year-in-review-page .yir25--list ol li {
+				position: relative;
+				counter-increment: film-counter;
+				padding-left: 3rem;
+			}
+
+			.year-in-review-page .yir25--list ol li::before {
+				content: counter(film-counter) ".";
+				position: absolute;
+				left: 0;
+				top: 0;
+				font-size: clamp(1.25rem, 0.75rem + 5vw, 5rem);
+				font-weight: 900;
+				color: var(--yir25-accent);
+				line-height: 0.6;
+			}
+
+			.year-in-review-page .yir25--list--hm {
 				background-color: var(--yir25-background);
 				box-shadow: -10px 10px 0 var(--yir25-accent);
 				border-radius: 0.5rem;
@@ -241,14 +244,14 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				padding: 2rem;
 				margin-left: 20%;
 				margin-bottom: 8rem;
+			}
 
-				strong {
-					color: var(--yir25-text-light)
-				}
+			.year-in-review-page .yir25--list--hm strong {
+				color: var(--yir25-text-light);
 			}
 
 			@media (max-width: 768px) {
-				.yir25--list--hm {
+				.year-in-review-page .yir25--list--hm {
 					margin: 4rem auto;
 					max-width: 90%;
 					padding: 1rem;
@@ -256,43 +259,42 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				}
 			}
 
-			.yir25--list ol li {
+			.year-in-review-page .yir25--list ol li {
 				margin-bottom: 3rem;
 				max-width: 29rem;
-
-				
-
-				&:nth-of-type(2n) {
-					margin-left: auto;
-					margin-right: 0;
-				}
-
-				@media (max-width: 768px) {
-					&:nth-of-type(2n) {
-						margin-left: 0;
-						margin-right: auto;
-					}
-				}
-
-				p {
-					margin-bottom: 0;
-					margin-left: 2rem;
-					font-size: 1rem;
-					line-height: 1.4;
-					text-align: justify;
-				}
-				p:first-of-type {
-					font-size: clamp(1rem, 0.75rem + 5vw, 1.5rem);
-					line-height: 1;
-					font-family: var(--yir25-mono-font);
-				}	
 			}
 
-			.yir25--list--left {
+			.year-in-review-page .yir25--list ol li:nth-of-type(2n) {
+				margin-left: auto;
+				margin-right: 0;
+			}
+
+			@media (max-width: 768px) {
+				.year-in-review-page .yir25--list ol li:nth-of-type(2n) {
+					margin-left: 0;
+					margin-right: auto;
+				}
+			}
+
+			.year-in-review-page .yir25--list ol li p {
+				margin-bottom: 0;
+				margin-left: 2rem;
+				font-size: 1rem;
+				line-height: 1.4;
+				text-align: justify;
+			}
+
+			.year-in-review-page .yir25--list ol li p:first-of-type {
+				font-size: clamp(1rem, 0.75rem + 5vw, 1.5rem);
+				line-height: 1;
+				font-family: var(--yir25-mono-font);
+			}
+
+			.year-in-review-page .yir25--list--left {
 				flex: 1;
 			}
 			
-			.yir25-list-image {
+			.year-in-review-page .yir25-list-image {
 				display: block;
 				float: left;
 				margin-right: 2rem;
@@ -300,7 +302,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			}
 
 			@media (max-width: 768px) {
-				.yir25-list-image {
+				.year-in-review-page .yir25-list-image {
 					float: none;
 					max-width: 100%;
 					margin-right: 1rem;
@@ -308,49 +310,55 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				}
 			}
 
-			.yir25-list-image-album {
+			.year-in-review-page .yir25-list-image-album {
 				max-width: 150px;
 			}
 
-			.yir25-list-image-book {
+			.year-in-review-page .yir25-list-image-book {
 				max-width: 200px;
 			}
 
-			.yir25--list--films, .yir25--list--books {
-				ol {
-					padding: 0;
-					max-width: 1000px;
-					display: flex;
-					flex-wrap: wrap;
-					justify-content: center;
-					gap: 3rem;
-					margin: 3rem auto;
-					li {
-						margin: 0;
-						max-width: inherit;
-						flex-basis: 250px;
-						&:nth-of-type(2n) {
-							margin: 0;
-						}
-						p {
-							margin-left: 0;
-							max-width: 250px;
-
-							strong {
-								display: block;
-							}
-						}
-					}
-				}
+			.year-in-review-page .yir25--list--films ol,
+			.year-in-review-page .yir25--list--books ol {
+				padding: 0;
+				max-width: 1000px;
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: center;
+				gap: 3rem;
+				margin: 3rem auto;
 			}
 
-			.yir25-list-image-film {
+			.year-in-review-page .yir25--list--films ol li,
+			.year-in-review-page .yir25--list--books ol li {
+				margin: 0;
+				max-width: inherit;
+				flex-basis: 250px;
+			}
+
+			.year-in-review-page .yir25--list--films ol li:nth-of-type(2n),
+			.year-in-review-page .yir25--list--books ol li:nth-of-type(2n) {
+				margin: 0;
+			}
+
+			.year-in-review-page .yir25--list--films ol li p,
+			.year-in-review-page .yir25--list--books ol li p {
+				margin-left: 0;
+				max-width: 250px;
+			}
+
+			.year-in-review-page .yir25--list--films ol li p strong,
+			.year-in-review-page .yir25--list--books ol li p strong {
+				display: block;
+			}
+
+			.year-in-review-page .yir25-list-image-film {
 				max-width: 200px;
 				float: none;
 				vertical-align: top;
 			}
 
-			.yir25--list-stacked {
+			.year-in-review-page .yir25--list-stacked {
 				display: flex;
 				margin: 3rem auto;
 				gap: 2rem;
@@ -358,60 +366,57 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				margin: 8rem 0;
 				margin-bottom: 0;
 				padding: 0 5% 8rem;
+			}
 
-				.yir25--stack {
-					flex-basis: 40%;
-					max-width: 600px;
-				}
+			.year-in-review-page .yir25--list-stacked .yir25--stack {
+				flex-basis: 40%;
+				max-width: 600px;
 			}
 
 			@media (max-width: 768px) {
-				.yir25--list-stacked {
+				.year-in-review-page .yir25--list-stacked {
 					flex-direction: column;
 					align-items: center;
 					gap: 4rem;
 				}
 			}
 
-			.yir25--list-stacked + .yir25--list {
+			.year-in-review-page .yir25--list-stacked + .yir25--list {
 				margin-top: 0;
 			}
 
-			.yir25--list details {
+			.year-in-review-page .yir25--list details {
 				font-size: clamp(1rem, 0.75rem + 5vw, 1.25rem);
 				display: block;
 				font-family: var(--yir25-mono-font);
-				
-				
-				summary {
-					transition: all 0.3s ease;
-					position: relative;
-					anchor-name: --summary;
-
-					&::marker {
-						color: var(--yir25-accent);
-						margin-left: 1rem;
-						transition: all 0.3s ease;
-					}				
-				}
-
-				&::details-content {
-					transition: height 0.5s ease, content-visibility 1.5s ease allow-discrete;
-					height: 0;
-					overflow: clip;
-					font-size: 1.25rem;
-					margin-bottom: 1rem;
-					font-family: 'Alegreya Sans', sans-serif;
-				}
-
-				&[open]::details-content {
-					height: auto;
-				}
-
-
 			}
 
-			.yir25-insandouts {
+			.year-in-review-page .yir25--list details summary {
+				transition: all 0.3s ease;
+				position: relative;
+				anchor-name: --summary;
+			}
+
+			.year-in-review-page .yir25--list details summary::marker {
+				color: var(--yir25-accent);
+				margin-left: 1rem;
+				transition: all 0.3s ease;
+			}
+
+			.year-in-review-page .yir25--list details::details-content {
+				transition: height 0.5s ease, content-visibility 1.5s ease allow-discrete;
+				height: 0;
+				overflow: clip;
+				font-size: 1.25rem;
+				margin-bottom: 1rem;
+				font-family: 'Alegreya Sans', sans-serif;
+			}
+
+			.year-in-review-page .yir25--list details[open]::details-content {
+				height: auto;
+			}
+
+			.year-in-review-page .yir25-insandouts {
 				display: flex;
 				gap: 2rem;
 				justify-content: center;
@@ -422,19 +427,19 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			}
 
 			@media (max-width: 768px) {
-				.yir25-insandouts {
+				.year-in-review-page .yir25-insandouts {
 					flex-direction: column;
 				}
 			}
 
-			.yir25-insandouts-list {
+			.year-in-review-page .yir25-insandouts-list {
 				flex-basis: 33rem;
 				font-size: clamp(1rem, 0.75rem + 5vw, 1.25rem);
 				font-weight: 500;
 				font-family: var(--yir25-mono-font);
 			}
 
-			.yir25-insandouts-image {
+			.year-in-review-page .yir25-insandouts-image {
 				width: 50%;
 				height: auto;
 				object-fit: cover;
@@ -444,7 +449,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				z-index: -1;
 			}
 
-			.bye {
+			.year-in-review-page .bye {
 				font-size: clamp(2rem, 0.75rem + 5vw, 3.5rem);
 				max-width: 1200px;
 				margin: 18rem auto;
