@@ -1,20 +1,26 @@
 ---
 const { title, as: Tag = 'h1', description } = Astro.props;
 
-// Split title into letters for individual animation
-const letters = title.split('').map((letter: string, index: number) => ({
-    char: letter === ' ' ? '\u00A0' : letter, // Replace spaces with non-breaking space
-    isSpace: letter === ' ',
-    id: `letter-${index}`,
+// Split title into words for wrapping
+const words = title.split(' ').map((word: string, index: number) => ({
+    word: word,
+    id: `word-${index}`,
 }));
 ---
 <div class="masthead">
     <Tag class="masthead__title" id={`title-${title.toLowerCase().replace(/\s+/g, '-')}`}>
         <span class="masthead__title-text">
-            {letters.map((letter: { char: string; id: string }) => (
-                <span class="masthead__letter" data-letter-id={letter.id}>
-                    {letter.char}
-                </span>
+            {words.map((item: { word: string; id: string }, index: number) => (
+                <>
+                    <span class="masthead__word" data-word-id={item.id}>
+                        {item.word.split('').map((letter: string, letterIndex: number) => (
+                            <span class="masthead__letter" data-letter-id={`${item.id}-letter-${letterIndex}`}>
+                                {letter}
+                            </span>
+                        ))}
+                    </span>
+                    {index < words.length - 1 && ' '}
+                </>
             ))}
         </span>
         <img src="/images/hand-illustration.svg" alt="Hand illustration" class="masthead__hand" />
@@ -34,26 +40,35 @@ const letters = title.split('').map((letter: string, index: number) => ({
         font-weight: 500;
         text-transform: uppercase;
         text-align: left;
-        overflow: hidden;
-        text-wrap: nowrap;
+        overflow: visible;
         filter: blur(0.7px);
         display: flex;
-        overflow: visible;
+        flex-wrap: wrap;
         margin: 0 1rem;
         width: 95%;
         max-width: 1500px;
     }
 
-    @media (max-width: 768px) {
-        .masthead__title {
-            flex-wrap: wrap;
-        }
-    }
-
-
     .masthead__title-text {
         display: flex;
         flex-wrap: wrap;
+        align-items: baseline;
+    }
+
+    .masthead__word {
+        display: block;
+        white-space: nowrap;
+    }
+
+   
+
+    .masthead__word:not(:first-of-type) {
+        margin-top: -4rem;
+    }
+    @media (max-width: 1200px) {
+        .masthead__word:not(:first-of-type) {
+            margin-top: -1rem;
+        }
     }
     .masthead__letter {
         display: inline-block;
