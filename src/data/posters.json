@@ -1,11 +1,22 @@
 [
   {
+    "id": "remember-sports-brighton",
+    "filename": "A3-brutsslash.jpg",
+    "large": "/images/posters/large/remember-sports-a3-web.webp",
+    "medium": "/images/posters/medium/remember-sports-a3-web.webp",
+    "bandName": "Remeber Sports",
+    "date": "1/3/2026",
+    "venue": "The Hope & Ruin",
+    "location": "Brighton",
+    "rawText": null
+  },
+  {
     "id": "crywank-sheff-a3",
     "filename": "crywank-sheff-a3",
     "large": "/images/posters/large/crywank-sheff-a3.webp",
     "medium": "/images/posters/medium/crywank-sheff-a3.webp",
     "bandName": "Crywank",
-    "date": "January 2026",
+    "date": "1/1/2026",
     "venue": null,
     "location": "Sheffield",
     "rawText": null,
@@ -16,8 +27,8 @@
     "filename": "A3-brutsslash.jpg",
     "large": "/images/posters/large/a3-brutsslash.webp",
     "medium": "/images/posters/medium/a3-brutsslash.webp",
-    "bandName": "BRUTALLIGATORS",
-    "date": "August 2022",
+    "bandName": "Brutalligators",
+    "date": "4/8/2022",
     "venue": null,
     "location": "UK",
     "rawText": null
@@ -28,7 +39,7 @@
     "large": "/images/posters/large/a3-couplestherapy-halloween.webp",
     "medium": "/images/posters/medium/a3-couplestherapy-halloween.webp",
     "bandName": "Couples Therapy",
-    "date": "October 2023",
+    "date": "1/10/2023",
     "venue": null,
     "location": "Brighton",
     "rawText": null
@@ -39,20 +50,9 @@
     "large": "/images/posters/large/a3-flightmode.webp",
     "medium": "/images/posters/medium/a3-flightmode.webp",
     "bandName": "Flight Mode",
-    "date": "May 2022",
+    "date": "1/5/2022",
     "venue": null,
     "location": "UK",
-    "rawText": null
-  },
-  {
-    "id": "a3-honeyjoy",
-    "filename": "A3-honeyjoy.jpg",
-    "large": "/images/posters/large/a3-honeyjoy.webp",
-    "medium": "/images/posters/medium/a3-honeyjoy.webp",
-    "bandName": "HoneyJoy",
-    "date": "March 2022",
-    "venue": null,
-    "location": "Brighton",
     "rawText": null
   },
   {
@@ -60,8 +60,8 @@
     "filename": "A3-looseleaf.jpg",
     "large": "/images/posters/large/a3-looseleaf.webp",
     "medium": "/images/posters/medium/a3-looseleaf.webp",
-    "bandName": "LOOSELEAF",
-    "date": "2023",
+    "bandName": "Looseleaf",
+    "date": "6/1/2023",
     "venue": null,
     "location": "Southend-On-Sea",
     "rawText": null
@@ -71,8 +71,8 @@
     "filename": "A3-pfjb.jpg",
     "large": "/images/posters/large/a3-pfjb.webp",
     "medium": "/images/posters/medium/a3-pfjb.webp",
-    "bandName": "jumper boy + pillow fort",
-    "date": "July 2023",
+    "bandName": "Jumper Boy / Pillow Fort",
+    "date": "20/7/2023",
     "venue": null,
     "location": "UK",
     "rawText": null
@@ -82,8 +82,8 @@
     "filename": "Ahsoka-a3.JPG",
     "large": "/images/posters/large/ahsoka-a3.webp",
     "medium": "/images/posters/medium/ahsoka-a3.webp",
-    "bandName": "AHSOKA",
-    "date": "2023",
+    "bandName": "Ahsoka",
+    "date": "26/6/2023",
     "venue": null,
     "location": "Brighton",
     "rawText": null
@@ -93,10 +93,10 @@
     "filename": "Brutallixmas - a3.jpg",
     "large": "/images/posters/large/brutallixmas---a3.webp",
     "medium": "/images/posters/medium/brutallixmas---a3.webp",
-    "bandName": "BRUTALLIXMAS",
-    "date": "2023",
+    "bandName": "Brutalligators",
+    "date": "14/12/2019",
     "venue": null,
-    "location": "UK",
+    "location": "London",
     "rawText": null
   },
   {
@@ -104,10 +104,10 @@
     "filename": "Buds-ClawMachine-A3.jpg",
     "large": "/images/posters/large/buds-clawmachine-a3.webp",
     "medium": "/images/posters/medium/buds-clawmachine-a3.webp",
-    "bandName": "BUDS",
-    "date": "2020",
+    "bandName": "Buds.",
+    "date": "1/6/2020",
     "venue": null,
-    "location": "UK",
+    "location": "Brighton",
     "rawText": null
   },
   {
@@ -115,8 +115,8 @@
     "filename": "CRYWANK-garage-a3.jpg",
     "large": "/images/posters/large/crywank-garage-a3.webp",
     "medium": "/images/posters/medium/crywank-garage-a3.webp",
-    "bandName": "CRYWANK",
-    "date": "2023",
+    "bandName": "Crywank",
+    "date": "10/12/2023",
     "venue": null,
     "location": "London",
     "rawText": null
@@ -126,8 +126,8 @@
     "filename": "Chinese Football - a3.png",
     "large": "/images/posters/large/chinese-football---a3.webp",
     "medium": "/images/posters/medium/chinese-football---a3.webp",
-    "bandName": "CHINESE FOOTBALL",
-    "date": "2023",
+    "bandName": "Chinese Football",
+    "date": "15/07/2023",
     "venue": null,
     "location": "London",
     "rawText": null
@@ -137,10 +137,10 @@
     "filename": "HTMF25-final-a3.jpg",
     "large": "/images/posters/large/htmf25-final-a3.webp",
     "medium": "/images/posters/medium/htmf25-final-a3.webp",
-    "bandName": "HOW TO MAKE FRIENDS",
-    "date": "2025",
+    "bandName": "How To Make Friends",
+    "date": "29/9/2025",
     "venue": null,
-    "location": "Haggerston",
+    "location": "London",
     "rawText": null
   },
   {
@@ -149,9 +149,9 @@
     "large": "/images/posters/large/itoldyou-a3.webp",
     "medium": "/images/posters/medium/itoldyou-a3.webp",
     "bandName": "itoldyouiwouldeatyou",
-    "date": "2022",
+    "date": "15/1/2022",
     "venue": null,
-    "location": "UK",
+    "location": "Brighton",
     "rawText": null
   },
   {
@@ -159,8 +159,8 @@
     "filename": "a3-superwakeupbro.jpg",
     "large": "/images/posters/large/a3-superwakeupbro.webp",
     "medium": "/images/posters/medium/a3-superwakeupbro.webp",
-    "bandName": "WAKE UP BRO",
-    "date": "2006",
+    "bandName": "Fes",
+    "date": "17/12/2023",
     "venue": null,
     "location": "Sheffield",
     "rawText": null
@@ -171,9 +171,9 @@
     "large": "/images/posters/large/a3.webp",
     "medium": "/images/posters/medium/a3.webp",
     "bandName": "Milkweed",
-    "date": "2022",
+    "date": "1/4/2022",
     "venue": null,
-    "location": "UK",
+    "location": "London",
     "rawText": null
   },
   {
@@ -181,8 +181,8 @@
     "filename": "alldudes-a3-dates.jpg",
     "large": "/images/posters/large/alldudes-a3-dates.webp",
     "medium": "/images/posters/medium/alldudes-a3-dates.webp",
-    "bandName": "All Better",
-    "date": "2021",
+    "bandName": "All Better / Dude Trips",
+    "date": "17/9/2021",
     "venue": null,
     "location": "UK",
     "rawText": null
@@ -192,8 +192,8 @@
     "filename": "alltrashed-brighton-a3.jpg",
     "large": "/images/posters/large/alltrashed-brighton-a3.webp",
     "medium": "/images/posters/medium/alltrashed-brighton-a3.webp",
-    "bandName": "ALL BETTER",
-    "date": "2022",
+    "bandName": "All Better / Trashed",
+    "date": "26/2/2022",
     "venue": null,
     "location": "Brighton",
     "rawText": null
@@ -203,10 +203,10 @@
     "filename": "ashoka-a3.png",
     "large": "/images/posters/large/ashoka-a3.webp",
     "medium": "/images/posters/medium/ashoka-a3.webp",
-    "bandName": "AHSOKA",
-    "date": "2024",
+    "bandName": "Ahsoka",
+    "date": "26/6/2025",
     "venue": null,
-    "location": "UK",
+    "location": "Brighton",
     "rawText": null
   },
   {
@@ -214,8 +214,8 @@
     "filename": "bellevue-a3.jpg",
     "large": "/images/posters/large/bellevue-a3.webp",
     "medium": "/images/posters/medium/bellevue-a3.webp",
-    "bandName": "bellevue days",
-    "date": "2020",
+    "bandName": "Bellevue Days",
+    "date": "12/2/2020",
     "venue": null,
     "location": "Brighton",
     "rawText": null
@@ -225,8 +225,8 @@
     "filename": "brut-whatsnexttour-london-a3.jpg",
     "large": "/images/posters/large/brut-whatsnexttour-london-a3.webp",
     "medium": "/images/posters/medium/brut-whatsnexttour-london-a3.webp",
-    "bandName": "BRUTALLIGATORS",
-    "date": "2023",
+    "bandName": "Brutalligators",
+    "date": "10/6/2023",
     "venue": null,
     "location": "London",
     "rawText": null
@@ -237,7 +237,7 @@
     "large": "/images/posters/large/brut-wicker-a3-hires.webp",
     "medium": "/images/posters/medium/brut-wicker-a3-hires.webp",
     "bandName": "Brutalligators",
-    "date": "2021",
+    "date": "3/11/2021",
     "venue": null,
     "location": "UK",
     "rawText": null
@@ -247,10 +247,10 @@
     "filename": "brutallixmas-21-a3-shareable.jpg",
     "large": "/images/posters/large/brutallixmas-21-a3-shareable.webp",
     "medium": "/images/posters/medium/brutallixmas-21-a3-shareable.webp",
-    "bandName": "BRUTALLIGATORS",
-    "date": "2021",
+    "bandName": "Brutalligators",
+    "date": "23/12/2021",
     "venue": null,
-    "location": "Clapton",
+    "location": "London",
     "rawText": null
   },
   {
@@ -259,7 +259,7 @@
     "large": "/images/posters/large/brutallixmas-a3.webp",
     "medium": "/images/posters/medium/brutallixmas-a3.webp",
     "bandName": "Brutalligators",
-    "date": "2023",
+    "date": "21/12/2023",
     "venue": null,
     "location": "London",
     "rawText": null
@@ -269,10 +269,10 @@
     "filename": "brutallixmas25-a3.png",
     "large": "/images/posters/large/brutallixmas25-a3.webp",
     "medium": "/images/posters/medium/brutallixmas25-a3.webp",
-    "bandName": "brutalligators",
-    "date": "2025",
+    "bandName": "Brutalligators",
+    "date": "21/12/2025",
     "venue": null,
-    "location": "Dalston",
+    "location": "London",
     "rawText": null
   },
   {
@@ -280,8 +280,8 @@
     "filename": "bruts-hngmn-a3.jpg",
     "large": "/images/posters/large/bruts-hngmn-a3.webp",
     "medium": "/images/posters/medium/bruts-hngmn-a3.webp",
-    "bandName": "BRUTALLIGATORS",
-    "date": "2022",
+    "bandName": "Brutalligators / H_ngm_n",
+    "date": "11/2/2022",
     "venue": null,
     "location": "UK",
     "rawText": null
@@ -291,8 +291,8 @@
     "filename": "brutshngmn-a3.png",
     "large": "/images/posters/large/brutshngmn-a3.webp",
     "medium": "/images/posters/medium/brutshngmn-a3.webp",
-    "bandName": "BRUTALLIGATORS",
-    "date": "2025",
+    "bandName": "Brutalligators / H_ngm_n",
+    "date": "6/12/2025",
     "venue": null,
     "location": "Brighton",
     "rawText": null
@@ -302,10 +302,10 @@
     "filename": "budsokay-a3-hires.jpg",
     "large": "/images/posters/large/budsokay-a3-hires.webp",
     "medium": "/images/posters/medium/budsokay-a3-hires.webp",
-    "bandName": "Buds",
-    "date": "2022",
+    "bandName": "Buds.",
+    "date": "7/3/2022",
     "venue": null,
-    "location": "UK",
+    "location": "Brighton",
     "rawText": null
   },
   {
@@ -314,7 +314,7 @@
     "large": "/images/posters/large/chasepetra-a3.webp",
     "medium": "/images/posters/medium/chasepetra-a3.webp",
     "bandName": "Chase Petra",
-    "date": "2025",
+    "date": "27/8/2025",
     "venue": null,
     "location": "Brighton",
     "rawText": null
@@ -324,8 +324,8 @@
     "filename": "couplestherapy-sasq-a3.png",
     "large": "/images/posters/large/couplestherapy-sasq-a3.webp",
     "medium": "/images/posters/medium/couplestherapy-sasq-a3.webp",
-    "bandName": "COUPLES THERAPY",
-    "date": "2019",
+    "bandName": "Couples Therapy",
+    "date": "2/11/2024",
     "venue": null,
     "location": "Brighton",
     "rawText": null
@@ -335,8 +335,8 @@
     "filename": "couplestherapy-sugarfree-a3.jpg",
     "large": "/images/posters/large/couplestherapy-sugarfree-a3.webp",
     "medium": "/images/posters/medium/couplestherapy-sugarfree-a3.webp",
-    "bandName": "COUPLES THERAPY",
-    "date": "2021",
+    "bandName": "Couples Therapy",
+    "date": "31/10/2021",
     "venue": null,
     "location": "Brighton",
     "rawText": null
@@ -346,10 +346,10 @@
     "filename": "cutting-ties-pipeline-a3.jpg",
     "large": "/images/posters/large/cutting-ties-pipeline-a3.webp",
     "medium": "/images/posters/medium/cutting-ties-pipeline-a3.webp",
-    "bandName": "CUTTING TIES",
-    "date": "2023",
+    "bandName": "Cutting Ties",
+    "date": "22/9/2023",
     "venue": null,
-    "location": "Pipeline",
+    "location": "Brighton",
     "rawText": null
   },
   {
@@ -357,8 +357,8 @@
     "filename": "dikembe-new-a3.jpg",
     "large": "/images/posters/large/dikembe-new-a3.webp",
     "medium": "/images/posters/medium/dikembe-new-a3.webp",
-    "bandName": "DIKEMBE",
-    "date": "2023",
+    "bandName": "Dikembe",
+    "date": "2/6/2020",
     "venue": null,
     "location": "Brighton",
     "rawText": null
@@ -368,8 +368,8 @@
     "filename": "dtd-slashfiction-a3.jpg",
     "large": "/images/posters/large/dtd-slashfiction-a3.webp",
     "medium": "/images/posters/medium/dtd-slashfiction-a3.webp",
-    "bandName": "Darkest Timeline Disco V2.0",
-    "date": "2022",
+    "bandName": "Slash Fiction",
+    "date": "22/6/2022",
     "venue": null,
     "location": "London",
     "rawText": null
@@ -379,10 +379,10 @@
     "filename": "freethrow-a3.jpg",
     "large": "/images/posters/large/freethrow-a3.webp",
     "medium": "/images/posters/medium/freethrow-a3.webp",
-    "bandName": "FREE THROW",
-    "date": "2024",
+    "bandName": "Free Throw",
+    "date": "22/7/2024",
     "venue": null,
-    "location": "UK",
+    "location": "Brighton",
     "rawText": null
   },
   {
@@ -391,7 +391,7 @@
     "large": "/images/posters/large/georgehouston-a3.webp",
     "medium": "/images/posters/medium/georgehouston-a3.webp",
     "bandName": "George Houston",
-    "date": "2025",
+    "date": "7/11/2025",
     "venue": null,
     "location": "London",
     "rawText": null
@@ -402,7 +402,7 @@
     "large": "/images/posters/large/hngmn_tour_a3.webp",
     "medium": "/images/posters/medium/hngmn_tour_a3.webp",
     "bandName": "H_ngm_n",
-    "date": "2023",
+    "date": "24/10/2025",
     "venue": null,
     "location": "UK",
     "rawText": null
@@ -412,8 +412,8 @@
     "filename": "honeyjoy-a3.jpg",
     "large": "/images/posters/large/honeyjoy-a3.webp",
     "medium": "/images/posters/medium/honeyjoy-a3.webp",
-    "bandName": "HONEY JOY",
-    "date": "2022",
+    "bandName": "Honey Joy",
+    "date": "12/3/2022",
     "venue": null,
     "location": "Brighton",
     "rawText": null
@@ -424,9 +424,9 @@
     "large": "/images/posters/large/howtomakefriends24-a3-printable.webp",
     "medium": "/images/posters/medium/howtomakefriends24-a3-printable.webp",
     "bandName": "How To Make Friends",
-    "date": "2024",
+    "date": "10/8/2024",
     "venue": null,
-    "location": "West London",
+    "location": "London",
     "rawText": null
   },
   {
@@ -435,7 +435,7 @@
     "large": "/images/posters/large/ifeelfine-a3.webp",
     "medium": "/images/posters/medium/ifeelfine-a3.webp",
     "bandName": "I Feel Fine",
-    "date": "2023",
+    "date": "22/6/2020",
     "venue": null,
     "location": "Brighton",
     "rawText": null
@@ -446,9 +446,9 @@
     "large": "/images/posters/large/indiefjord-22-a4.webp",
     "medium": "/images/posters/medium/indiefjord-22-a4.webp",
     "bandName": "Indiefjord",
-    "date": "2022",
+    "date": "6/7/2022",
     "venue": null,
-    "location": "Bjørke",
+    "location": "Norway",
     "rawText": null
   },
   {
@@ -457,9 +457,9 @@
     "large": "/images/posters/large/indiefjord-final-poster.webp",
     "medium": "/images/posters/medium/indiefjord-final-poster.webp",
     "bandName": "Indiefjord",
-    "date": "2019",
+    "date": "6/7/2019",
     "venue": null,
-    "location": "Bjørke, Norway",
+    "location": "Norway",
     "rawText": null
   },
   {
@@ -468,7 +468,7 @@
     "large": "/images/posters/large/indiefjord-poster-2018-web.webp",
     "medium": "/images/posters/medium/indiefjord-poster-2018-web.webp",
     "bandName": "Indiefjord",
-    "date": "2018",
+    "date": "6/7/2018",
     "venue": null,
     "location": "Norway",
     "rawText": null
@@ -479,9 +479,9 @@
     "large": "/images/posters/large/indiefjord2023.webp",
     "medium": "/images/posters/medium/indiefjord2023.webp",
     "bandName": "INDIEFJORD",
-    "date": "2023",
+    "date": "6/7/2023",
     "venue": null,
-    "location": "Bjørke",
+    "location": "Norway",
     "rawText": null
   },
   {
@@ -490,9 +490,9 @@
     "large": "/images/posters/large/indiefjord25-a3-nologos.webp",
     "medium": "/images/posters/medium/indiefjord25-a3-nologos.webp",
     "bandName": "Indiefjord",
-    "date": "2025",
+    "date": "6/7/2025",
     "venue": null,
-    "location": "Bjørke, Norway",
+    "location": "Norway",
     "rawText": null
   },
   {
@@ -500,8 +500,8 @@
     "filename": "lastseen-a3.jpg",
     "large": "/images/posters/large/lastseen-a3.webp",
     "medium": "/images/posters/medium/lastseen-a3.webp",
-    "bandName": "LAST SEEN ALIVE",
-    "date": "2025",
+    "bandName": "Last Seen Alive",
+    "date": "11/6/2025",
     "venue": null,
     "location": "Brighton",
     "rawText": null
@@ -511,8 +511,8 @@
     "filename": "lonelysurfhngmn-A3-tour.jpg",
     "large": "/images/posters/large/lonelysurfhngmn-a3-tour.webp",
     "medium": "/images/posters/medium/lonelysurfhngmn-a3-tour.webp",
-    "bandName": "The Lonely Surf x H_ngm_n",
-    "date": "2023",
+    "bandName": "The Lonely Surf / H_ngm_n",
+    "date": "7/4/2023",
     "venue": null,
     "location": "UK",
     "rawText": null
@@ -522,8 +522,8 @@
     "filename": "maxwellhngmn-a3.jpg",
     "large": "/images/posters/large/maxwellhngmn-a3.webp",
     "medium": "/images/posters/medium/maxwellhngmn-a3.webp",
-    "bandName": "maxwelltheband x hangman",
-    "date": "2023",
+    "bandName": "maxwelltheband / H_ngm_n",
+    "date": "17/4/2025",
     "venue": null,
     "location": "UK",
     "rawText": null
@@ -533,8 +533,8 @@
     "filename": "mcp-a3.jpg",
     "large": "/images/posters/large/mcp-a3.webp",
     "medium": "/images/posters/medium/mcp-a3.webp",
-    "bandName": "MICHAEL CERA PALIN",
-    "date": "2024",
+    "bandName": "Michael Cera Palin",
+    "date": "9/2/2024",
     "venue": null,
     "location": "London",
     "rawText": null
@@ -545,9 +545,9 @@
     "large": "/images/posters/large/mcp-deer-final-a3.webp",
     "medium": "/images/posters/medium/mcp-deer-final-a3.webp",
     "bandName": "Michael Cera Palin",
-    "date": "2023",
+    "date": "25/9/2025",
     "venue": null,
-    "location": "UK",
+    "location": "Europe",
     "rawText": null
   },
   {
@@ -556,7 +556,7 @@
     "large": "/images/posters/large/mcp-july24-a3.webp",
     "medium": "/images/posters/medium/mcp-july24-a3.webp",
     "bandName": "Michael Cera Palin",
-    "date": "2024",
+    "date": "4/7/2024",
     "venue": null,
     "location": "UK",
     "rawText": null
@@ -566,8 +566,8 @@
     "filename": "mcp-riso-a3-tour-update.jpg",
     "large": "/images/posters/large/mcp-riso-a3-tour-update.webp",
     "medium": "/images/posters/medium/mcp-riso-a3-tour-update.webp",
-    "bandName": "MICHAEL CERA PALIN",
-    "date": "2026",
+    "bandName": "Michael Cera Palin",
+    "date": "5/3/2026",
     "venue": null,
     "location": "Australia",
     "rawText": null
@@ -578,7 +578,7 @@
     "large": "/images/posters/large/michaelcerapalin-2025-a3.webp",
     "medium": "/images/posters/medium/michaelcerapalin-2025-a3.webp",
     "bandName": "Michael Cera Palin",
-    "date": "2025",
+    "date": "30/4/2025",
     "venue": null,
     "location": "UK",
     "rawText": null
@@ -588,8 +588,8 @@
     "filename": "moving-north-fresh-red-a3.jpg",
     "large": "/images/posters/large/moving-north-fresh-red-a3.webp",
     "medium": "/images/posters/medium/moving-north-fresh-red-a3.webp",
-    "bandName": "FRESH",
-    "date": "2023",
+    "bandName": "Fresh",
+    "date": "23/8/2022",
     "venue": null,
     "location": "Manchester",
     "rawText": null
@@ -600,7 +600,7 @@
     "large": "/images/posters/large/muncie-a3.webp",
     "medium": "/images/posters/medium/muncie-a3.webp",
     "bandName": "Muncie Girls",
-    "date": "2023",
+    "date": "8/12/2023",
     "venue": null,
     "location": "Manchester",
     "rawText": null
@@ -610,10 +610,10 @@
     "filename": "nothingfeelsgood-a3-final.jpg",
     "large": "/images/posters/large/nothingfeelsgood-a3-final.webp",
     "medium": "/images/posters/medium/nothingfeelsgood-a3-final.webp",
-    "bandName": "Lakes",
-    "date": "2023",
+    "bandName": "Nothing Feels Good",
+    "date": "19/8/2023",
     "venue": null,
-    "location": "Haggerston",
+    "location": "London",
     "rawText": null
   },
   {
@@ -621,8 +621,8 @@
     "filename": "prom-a3.jpg",
     "large": "/images/posters/large/prom-a3.webp",
     "medium": "/images/posters/medium/prom-a3.webp",
-    "bandName": "PROM",
-    "date": "2023",
+    "bandName": "Prom",
+    "date": "14/9/2023",
     "venue": null,
     "location": "Brighton",
     "rawText": null
@@ -632,8 +632,8 @@
     "filename": "rope-lawns-a3.jpg",
     "large": "/images/posters/large/rope-lawns-a3.webp",
     "medium": "/images/posters/medium/rope-lawns-a3.webp",
-    "bandName": "ROPE",
-    "date": "2023",
+    "bandName": "Rope",
+    "date": "7/11/2023",
     "venue": null,
     "location": "Brighton",
     "rawText": null
@@ -644,7 +644,7 @@
     "large": "/images/posters/large/ruinfest22-final-a3.webp",
     "medium": "/images/posters/medium/ruinfest22-final-a3.webp",
     "bandName": "Ruinfest",
-    "date": "2022",
+    "date": "3/9/2022",
     "venue": null,
     "location": "Brighton",
     "rawText": null
@@ -655,9 +655,9 @@
     "large": "/images/posters/large/second-announcement-a3.webp",
     "medium": "/images/posters/medium/second-announcement-a3.webp",
     "bandName": "Wildwood Disco",
-    "date": "2020",
+    "date": "20/6/2020",
     "venue": null,
-    "location": "Linton",
+    "location": "Cambridge",
     "rawText": null
   },
   {
@@ -665,10 +665,10 @@
     "filename": "short-fictions-a3.png",
     "large": "/images/posters/large/short-fictions-a3.webp",
     "medium": "/images/posters/medium/short-fictions-a3.webp",
-    "bandName": "SHORT FICTIONS",
-    "date": "2023",
+    "bandName": "Short Fictions",
+    "date": "24/3/2022",
     "venue": null,
-    "location": "UK",
+    "location": "Brighton",
     "rawText": null
   },
   {
@@ -676,8 +676,8 @@
     "filename": "snowcoats-a3.jpg",
     "large": "/images/posters/large/snowcoats-a3.webp",
     "medium": "/images/posters/medium/snowcoats-a3.webp",
-    "bandName": "SNOW COATS",
-    "date": "2023",
+    "bandName": "Snow Coats",
+    "date": "26/9/2023",
     "venue": null,
     "location": "Brighton",
     "rawText": null
@@ -688,7 +688,7 @@
     "large": "/images/posters/large/squint-a3.webp",
     "medium": "/images/posters/medium/squint-a3.webp",
     "bandName": "Squint",
-    "date": "2023",
+    "date": "5/9/2024",
     "venue": null,
     "location": "Brighton",
     "rawText": null
@@ -699,7 +699,7 @@
     "large": "/images/posters/large/sugarfree-hypsaline-a3.webp",
     "medium": "/images/posters/medium/sugarfree-hypsaline-a3.webp",
     "bandName": "Hypsaline",
-    "date": "2023",
+    "date": "29/7/2023",
     "venue": null,
     "location": "Brighton",
     "rawText": null
@@ -709,8 +709,8 @@
     "filename": "wakeatouille-a3-final.jpg",
     "large": "/images/posters/large/wakeatouille-a3-final.webp",
     "medium": "/images/posters/medium/wakeatouille-a3-final.webp",
-    "bandName": "Wake Up Bro, It's 2007",
-    "date": "2023",
+    "bandName": "Sleep Outside",
+    "date": "11/11/2023",
     "venue": null,
     "location": "Sheffield",
     "rawText": null
@@ -721,9 +721,9 @@
     "large": "/images/posters/large/younghearts-a3.webp",
     "medium": "/images/posters/medium/younghearts-a3.webp",
     "bandName": "THE YOUNG HEARTS",
-    "date": "2024",
+    "date": "11/2/2024",
     "venue": null,
-    "location": "UK",
+    "location": "Brighton",
     "rawText": null
   }
 ]

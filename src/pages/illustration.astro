@@ -21,32 +21,40 @@ interface Poster {
 	livingUrl: string | null;
 }
 
-// Parse date string to Date object for sorting
+// Parse date string to Date object for sorting (d/m/yyyy format)
 function parseDate(dateStr: string | null): Date | null {
 	if (!dateStr) return null;
 	
-	const monthNames: Record<string, number> = {
-		'jan': 0, 'feb': 1, 'mar': 2, 'apr': 3, 'may': 4, 'jun': 5,
-		'jul': 6, 'aug': 7, 'sep': 8, 'oct': 9, 'nov': 10, 'dec': 11
-	};
-	
-	// Match "Month YYYY" format
-	const match = dateStr.match(/^([A-Za-z]{3})\s+(\d{4})$/);
+	// Match d/m/yyyy format
+	const match = dateStr.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
 	if (match) {
-		const month = monthNames[match[1].toLowerCase()];
-		const year = parseInt(match[2]);
-		if (month !== undefined && year) {
-			return new Date(year, month, 1);
+		const day = parseInt(match[1]);
+		const month = parseInt(match[2]) - 1; // JavaScript months are 0-indexed
+		const year = parseInt(match[3]);
+		if (day && month >= 0 && month <= 11 && year) {
+			return new Date(year, month, day);
 		}
 	}
 	
-	// Try to parse just year
-	const yearMatch = dateStr.match(/^(\d{4})$/);
-	if (yearMatch) {
-		return new Date(parseInt(yearMatch[1]), 11, 31); // End of year if only year
-	}
-	
 	return null;
+}
+
+// Format date as "M yyyy" (e.g., "January 2026")
+function formatDate(dateStr: string | null): string | null {
+	if (!dateStr) return null;
+	
+	const date = parseDate(dateStr);
+	if (!date) return dateStr; // Return original if parsing fails
+	
+	const monthNames = [
+		'January', 'February', 'March', 'April', 'May', 'June',
+		'July', 'August', 'September', 'October', 'November', 'December'
+	];
+	
+	const month = monthNames[date.getMonth()];
+	const year = date.getFullYear();
+	
+	return `${month} ${year}`;
 }
 
 // Import all letter images using Astro's glob import
@@ -212,7 +220,7 @@ letterImagesData.forEach((letterData, index) => {
                                             <div class="bento-item-band">{poster.bandName}</div>
                                         )}
                                         {poster.date && (
-                                            <div class="bento-item-date">{poster.date}</div>
+                                            <div class="bento-item-date">{formatDate(poster.date)}</div>
                                         )}
                                         {poster.venue && (
                                             <div class="bento-item-venue">{poster.venue}</div>
@@ -329,25 +337,55 @@ letterImagesData.forEach((letterData, index) => {
     }
 
     .bento-grid {
-        --gap: 1.5rem;
-        --min-item-width: 200px;
+        --gap: 1rem;
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(var(--min-item-width), 1fr));
-        gap: var(--gap);
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        column-gap: var(--gap);
+        row-gap: var(--gap);
         /* Let items determine row height based on their aspect-ratio */
         grid-auto-rows: auto;
+        transition: all 0.3s ease;   
+
     }
 
     .bento-item {
         background-color: var(--off-white);
-        border-radius: var(--radius);
+        border-radius: 0;
         border: 2px solid var(--grey-light);
         position: relative;
         overflow: hidden;
         cursor: pointer;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, grid-row 0.2s ease, grid-column 0.2s ease;
         aspect-ratio: 1 / 1.414; /* Always maintain A4/A3 portrait ratio */
+        grid-column: span 3;
+        grid-row: span 1;
+        box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
     }
+
+    @media screen and (min-width: 1000px) {
+
+        div.bento-item:nth-of-type(1), 
+        div.bento-item:nth-of-type(15), 
+        div.bento-item:nth-of-type(26), 
+        div.bento-item:nth-of-type(37), 
+        div.bento-item:nth-of-type(48), 
+        div.bento-item:nth-of-type(58) {
+            grid-row: span 2;
+            grid-column: span 6;
+        }
+
+        .bento-item-expanded {
+            grid-row: span 2;
+            grid-column: span 6;
+        }
+
+        .bento-item-not-expanded {
+            grid-row: span 1 !important;
+            grid-column: span 3 !important;
+        }
+    }
+
+
 
     a.bento-item {
         text-decoration: none;
@@ -393,22 +431,7 @@ letterImagesData.forEach((letterData, index) => {
         opacity: 0.9;
     }
 
-    /* Responsive adjustments */
-    @media screen and (min-width: 768px) {
-        .bento-grid {
-            --gap: 2rem;
-            --min-item-width: 250px;
-        }
-    }
-
-    @media screen and (min-width: 1024px) {
-        .bento-grid {
-            --gap: 2.5rem;
-            --min-item-width: 280px;
-        }
-    }
-
-    @media screen and (max-width: 767px) {
+    @media screen and (max-width: 850px) {
         .bento-container {
             width: 100%;
         }
@@ -416,6 +439,17 @@ letterImagesData.forEach((letterData, index) => {
         .bento-grid {
             --gap: 1rem;
             --min-item-width: 150px;
+        }
+
+        .bento-item {
+            grid-column: span 6;
+        }
+    }
+
+    @media screen and (max-width: 500px) {
+
+        .bento-item {
+            grid-column: span 12;
         }
     }
 
@@ -425,6 +459,7 @@ letterImagesData.forEach((letterData, index) => {
         height: 100%;
         object-fit: cover;
         display: block;
+        border-radius: 0;
     }
 </style>
 
@@ -749,6 +784,43 @@ letterImagesData.forEach((letterData, index) => {
         document.addEventListener('DOMContentLoaded', initLetterAnimation);
     } else {
         initLetterAnimation();
+    }
+
+    // Handle bento item expansion on click
+    function initBentoItemExpansion() {
+        const bentoItems = document.querySelectorAll('.bento-item');
+        
+        bentoItems.forEach((item) => {
+            item.addEventListener('click', () => {
+                const isExpanded = item.classList.contains('bento-item-expanded');
+                
+                if (isExpanded) {
+                    // If already expanded, remove both classes from all items
+                    bentoItems.forEach((bentoItem) => {
+                        bentoItem.classList.remove('bento-item-expanded', 'bento-item-not-expanded');
+                    });
+                } else {
+                    // Add expanded class to clicked item
+                    item.classList.add('bento-item-expanded');
+                    item.classList.remove('bento-item-not-expanded');
+                    
+                    // Add not-expanded class to all other items
+                    bentoItems.forEach((bentoItem) => {
+                        if (bentoItem !== item) {
+                            bentoItem.classList.add('bento-item-not-expanded');
+                            bentoItem.classList.remove('bento-item-expanded');
+                        }
+                    });
+                }
+            });
+        });
+    }
+
+    // Initialize bento item expansion when page loads
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initBentoItemExpansion);
+    } else {
+        initBentoItemExpansion();
     }
 </script>
 
