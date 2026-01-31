@@ -1,10 +1,21 @@
 [
   {
+    "id": "goo-a3",
+    "filename": "goo-a3.jpg",
+    "large": "/images/posters/large/goo-a3.webp",
+    "medium": "/images/posters/medium/goo-a3.webp",
+    "bandName": "Goo / Slash Fiction",
+    "date": "8/5/2026",
+    "venue": "Delicious Clam",
+    "location": "Sheffield",
+    "rawText": null
+  },
+  {
     "id": "remember-sports-brighton",
     "filename": "A3-brutsslash.jpg",
     "large": "/images/posters/large/remember-sports-a3-web.webp",
     "medium": "/images/posters/medium/remember-sports-a3-web.webp",
-    "bandName": "Remeber Sports",
+    "bandName": "Remember Sports",
     "date": "1/3/2026",
     "venue": "The Hope & Ruin",
     "location": "Brighton",
