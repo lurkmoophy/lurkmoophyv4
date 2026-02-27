@@ -1,0 +1,87 @@
+---
+// RecentBook.astro - Client-side component
+---
+
+<div class="recent-book">
+	<p>Latest book: </p>
+	<a href="#" target="_blank" rel="noopener noreferrer" class="book-link">
+		<p class="book-title">Loading...</p>
+	</a>
+	- <span class="book-rating">(–)</span>
+</div>
+
+<style>
+	.recent-book {
+		display: flex;
+		align-items: center;
+		gap: 0.25rem;
+	}
+
+	.book-title {
+		font-size: inherit;
+		color: var(--grey);
+	}
+
+	.book-rating {
+		font-size: inherit;
+		color: var(--grey);
+	}
+
+	.recent-book a {
+		color: var(--grey);
+	}
+
+	.recent-book a:hover .book-title,
+	.recent-book a:hover + .book-rating {
+		color: var(--black);
+	}
+</style>
+
+<script>
+	(async function () {
+		try {
+			const response = await fetch('/.netlify/functions/recent-book');
+
+			if (!response.ok) {
+				throw new Error('Failed to fetch recent book');
+			}
+
+			const data = await response.json();
+
+			const titleElements = document.querySelectorAll<HTMLElement>('.book-title');
+			const linkElements = document.querySelectorAll<HTMLAnchorElement>('.book-link');
+			const ratingElements = document.querySelectorAll<HTMLElement>('.book-rating');
+
+			titleElements.forEach((element) => {
+				element.textContent = data.title || 'No recent book';
+			});
+
+			linkElements.forEach((element) => {
+				(element as HTMLAnchorElement).href = data.url || '#';
+			});
+
+			ratingElements.forEach((element) => {
+				if (typeof data.rating === 'number') {
+					const rounded = Math.round(data.rating);
+					const clamped = Math.min(Math.max(rounded, 1), 5);
+					element.textContent = '★'.repeat(clamped);
+				} else {
+					element.textContent = '';
+				}
+			});
+		} catch (error) {
+			console.error('Error fetching recent book:', error);
+			const titleElements = document.querySelectorAll('.book-title');
+			const ratingElements = document.querySelectorAll('.book-rating');
+
+			titleElements.forEach((element) => {
+				element.textContent = 'No recent book';
+			});
+
+			ratingElements.forEach((element) => {
+				element.textContent = '';
+			});
+		}
+	})();
+</script>
+

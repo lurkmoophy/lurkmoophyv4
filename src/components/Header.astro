@@ -3,6 +3,7 @@ import { SITE_TITLE } from '../consts';
 import HeaderLink from './HeaderLink.astro';
 import TopTrack from './TopTrack.astro';
 import RecentFilm from './RecentFilm.astro';
+import RecentBook from './RecentBook.astro';
 
 const isHomePage = Astro.url.pathname === '/';
 ---
@@ -21,13 +22,25 @@ const isHomePage = Astro.url.pathname === '/';
 			<div class="marquee" id="marquee">
 				<div class="marquee-content">
 					<div class="marquee-item">
-						<span>🦄 {SITE_TITLE} </span><span class="header-separator">|</span><span> <TopTrack /></span><span class="header-separator">|</span><span> <RecentFilm /></span><span class="header-separator">&bull;</span>
+						<span>🦄 {SITE_TITLE} </span><span class="header-separator">|</span><span>
+							<TopTrack /></span
+						><span class="header-separator">|</span><span> <RecentFilm /></span
+						><span class="header-separator">|</span><span> <RecentBook /></span
+						><span class="header-separator">&bull;</span>
 					</div>
 					<div class="marquee-item" aria-hidden="true">
-						<span>🦄 {SITE_TITLE} </span><span class="header-separator">|</span><span> <TopTrack /></span><span class="header-separator">|</span><span> <RecentFilm /></span><span class="header-separator">&bull;</span>
+						<span>🦄 {SITE_TITLE} </span><span class="header-separator">|</span><span>
+							<TopTrack /></span
+						><span class="header-separator">|</span><span> <RecentFilm /></span
+						><span class="header-separator">|</span><span> <RecentBook /></span
+						><span class="header-separator">&bull;</span>
 					</div>
 					<div class="marquee-item" aria-hidden="true">
-						<span>🦄 {SITE_TITLE} </span><span class="header-separator">|</span><span> <TopTrack /></span><span class="header-separator">|</span><span> <RecentFilm /></span><span class="header-separator">&bull;</span>
+						<span>🦄 {SITE_TITLE} </span><span class="header-separator">|</span><span>
+							<TopTrack /></span
+						><span class="header-separator">|</span><span> <RecentFilm /></span
+						><span class="header-separator">|</span><span> <RecentBook /></span
+						><span class="header-separator">&bull;</span>
 					</div>
 				</div>
 			</div>
