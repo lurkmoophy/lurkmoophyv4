@@ -1,5 +1,38 @@
 [
   {
+    "id": "everyhell-ghosts-a3",
+    "filename": "everyhell-ghosts-a3.jpg",
+    "large": "/images/posters/large/everyhell-ghosts-a3.webp",
+    "medium": "/images/posters/medium/everyhell-ghosts-a3.webp",
+    "bandName": "Every Hell",
+    "date": "21/3/2026",
+    "venue": "The Pipeline",
+    "location": "Brighton",
+    "rawText": null
+  },
+  {
+    "id": "indiefjord-2026-a3",
+    "filename": "indiefjord-2026-a3.jpg",
+    "large": "/images/posters/large/indiefjord-2026-a3.webp",
+    "medium": "/images/posters/medium/indiefjord-2026-a3.webp",
+    "bandName": "Indiefjord",
+    "date": "11/7/2026",
+    "venue": "Bjørke",
+    "location": "Norway",
+    "rawText": null
+  },
+  {
+    "id": "ratsalad-a3",
+    "filename": "ratsalad-a3.jpg",
+    "large": "/images/posters/large/ratsalad-a3.webp",
+    "medium": "/images/posters/medium/ratsalad-a3.webp",
+    "bandName": "Ratsalad",
+    "date": "15/6/2026",
+    "venue": "The Hope & Ruin",
+    "location": "Brighton",
+    "rawText": null
+  },
+  {
     "id": "goo-a3",
     "filename": "goo-a3.jpg",
     "large": "/images/posters/large/goo-a3.webp",
@@ -12,7 +45,7 @@
   },
   {
     "id": "remember-sports-brighton",
-    "filename": "A3-brutsslash.jpg",
+    "filename": "everyhell-ghosts-a3.png",
     "large": "/images/posters/large/remember-sports-a3-web.webp",
     "medium": "/images/posters/medium/remember-sports-a3-web.webp",
     "bandName": "Remember Sports",
@@ -23,7 +56,7 @@
   },
   {
     "id": "crywank-sheff-a3",
-    "filename": "crywank-sheff-a3",
+    "filename": "crywank-sheff-a3.png",
     "large": "/images/posters/large/crywank-sheff-a3.webp",
     "medium": "/images/posters/medium/crywank-sheff-a3.webp",
     "bandName": "Crywank",
