@@ -17,7 +17,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 
 <html lang="en" class="year-in-review-page">
 	<head>
-		<BaseHead title={title} description={description} />
+		<BaseHead title={title} description={description} image={heroImage} />
 		<link href="https://fonts.googleapis.com/css2?family=Jacquard+24&family=Martian+Mono:wght@100..800&display=swap" rel="stylesheet">
 		<style is:global>
 			/* Custom styles for year-in-review post - scoped to .year-in-review-page */
