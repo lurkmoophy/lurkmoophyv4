@@ -141,7 +141,12 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			<article>
 				<div class="hero-image crt" id="crt-container">
 					<button id="crt-toggle" class="crt-toggle-btn" aria-label="Toggle CRT effect">MOTION OFF</button>
-					{heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
+					{heroImage &&
+						(heroImage.startsWith('/') || heroImage.startsWith('http') ? (
+							<img src={heroImage} alt="" width="1020" height="510" />
+						) : (
+							<Image width={1020} height={510} src={heroImage} alt="" />
+						))}
 					<div class="title">
 						<div class="date">
 							<FormattedDate date={pubDate} />
