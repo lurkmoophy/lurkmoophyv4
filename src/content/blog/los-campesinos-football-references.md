@@ -11,6 +11,8 @@ tags: "music, los campesinos, football"
 
 <div class="lc-intro">
 
+<p><em>This was originally written for the <a href="https://www.nothingsoundsgood.club">Nothing Sounds Good zine</a>, done over multiple parts. I thought I'd post it here as a mini-digital zine.</em></p>
+
 <p>Los Campesinos! are hands-down my favourite band. I was lucky enough to see them back in 2012 because a colleague (shout out to Andy) dragged me along to a gig at Electric Ballroom in Camden, and have been in love ever since. Fourteen years on I now own all the vinyl, about five different tees and sweats, and sport one LC! tattoo, with more on the way. But if you have no idea what I'm talking about, let's dive in.</p>
 
 <p>Los Campesinos! started as a band in Wales back in 2006. Seven indie, punk and emo kids at Cardiff University got together to create one of the most urgent, exciting albums that we'd seen this side of the millennium. They blended the emo, grunge and indie of bands like Pavement, with the up and coming indie-sleaze movement of bands like CSS and Klaxons, with a slight touch of anti-folk sensibilities. They've never been a hugely successful band, but over twenty years, they've amassed an extremely dedicated fanbase, managed to get their songs on Budweiser adverts and in movies like Mitchells and the Machines, been namechecked in Phonogram comics, and still managed to keep their DIY ethos throughout.</p>
@@ -44,6 +46,7 @@ tags: "music, los campesinos, football"
 <span class="lc-release-year">2008</span>
 <h2>Hold On Now, Youngster…</h2>
 </header>
+<img src="/images/lc-holdonnowyoungster.jpg" alt="Hold On Now, Youngster" class="lc-release-image album-right" />
 <div class="lc-aside">The football references didn't start at the beginning. <em>Hold On Now, Youngster</em> is a joyous 43 minutes of cacophonous references to loves lost and gained, but nothing about football unless it's so buried I haven't found it.</div>
 <a class="lc-top-link" href="#contents">↑ Back to fixtures</a>
 </section>
@@ -53,7 +56,7 @@ tags: "music, los campesinos, football"
 <span class="lc-release-year">2008</span>
 <h2>We Are Beautiful, We Are Doomed</h2>
 </header>
-
+<img src="/images/lc-wearebeautifulwearedoomed.jpg" alt="We Are Beautiful, We Are Doomed" class="lc-release-image album-left" />
 <article class="lc-ref">
 <h3>Miserabilia</h3>
 <blockquote>"I've cried on ashen floors of working men's clubs
@@ -82,7 +85,7 @@ Oh my God, will it end?"</blockquote>
 <span class="lc-release-year">2010</span>
 <h2>Romance is Boring</h2>
 </header>
-
+<img src="/images/lc-romanceisboring.jpg" alt="Romance is Boring" class="lc-release-image album-right" />
 <article class="lc-ref">
 <h3>We've Got Your Back (Documented Minor Emotional Breakdown #2)</h3>
 <blockquote>"Every girl I ever kissed I was thinking of a pro footballer… thought you should know."</blockquote>
@@ -128,7 +131,7 @@ Not meant to be malicious but this is the cross we bear"</blockquote>
 <span class="lc-release-year">2011</span>
 <h2>Hello Sadness</h2>
 </header>
-
+<img src="/images/lc-hellosadness.jpg" alt="Hello Sadness" class="lc-release-image album-left" />
 <article class="lc-ref">
 <h3>Songs About Your Girlfriend</h3>
 <blockquote>"She stubbed her home club's crest on me with cigarettes,
@@ -159,7 +162,7 @@ The cold makes ice upon our cheeks from all the tears that we have shed"</blockq
 <span class="lc-release-year">2013</span>
 <h2>No Blues</h2>
 </header>
-
+<img src="/images/lc-noblues.png" alt="No Blues" class="lc-release-image album-right" />
 <article class="lc-ref">
 <h3>For Flotsam</h3>
 <blockquote>"As I describe my lonely, you listen very clear
@@ -214,7 +217,7 @@ More stories tightrope on that stare than the same white line at Meurig Park"</b
 <span class="lc-release-year">2014</span>
 <h2>A Los Campesinos! Christmas</h2>
 </header>
-
+<img src="/images/lc-christmas.jpg" alt="A Los Campesinos! Christmas" class="lc-release-image album-left" />
 <article class="lc-ref">
 <h3>A Doe to a Deer</h3>
 <blockquote>"I'm Boxing Day game away
@@ -230,7 +233,7 @@ Shirtless cherubs on the terrace, singing hymns, praying the saviour scores toda
 <span class="lc-release-year">2017</span>
 <h2>Sick Scenes</h2>
 </header>
-
+<img src="/images/lc-sickscenes.jpg" alt="Sick Scenes" class="lc-release-image album-right" />
 <article class="lc-ref">
 <h3>Renato Dall'Ara (2008)</h3>
 <blockquote>"Renato Dall'Ara, living off 2008
@@ -300,7 +303,7 @@ He'd be sleeping on a pile of woodchip plucking splinters from his head"</blockq
 <span class="lc-release-year">2021</span>
 <h2>Whole Damn Body</h2>
 </header>
-
+<img src="/images/lc-wholedamnbody.jpg" alt="Whole Damn Body" class="lc-release-image album-left" />
 <article class="lc-ref">
 <h3>Allez Les Blues</h3>
 <blockquote>"So you can stick your words of comfort
@@ -319,7 +322,7 @@ Allez les blues"</blockquote>
 <span class="lc-release-year">2024</span>
 <h2>All Hell</h2>
 </header>
-
+<img src="/images/lc-allhell.jpeg" alt="All Hell" class="lc-release-image album-right" />
 <article class="lc-ref">
 <h3>The Coin-Op Guillotine</h3>
 <blockquote>"A three beer buzz or bust these days, hungover international break"</blockquote>
@@ -366,6 +369,6 @@ You cannot call whitewash a rivalry"</blockquote>
 </section>
 
 <div class="lc-outro">
-<p>That's full time. Twenty years, nine releases, and a goal difference that only Gareth could love. If you've made it this far without caring about football, congratulations — you now care about Los Campesinos! instead.</p>
+<p>That's full time. Twenty years, nine releases, and a goal difference that only Gareth could love. If you've made it this far without caring about football, congratulations.</p>
 <p class="lc-fulltime">Full Time</p>
 </div>
