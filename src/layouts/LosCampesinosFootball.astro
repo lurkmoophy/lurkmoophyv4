@@ -1,0 +1,497 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import Header from '../components/Header.astro';
+
+type Props = {
+	title: string;
+	description: string;
+	pubDate: Date;
+	updatedDate?: Date;
+	heroImage?: string;
+};
+
+const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+---
+
+<html lang="en" class="lc-football-page">
+	<head>
+		<BaseHead title={title} description={description} image={heroImage} />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@0,400;0,600;0,800;1,400&display=swap" rel="stylesheet" />
+		<style is:global>
+			/* ----------------------------------------------------------------
+			   Los Campesinos! football references — a tactics-board / matchday
+			   programme theme. All styles scoped to .lc-football-page.
+			---------------------------------------------------------------- */
+
+			.lc-football-page {
+				--lc-pitch: #1f7a44;
+				--lc-pitch-dark: #1a6b3b;
+				--lc-pitch-deep: #134d2a;
+				--lc-chalk: #f4f1e6;
+				--lc-chalk-dim: #d9d5c4;
+				--lc-line: rgba(244, 241, 230, 0.55);
+				--lc-gold: #f7c948;
+				--lc-pink: #f06ba8;
+				--lc-ink: #14492b;
+				--lc-display: 'Anton', sans-serif;
+				--lc-label: 'Archivo', sans-serif;
+				--lc-quote: 'Alegreya', serif;
+			}
+
+			.lc-football-page body {
+				/* mowed-pitch stripes */
+				background-color: var(--lc-pitch);
+				background-image: repeating-linear-gradient(
+					180deg,
+					var(--lc-pitch) 0,
+					var(--lc-pitch) 90px,
+					var(--lc-pitch-dark) 90px,
+					var(--lc-pitch-dark) 180px
+				);
+				color: var(--lc-chalk);
+			}
+
+			.lc-football-page .static-bg {
+				display: none;
+			}
+
+			/* keep the site nav legible on the dark pitch */
+			.lc-football-page header nav a {
+				color: var(--lc-chalk);
+				border-color: rgba(244, 241, 230, 0.4);
+			}
+			.lc-football-page header nav a:hover {
+				color: var(--lc-chalk);
+			}
+
+			.lc-football-page main {
+				width: 100%;
+				max-width: 100%;
+				padding: 0;
+			}
+
+			.lc-football-page h1,
+			.lc-football-page h2,
+			.lc-football-page h3 {
+				font-family: var(--lc-display);
+				font-weight: 400;
+				text-transform: uppercase;
+				letter-spacing: 0.01em;
+			}
+
+			/* ---------------------------- Masthead ---------------------------- */
+
+			.lc-football-page .lc-masthead {
+				position: relative;
+				overflow: hidden;
+				padding: 5rem 6vw 4rem;
+				border-bottom: 4px solid var(--lc-chalk);
+			}
+
+			/* centre-circle + halfway-line pitch markings */
+			.lc-football-page .lc-masthead::before {
+				content: '';
+				position: absolute;
+				top: 50%;
+				right: -180px;
+				width: 460px;
+				height: 460px;
+				transform: translateY(-50%);
+				border: 6px solid var(--lc-line);
+				border-radius: 50%;
+				pointer-events: none;
+			}
+			.lc-football-page .lc-masthead::after {
+				content: '';
+				position: absolute;
+				top: 0;
+				right: 50px;
+				bottom: 0;
+				width: 6px;
+				background: var(--lc-line);
+				pointer-events: none;
+			}
+
+			.lc-football-page .lc-masthead-inner {
+				position: relative;
+				z-index: 2;
+				max-width: 1100px;
+			}
+
+			.lc-football-page .lc-kicker {
+				display: inline-block;
+				font-family: var(--lc-label);
+				font-weight: 800;
+				text-transform: uppercase;
+				letter-spacing: 0.25em;
+				font-size: 0.8rem;
+				color: var(--lc-ink);
+				background: var(--lc-gold);
+				padding: 0.5rem 1rem;
+				border-radius: 2px;
+				margin-bottom: 1.5rem;
+			}
+
+			.lc-football-page .lc-masthead h1 {
+				font-size: clamp(2.6rem, 0.5rem + 8vw, 7.5rem);
+				line-height: 0.92;
+				color: var(--lc-chalk);
+				margin: 0;
+				text-shadow: -4px 4px 0 var(--lc-pitch-deep);
+			}
+
+			.lc-football-page .lc-masthead h1 .lc-band {
+				color: var(--lc-gold);
+			}
+
+			.lc-football-page .lc-masthead-sub {
+				font-family: var(--lc-quote);
+				font-style: italic;
+				font-size: clamp(1.1rem, 0.75rem + 1.5vw, 1.6rem);
+				max-width: 40rem;
+				margin: 2rem 0 0;
+				color: var(--lc-chalk);
+			}
+
+			.lc-football-page .lc-masthead-date {
+				display: inline-block;
+				margin-top: 2rem;
+				font-family: var(--lc-label);
+				text-transform: uppercase;
+				letter-spacing: 0.18em;
+				font-size: 0.75rem;
+				color: var(--lc-chalk-dim);
+			}
+
+			/* the line-art player, rendered as a chalk diagram */
+			.lc-football-page .lc-masthead-figure {
+				position: absolute;
+				top: 50%;
+				right: 4vw;
+				transform: translateY(-50%);
+				width: clamp(180px, 26vw, 360px);
+				z-index: 1;
+				filter: invert(1) brightness(1.6) drop-shadow(-6px 6px 0 rgba(0, 0, 0, 0.15));
+				opacity: 0.92;
+				pointer-events: none;
+			}
+
+			@media (max-width: 900px) {
+				.lc-football-page .lc-masthead {
+					padding: 3.5rem 6vw 3rem;
+				}
+				.lc-football-page .lc-masthead-figure {
+					position: relative;
+					top: auto;
+					right: auto;
+					transform: none;
+					display: block;
+					width: 180px;
+					margin: 2.5rem auto 0;
+				}
+				.lc-football-page .lc-masthead::before,
+				.lc-football-page .lc-masthead::after {
+					display: none;
+				}
+			}
+
+			/* ------------------------- Content shell -------------------------- */
+
+			.lc-football-page .lc-content {
+				max-width: 60rem;
+				margin: 0 auto;
+				padding: 4rem 6vw 2rem;
+			}
+
+			.lc-football-page .lc-intro p {
+				font-size: clamp(1.1rem, 0.9rem + 0.6vw, 1.4rem);
+				line-height: 1.65;
+				max-width: 42rem;
+				margin: 0 auto 1.5rem;
+				color: var(--lc-chalk);
+			}
+
+			.lc-football-page .lc-intro a {
+				color: var(--lc-gold);
+				text-decoration: underline;
+				text-underline-offset: 3px;
+			}
+
+			.lc-football-page .lc-intro em {
+				font-style: italic;
+			}
+
+			/* --------------------- Table of contents -------------------------- */
+
+			.lc-football-page .lc-toc {
+				background: var(--lc-chalk);
+				color: var(--lc-ink);
+				border-radius: 6px;
+				padding: 2rem 2rem 2.25rem;
+				margin: 3.5rem auto;
+				max-width: 44rem;
+				box-shadow: -10px 10px 0 var(--lc-pitch-deep);
+			}
+
+			.lc-football-page .lc-toc-title {
+				font-family: var(--lc-display);
+				text-transform: uppercase;
+				font-size: 1.6rem;
+				color: var(--lc-ink);
+				margin: 0 0 0.25rem;
+			}
+
+			.lc-football-page .lc-toc-note {
+				font-family: var(--lc-label);
+				font-size: 0.8rem;
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				color: #5c6b5c;
+				margin: 0 0 1.25rem;
+			}
+
+			.lc-football-page .lc-toc ol {
+				list-style: none;
+				counter-reset: lc-toc;
+				margin: 0;
+				padding: 0;
+			}
+
+			.lc-football-page .lc-toc li {
+				counter-increment: lc-toc;
+				margin: 0;
+				border-top: 1px dashed rgba(20, 73, 43, 0.25);
+			}
+
+			.lc-football-page .lc-toc li:last-child {
+				border-bottom: 1px dashed rgba(20, 73, 43, 0.25);
+			}
+
+			.lc-football-page .lc-toc a {
+				display: flex;
+				align-items: baseline;
+				gap: 1rem;
+				padding: 0.7rem 0.5rem;
+				color: var(--lc-ink);
+				text-decoration: none;
+				transition: all 0.15s ease;
+			}
+
+			.lc-football-page .lc-toc a::before {
+				content: counter(lc-toc, decimal-leading-zero);
+				font-family: var(--lc-label);
+				font-weight: 800;
+				font-size: 0.85rem;
+				color: var(--lc-pink);
+				min-width: 1.75rem;
+			}
+
+			.lc-football-page .lc-toc a .lc-toc-album {
+				font-family: var(--lc-display);
+				text-transform: uppercase;
+				font-size: 1.05rem;
+				flex: 1;
+			}
+
+			.lc-football-page .lc-toc a .lc-toc-year {
+				font-family: var(--lc-label);
+				font-weight: 600;
+				font-size: 0.85rem;
+				color: #5c6b5c;
+			}
+
+			.lc-football-page .lc-toc a:hover {
+				background: var(--lc-gold);
+				padding-left: 1rem;
+			}
+
+			/* ----------------------------- Releases --------------------------- */
+
+			.lc-football-page .lc-release {
+				max-width: 60rem;
+				margin: 0 auto;
+				padding: 3.5rem 6vw;
+				scroll-margin-top: 1rem;
+			}
+
+			.lc-football-page .lc-release-header {
+				display: flex;
+				align-items: center;
+				gap: 1.25rem;
+				margin-bottom: 2.5rem;
+				padding-bottom: 1.25rem;
+				border-bottom: 4px solid var(--lc-chalk);
+			}
+
+			.lc-football-page .lc-release-year {
+				font-family: var(--lc-display);
+				font-size: clamp(1.5rem, 1rem + 2vw, 2.6rem);
+				color: var(--lc-ink);
+				background: var(--lc-gold);
+				padding: 0.2rem 0.75rem;
+				border-radius: 3px;
+				line-height: 1;
+				flex-shrink: 0;
+			}
+
+			.lc-football-page .lc-release-header h2 {
+				font-size: clamp(1.8rem, 1rem + 4vw, 3.5rem);
+				color: var(--lc-chalk);
+				margin: 0;
+				line-height: 0.95;
+			}
+
+			/* reference card */
+			.lc-football-page .lc-ref {
+				background: var(--lc-chalk);
+				color: var(--lc-ink);
+				border-radius: 6px;
+				border-left: 8px solid var(--lc-pink);
+				padding: 1.75rem 2rem;
+				margin-bottom: 1.75rem;
+				box-shadow: -6px 6px 0 rgba(19, 77, 42, 0.55);
+			}
+
+			.lc-football-page .lc-ref h3 {
+				font-size: clamp(1.25rem, 1rem + 1.2vw, 1.9rem);
+				color: var(--lc-ink);
+				margin: 0 0 1rem;
+				line-height: 1;
+			}
+
+			.lc-football-page .lc-ref h3::before {
+				content: '⚽';
+				font-size: 0.8em;
+				margin-right: 0.5rem;
+				-webkit-text-fill-color: initial;
+			}
+
+			.lc-football-page .lc-ref blockquote {
+				font-family: var(--lc-quote);
+				font-style: italic;
+				font-size: clamp(1.1rem, 1rem + 0.6vw, 1.45rem);
+				line-height: 1.5;
+				color: var(--lc-pitch-deep);
+				margin: 0 0 1.25rem;
+				padding: 0.25rem 0 0.25rem 1.25rem;
+				border-left: 3px solid var(--lc-gold);
+				white-space: pre-line;
+			}
+
+			.lc-football-page .lc-ref blockquote + blockquote {
+				margin-top: -0.5rem;
+			}
+
+			.lc-football-page .lc-ref p {
+				font-size: 1.1rem;
+				line-height: 1.6;
+				margin: 0 0 1rem;
+			}
+
+			.lc-football-page .lc-ref p:last-child {
+				margin-bottom: 0;
+			}
+
+			.lc-football-page .lc-ref em {
+				font-style: italic;
+			}
+			.lc-football-page .lc-ref strong {
+				font-weight: 700;
+			}
+
+			/* a no-reference aside (e.g. Hold On Now, Youngster) */
+			.lc-football-page .lc-aside {
+				font-family: var(--lc-quote);
+				font-style: italic;
+				font-size: 1.15rem;
+				line-height: 1.6;
+				color: var(--lc-chalk);
+				max-width: 42rem;
+				border: 2px dashed var(--lc-line);
+				border-radius: 6px;
+				padding: 1.5rem 1.75rem;
+			}
+
+			/* whole-song marker shown inside a card */
+			.lc-football-page .lc-wholesong {
+				display: inline-block;
+				font-family: var(--lc-label);
+				text-transform: uppercase;
+				letter-spacing: 0.12em;
+				font-size: 0.7rem;
+				font-weight: 800;
+				color: var(--lc-ink);
+				background: var(--lc-gold);
+				padding: 0.3rem 0.6rem;
+				border-radius: 3px;
+				margin-bottom: 1rem;
+			}
+
+			/* back-to-contents link */
+			.lc-football-page .lc-top-link {
+				display: inline-block;
+				margin-top: 1.5rem;
+				font-family: var(--lc-label);
+				text-transform: uppercase;
+				letter-spacing: 0.15em;
+				font-size: 0.72rem;
+				color: var(--lc-chalk-dim);
+				text-decoration: none;
+			}
+			.lc-football-page .lc-top-link:hover {
+				color: var(--lc-gold);
+			}
+
+			/* outro */
+			.lc-football-page .lc-outro {
+				max-width: 42rem;
+				margin: 4rem auto 6rem;
+				padding: 0 6vw;
+				text-align: center;
+			}
+			.lc-football-page .lc-outro p {
+				font-family: var(--lc-quote);
+				font-style: italic;
+				font-size: clamp(1.2rem, 1rem + 1vw, 1.6rem);
+				line-height: 1.55;
+				color: var(--lc-chalk);
+			}
+			.lc-football-page .lc-fulltime {
+				font-family: var(--lc-display);
+				text-transform: uppercase;
+				font-size: clamp(2.5rem, 1rem + 6vw, 5rem);
+				color: var(--lc-gold);
+				text-shadow: -4px 4px 0 var(--lc-pitch-deep);
+				margin-top: 2rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<Header />
+		<main>
+			<article class="lc-football">
+				<header class="lc-masthead">
+					<div class="lc-masthead-inner">
+						<span class="lc-kicker">The Definitive Guide</span>
+						<h1>All the <span class="lc-band">Los Campesinos!</span> football references</h1>
+						<p class="lc-masthead-sub">{description}</p>
+						<span class="lc-masthead-date">
+							<FormattedDate date={pubDate} />
+							{updatedDate && (
+								<span> · updated <FormattedDate date={updatedDate} /></span>
+							)}
+						</span>
+					</div>
+					<img class="lc-masthead-figure" src="/images/lc-football.svg" alt="Line drawing of a footballer" />
+				</header>
+				<slot />
+			</article>
+		</main>
+		<Footer />
+	</body>
+</html>
