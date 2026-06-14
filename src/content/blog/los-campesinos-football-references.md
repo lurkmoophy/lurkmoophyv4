@@ -111,6 +111,13 @@ Oh my God, will it end?"</blockquote>
 </article>
 
 <article class="lc-ref">
+<h3>Heart Swells/100-1</h3>
+<blockquote>"By now, it's just the three of us, me, your shadow, your echo"</blockquote>
+<p>According to Gareth, this was ripped directly from David Peace's <em>The Damned United</em>, referencing the broken down relationship between Brian Clough and Peter Taylor. Pretty impressive that in a song with four lines of lyrics, he still manages to get a reference in there.</p>
+<p><em>Thanks to hunter for pointing this one out. Missed it in the first pass!</em></p>
+</article>
+
+<article class="lc-ref">
 <h3>This is a Flag. There is No Wind.</h3>
 <blockquote>"In an analogy that makes sense to most:
 This opportunity, it found me unmarked at the far post,
