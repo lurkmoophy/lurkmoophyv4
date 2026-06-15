@@ -245,7 +245,8 @@ Shirtless cherubs on the terrace, singing hymns, praying the saviour scores toda
 <h3>Renato Dall'Ara (2008)</h3>
 <blockquote>"Renato Dall'Ara, living off 2008
 Renato Dall'Ara, once up, then back down again"</blockquote>
-<p>Renato Dall'Ara is the Italian football stadium where England beat Belgium in 1990, and then two years later lost a crucial game to San Marino 1-0 — a game they should've won. It's a metaphor for LC!'s heyday of 2008/9 and then coming back with <em>Sick Scenes</em> almost ten years later, but they'll probably fail.</p>
+<p>Renato Dall'Ara is the Italian football stadium where England beat Belgium in 1990, and then two years they failed to qualify because of a goal they let in from San Marino. After two bad performances against Norway and Netherlands, they needed to beat San Marino by seven points. They ended up winning the game, but 7-1, letting a goal in from a side they were supposed to absolutely dominate. It's a metaphor for LC!'s heyday of 2008/9 and then coming back with <em>Sick Scenes</em> almost ten years later, but they're self-deprecating streak makes them think they'll probably fuck it up.</p>
+<p><em>Thanks to thelaszlopanaflex on Reddit for picking that one up. I stupidly didn't research the San Marino game enough!</em></p>
 </article>
 
 <article class="lc-ref">
