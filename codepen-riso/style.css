@@ -1,0 +1,159 @@
+/* Riso print header — paste into the CodePen CSS panel.
+
+   Upload riso-background.png, clouds-back.png, and clouds-front.png as
+   CodePen Assets, then replace the three url(...) values below with your
+   asset URLs (search for ".png").
+
+   How it works:
+   1. `.riso` masks any layer with a repeating grain texture (a PNG where
+      the "ink" is opaque and the paper shows through the holes).
+   2. Each masked layer gets a blend mode (multiply / overlay / plus-darker)
+      so overlapping layers mix like translucent riso ink.
+   3. The SVG #round-corners filter (blur + alpha contrast) melts the square
+      grain pixels into round ink dots.
+   4. The headline's ::before draws a second, unmasked white copy shifted
+      -3px, faking the misregistration you get between print passes. */
+
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@400&family=Hanken+Grotesk:wght@900&display=swap');
+
+:root {
+  --black: #2F2F2F;
+  --coral: #F5998C;
+}
+
+body {
+  margin: 0;
+  background-color: #ffffff;
+  font-family: 'Alegreya Sans', sans-serif;
+}
+
+/* ---------------------------------------------------------------------------
+   The riso effect itself: everything with .riso is masked by the grain
+   texture, tiled at 50% size, and multiplied into whatever is below it.
+   --------------------------------------------------------------------------- */
+.riso {
+  mix-blend-mode: multiply;
+  -webkit-mask-image: url('riso-background.png');
+  mask-image: url('riso-background.png');
+  -webkit-mask-repeat: repeat;
+  mask-repeat: repeat;
+  -webkit-mask-size: 50%;
+  mask-size: 50%;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+
+/* ---------------------------------------------------------------------------
+   Masthead: an off-white "paper" panel, rotated half a degree so it sits
+   slightly askew like a print laid on a table.
+   --------------------------------------------------------------------------- */
+.masthead {
+  position: relative;
+  width: 90vw;
+  margin: 3rem auto 0;
+  min-height: 400px;
+  padding: 1rem 3rem 0;
+  background: linear-gradient(180deg, #efefef 0%, #efefef 68%, transparent 100%);
+  transform: rotate(0.5deg);
+}
+
+/* Sky: a flat blue gradient that fades out at the bottom. The .riso mask
+   turns it into blue ink grain on the paper. */
+.masthead--background {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: linear-gradient(180deg, rgba(133, 220, 255, 1) 0%, rgba(133, 220, 255, 1) 68%, rgba(133, 220, 255, 0) 100%);
+  border-radius: 0.2rem 0.3rem 0 0;
+}
+
+/* Clouds: two PNG layers. They keep the .riso mask but override the blend
+   to `overlay` and shrink the mask tile to 20% for a finer grain. */
+.masthead--clouds--back {
+  width: 100vw;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: url('clouds-back.png') no-repeat center center;
+  mask-size: 20%;
+  -webkit-mask-size: 20%;
+  mix-blend-mode: overlay;
+}
+
+.masthead--clouds--front {
+  width: 100vw;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: url('clouds-front.png') no-repeat center center;
+  background-size: contain;
+  mask-size: 20%;
+  -webkit-mask-size: 20%;
+  mix-blend-mode: overlay;
+  aspect-ratio: 16 / 9;
+  z-index: 7;
+}
+
+.masthead--subhead {
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: clamp(1rem, 0.75rem + 1vw, 2rem);
+  font-weight: 400;
+  text-transform: uppercase;
+  text-align: justify;
+  text-align-last: justify;
+  display: block;
+  width: 95%;
+  transform: translateX(1%);
+  margin: 3rem auto 0;
+  letter-spacing: clamp(0.3rem, 0.25rem + 1vw, 0.7rem);
+  mix-blend-mode: hard-light;
+  color: color-mix(in srgb, var(--black) 90%, transparent);
+}
+
+/* The headline. The coral ink lives on the inner <span class="riso">, so it
+   gets the grain mask; the whole h1 runs through the #round-corners goo
+   filter to soften the dots, and blends with plus-darker so the coral only
+   ever darkens the sky behind it — like real translucent ink. */
+.masthead--head {
+  font-family: 'Hanken Grotesk', sans-serif;
+  font-weight: 900;
+  display: flex;
+  text-transform: uppercase;
+  letter-spacing: -10px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  line-height: 1;
+  white-space: nowrap;
+  margin: 0.25rem 0 2rem;
+  font-size: clamp(4rem, 1rem + 16vw, 22rem);
+  color: color-mix(in srgb, var(--coral) 90%, black);
+  mix-blend-mode: plus-darker;
+  position: relative;
+  filter: url(#round-corners);
+}
+
+/* The misregistered second pass: a solid white copy of the headline,
+   nudged 3px left. Where it peeks out from behind the coral grain it
+   reads as a slightly-off second print run. */
+.masthead--head::before {
+  content: 'Still Here';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  pointer-events: none;
+  transform: translateX(-3px);
+}
+
+@media (max-width: 800px) {
+  .masthead--head {
+    letter-spacing: -3px;
+  }
+}

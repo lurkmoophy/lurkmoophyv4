@@ -1,0 +1,30 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="style.css"></head><body>
+<!-- Riso print header — paste this into the CodePen HTML panel -->
+
+<!-- SVG filter: blur + alpha-contrast trick that "rounds" the hard-edged
+     grain speckle so it looks like ink spread on paper -->
+<svg style="visibility: hidden; position: absolute;" width="0" height="0" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="round-corners">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur" />
+      <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 25 -9" result="goo" />
+      <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+    </filter>
+  </defs>
+</svg>
+
+<section class="masthead">
+  <!-- Layer 1: flat sky-blue gradient, masked by the riso grain -->
+  <div class="masthead--background riso"></div>
+
+  <!-- Layers 2 + 3: cloud images, also grain-masked, blended with overlay -->
+  <div class="masthead--clouds--back riso"></div>
+  <div class="masthead--clouds--front riso"></div>
+
+  <h2 class="masthead--subhead">The Personal Homepage of Luke Murphy</h2>
+
+  <!-- The headline: coral ink layer (grain-masked span) over a white
+     "misregistered" copy drawn by the ::before, offset a few px -->
+  <h1 class="masthead--head"><span class="riso">Still Here</span></h1>
+</section>
+</body></html>

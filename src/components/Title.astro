@@ -2,7 +2,11 @@
 const { title, as: Tag = 'h3', description } = Astro.props;
 ---
 <Tag class="title" id={`title-${title.toLowerCase().replace(/\s+/g, '-')}`}>
-    &lt;{title}&gt; <span class="title-marquee">&lt;{title}&gt; &lt;{title}&gt; &lt;{title}&gt; </span>
+    <span class="title-track">
+        <span class="title-marquee" aria-hidden="true">&lt;{title}&gt;</span>
+        <span class="title-text">&lt;{title}&gt;</span>
+        <span class="title-marquee" aria-hidden="true">&lt;{title}&gt; &lt;{title}&gt; &lt;{title}&gt; </span>
+    </span>
     {description && <p class="description">{description}</p>}
 </Tag>
 
@@ -21,9 +25,13 @@ const { title, as: Tag = 'h3', description } = Astro.props;
         text-wrap: nowrap;
         filter: blur(0.7px);
     }
+    .title-track {
+        display: block;
+        will-change: transform;
+    }
     .title-marquee {
         color: var(--grey);
-        opacity: 0.5;
+        opacity: 0.2;
     }
     .description {
         font-size: 1.25rem;
@@ -39,59 +47,77 @@ const { title, as: Tag = 'h3', description } = Astro.props;
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const titleElements = document.querySelectorAll('.title');
-        
-        function updateLetterSpacing() {
-            titleElements.forEach((titleEl) => {
-                const title = titleEl;
-                const rect = title.getBoundingClientRect();
-                const viewportHeight = window.innerHeight;
-                
-                // Calculate when title enters viewport (top of title reaches bottom of viewport)
-                const titleTop = rect.top;
-                
-                // Start animation when title is 100vh above viewport, end when title is at top of viewport
-                const startPoint = viewportHeight;
-                const endPoint = 0;
-                
-                // Calculate scroll progress (0 = wide spacing, 1 = normal spacing)
-                let progress = 0;
-                
-                if (titleTop < startPoint && titleTop > endPoint) {
-                    // Title is in the animation range
-                    progress = 1 - ((titleTop - endPoint) / (startPoint - endPoint));
-                } else if (titleTop <= endPoint) {
-                    // Title has passed the top, use normal spacing
-                    progress = 1;
-                } else {
-                    // Title hasn't entered animation range yet, use wide spacing
-                    progress = 0;
-                }
-                
-                // Clamp progress between 0 and 1
-                progress = Math.max(0, Math.min(1, progress));
-                
-                // Interpolate letter spacing: from 0.5em (wide) to 0em (normal)
-                const maxSpacing = 0.5; // em units
-                const minSpacing = 0; // em units
-                const letterSpacing = minSpacing + (maxSpacing * (1 - progress));
-                
-                if (title instanceof HTMLElement) {
-                    title.style.letterSpacing = `${letterSpacing}em`;
-                    
-                    // Reset letter spacing for description to keep it normal
-                    const description = title.querySelector('.description');
-                    if (description instanceof HTMLElement) {
-                        description.style.letterSpacing = 'normal';
-                    }
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const MAX_SHIFT_PX = 80;
+        const TITLE_GAP_PX = 20;
+        // Lower = longer ease after scroll stops (~1.5–2s settle)
+        const EASE = 0.045;
+        const SNAP_PX = 0.1;
+
+        const tracks = [...titleElements].flatMap((titleEl) => {
+            const track = titleEl.querySelector('.title-track');
+            if (!(track instanceof HTMLElement)) return [];
+            return [{ titleEl, track, current: 0, target: 0, ready: false }];
+        });
+
+        function getBaseOffset(titleEl) {
+            const titleText = titleEl.querySelector('.title-text');
+            if (!(titleText instanceof HTMLElement)) return TITLE_GAP_PX;
+            return titleText.getBoundingClientRect().width + TITLE_GAP_PX;
+        }
+
+        function getScrollProgress(titleEl) {
+            const rect = titleEl.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
+            const titleTop = rect.top;
+            const startPoint = viewportHeight;
+            const endPoint = 0;
+
+            let progress = 0;
+            if (titleTop < startPoint && titleTop > endPoint) {
+                progress = 1 - ((titleTop - endPoint) / (startPoint - endPoint));
+            } else if (titleTop <= endPoint) {
+                progress = 1;
+            }
+
+            progress = Math.max(0, Math.min(1, progress));
+            // Ease-out curve on the scroll mapping itself
+            return 1 - Math.pow(1 - progress, 3);
+        }
+
+        function updateTargets() {
+            tracks.forEach((item) => {
+                const baseOffset = getBaseOffset(item.titleEl);
+                const shift = prefersReducedMotion ? 0 : MAX_SHIFT_PX * getScrollProgress(item.titleEl);
+                item.target = -baseOffset + shift;
+
+                if (!item.ready) {
+                    item.current = item.target;
+                    item.ready = true;
+                    item.track.style.transform = `translateX(${item.current}px)`;
                 }
             });
         }
-        
-        // Update on scroll and resize
-        window.addEventListener('scroll', updateLetterSpacing);
-        window.addEventListener('resize', updateLetterSpacing);
-        
-        // Initial call
-        updateLetterSpacing();
+
+        function tick() {
+            tracks.forEach((item) => {
+                const delta = item.target - item.current;
+                if (Math.abs(delta) > SNAP_PX) {
+                    item.current += delta * EASE;
+                } else {
+                    item.current = item.target;
+                }
+                item.track.style.transform = `translateX(${item.current}px)`;
+            });
+            requestAnimationFrame(tick);
+        }
+
+        updateTargets();
+        window.addEventListener('scroll', updateTargets, { passive: true });
+        window.addEventListener('resize', updateTargets);
+
+        if (!prefersReducedMotion) {
+            requestAnimationFrame(tick);
+        }
     });
 </script>
