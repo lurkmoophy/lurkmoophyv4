@@ -60,13 +60,13 @@ const { title, as: Tag = 'h3', description } = Astro.props;
             return [{ titleEl, track, current: 0, target: 0, ready: false }];
         });
 
-        function getBaseOffset(titleEl) {
+        function getBaseOffset(titleEl: Element) {
             const titleText = titleEl.querySelector('.title-text');
             if (!(titleText instanceof HTMLElement)) return TITLE_GAP_PX;
             return titleText.getBoundingClientRect().width + TITLE_GAP_PX;
         }
 
-        function getScrollProgress(titleEl) {
+        function getScrollProgress(titleEl: Element) {
             const rect = titleEl.getBoundingClientRect();
             const viewportHeight = window.innerHeight;
             const titleTop = rect.top;
