@@ -1,5 +1,49 @@
 [
   {
+    "id": "harker-a3",
+    "filename": "harker-a3.jpg",
+    "large": "/images/posters/large/harker-a3.webp",
+    "medium": "/images/posters/medium/harker-a3.webp",
+    "bandName": "Harker",
+    "date": "9/10/2026",
+    "venue": "The Prince Albert",
+    "location": "Brighton",
+    "rawText": null
+  },
+  {
+    "id": "johnnyforeigner-sheffield-a3",
+    "filename": "johnnyforeigner-sheffield-a3.jpg",
+    "large": "/images/posters/large/johnnyforeigner-sheffield-a3.webp",
+    "medium": "/images/posters/medium/johnnyforeigner-sheffield-a3.webp",
+    "bandName": "Johnny Foreigner",
+    "date": "9/9/2026",
+    "venue": "Yellow Arch",
+    "location": "Sheffield",
+    "rawText": null
+  },
+  {
+    "id": "serfers-a3",
+    "filename": "serfers-a3.jpg",
+    "large": "/images/posters/large/serfers-a3.webp",
+    "medium": "/images/posters/medium/serfers-a3.webp",
+    "bandName": "The Serfers",
+    "date": "25/7/2026",
+    "venue": "The Hope & Ruin",
+    "location": "Brighton",
+    "rawText": null
+  },
+  {
+    "id": "sugarfree-tee",
+    "filename": "sugarfree-tee.jpg",
+    "large": "/images/posters/large/sugarfree-tee.webp",
+    "medium": "/images/posters/medium/sugarfree-tee.webp",
+    "bandName": "Sugar Free Records",
+    "date": "1/7/2026",
+    "venue": null,
+    "location": "Brighton",
+    "rawText": null
+  },
+  {
     "id": "everyhell-ghosts-a3",
     "filename": "everyhell-ghosts-a3.jpg",
     "large": "/images/posters/large/everyhell-ghosts-a3.webp",
