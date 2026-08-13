@@ -299,6 +299,28 @@ const titleWords = title.split(' ').map((word: string, index: number) => ({
 				margin: 0 auto 1.5rem;
 			}
 
+			.case-study__content ul {
+				font-size: 1.15rem;
+				list-style: disc;
+				margin: 0 auto 1.5rem;	
+				max-width: 34rem;
+				padding-left: 0;
+			}
+
+			.case-study__content ol {
+				list-style: decimal;
+				margin: 0 auto 1.5rem;	
+				max-width: 34rem;
+			}
+
+			.case-study__content li {
+				margin-bottom: 0.5rem;
+			}
+
+			.case-study__content li::marker {
+				color: var(--coral);
+			}
+
 			.case-study .prose-meta {
 				font-size: 1rem;
 				color: var(--grey);
@@ -326,6 +348,169 @@ const titleWords = title.split(' ').map((word: string, index: number) => ({
 				height: 100%;
 				object-fit: contain;
 				margin: 0 auto;
+			}
+
+			.case-study__lightbox-trigger {
+				display: block;
+				width: fit-content;
+				max-width: 100%;
+				margin: 0 auto;
+				padding: 0;
+				border: 0;
+				background: none;
+				cursor: zoom-in;
+			}
+
+			.case-study__lightbox-trigger img {
+				display: block;
+				margin: 0 auto;
+			}
+
+			.case-study-lightbox {
+				width: min(92vw, 1400px);
+				max-width: 92vw;
+				max-height: 92vh;
+				padding: 0;
+				border: 3px solid var(--black);
+				border-radius: 1rem;
+				background: var(--white);
+				overflow: hidden;
+				opacity: 0;
+				transform: translateY(1.5rem);
+				transition:
+					opacity 0.4s var(--easeOutCubic),
+					transform 0.5s var(--easeOutCubic),
+					overlay 0.4s allow-discrete,
+					display 0.4s allow-discrete;
+			}
+
+			.case-study-lightbox::backdrop {
+				background: color-mix(in srgb, var(--black) 72%, transparent);
+				opacity: 0;
+				transition: opacity 0.4s var(--easeOutCubic);
+			}
+
+			.case-study-lightbox[open] {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			.case-study-lightbox[open]::backdrop {
+				opacity: 1;
+			}
+
+			@starting-style {
+				.case-study-lightbox[open] {
+					opacity: 0;
+					transform: translateY(1.5rem);
+				}
+
+				.case-study-lightbox[open]::backdrop {
+					opacity: 0;
+				}
+			}
+
+			.case-study-lightbox figure {
+				margin: 0;
+				padding: 1.5rem 1.5rem 1.25rem;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				max-height: 92vh;
+			}
+
+			.case-study-lightbox img {
+				max-width: 95%;
+				max-height: calc(92vh - 8rem);
+				width: auto;
+				height: auto;
+				object-fit: contain;
+			}
+
+			.case-study-lightbox figcaption {
+				font-family: 'Alegreya Sans', sans-serif;
+				font-size: 1rem;
+				font-style: italic;
+				color: var(--grey);
+				margin: 0 0 1.5rem;
+				max-width: 42rem;
+				text-align: center;
+			}
+
+			.case-study-lightbox figcaption:empty {
+				display: none;
+			}
+
+			.case-study-lightbox__close,
+			.case-study-lightbox__prev,
+			.case-study-lightbox__next {
+				position: absolute;
+				z-index: 1;
+				border: 0;
+				background: transparent;
+				color: var(--black);
+				cursor: pointer;
+				font-family: 'Gideon Roman', serif;
+				line-height: 1;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				transition: color 0.2s ease;
+			}
+
+			.case-study-lightbox__close {
+				top: 0.75rem;
+				right: 0.75rem;
+				width: 2.5rem;
+				height: 2.5rem;
+				font-size: 2.5rem;
+			}
+
+			.case-study-lightbox__prev,
+			.case-study-lightbox__next {
+				top: 50%;
+				transform: translateY(-50%);
+				width: 2.75rem;
+				height: 2.75rem;
+				font-size: 2.5rem;
+			}
+
+			.case-study-lightbox__prev {
+				left: 0.75rem;
+			}
+
+			.case-study-lightbox__next {
+				right: 0.75rem;
+			}
+
+			.case-study-lightbox__close:hover,
+			.case-study-lightbox__prev:hover,
+			.case-study-lightbox__next:hover,
+			.case-study-lightbox__close:focus-visible,
+			.case-study-lightbox__prev:focus-visible,
+			.case-study-lightbox__next:focus-visible {
+				color: var(--coral);
+			}
+
+			@media (max-width: 768px) {
+				.case-study-lightbox__prev,
+				.case-study-lightbox__next {
+					top: auto;
+					bottom: 0.75rem;
+					transform: none;
+				}
+			}
+
+			@media (prefers-reduced-motion: reduce) {
+				.case-study-lightbox,
+				.case-study-lightbox::backdrop {
+					transition: none;
+					transform: none;
+				}
 			}
 
 			.case-study__photos video {
@@ -370,6 +555,10 @@ const titleWords = title.split(' ').map((word: string, index: number) => ({
 
 			.case-study__photos.case-study__photos__two-up img {
 				max-width: 100%;
+			}
+
+			.case-study__photos__two-up .case-study__lightbox-trigger {
+				width: 100%;
 			}
 
 			.case-study__photos__two-up div {
@@ -453,7 +642,104 @@ const titleWords = title.split(' ').map((word: string, index: number) => ({
 					Posted on <FormattedDate date={pubDate} />.
 				</div>
 			</article>
-		</main>		
+		</main>
+		<dialog class="case-study-lightbox" aria-label="Image lightbox">
+			<button type="button" class="case-study-lightbox__close" aria-label="Close lightbox">&times;</button>
+			<button type="button" class="case-study-lightbox__prev" aria-label="Previous image">←</button>
+			<figure>
+				<img alt="" />
+				<figcaption></figcaption>
+			</figure>
+			<button type="button" class="case-study-lightbox__next" aria-label="Next image">→</button>
+		</dialog>
+		<script>
+			document.addEventListener('DOMContentLoaded', () => {
+				const dialog = document.querySelector('.case-study-lightbox');
+				const dialogImage = dialog?.querySelector('img');
+				const dialogCaption = dialog?.querySelector('figcaption');
+				const closeButton = dialog?.querySelector('.case-study-lightbox__close');
+				const prevButton = dialog?.querySelector('.case-study-lightbox__prev');
+				const nextButton = dialog?.querySelector('.case-study-lightbox__next');
+
+				if (
+					!(dialog instanceof HTMLDialogElement) ||
+					!(dialogImage instanceof HTMLImageElement) ||
+					!(dialogCaption instanceof HTMLElement) ||
+					!(closeButton instanceof HTMLButtonElement) ||
+					!(prevButton instanceof HTMLButtonElement) ||
+					!(nextButton instanceof HTMLButtonElement)
+				) {
+					return;
+				}
+
+				initLightbox(dialog, dialogImage, dialogCaption, closeButton, prevButton, nextButton);
+			});
+
+			function initLightbox(
+				dialog: HTMLDialogElement,
+				dialogImage: HTMLImageElement,
+				dialogCaption: HTMLElement,
+				closeButton: HTMLButtonElement,
+				prevButton: HTMLButtonElement,
+				nextButton: HTMLButtonElement
+			) {
+				const photos = [...document.querySelectorAll('.case-study__photos img')].filter(
+					(img): img is HTMLImageElement => img instanceof HTMLImageElement
+				);
+				if (photos.length === 0) return;
+
+				let currentIndex = 0;
+
+				function getCaption(img: HTMLImageElement) {
+					const sibling = img.closest('div')?.querySelector('.case-study__photos__caption');
+					return sibling?.textContent?.trim() || img.alt || '';
+				}
+
+				function showImage(index: number) {
+					currentIndex = (index + photos.length) % photos.length;
+					const img = photos[currentIndex];
+					dialogImage.src = img.currentSrc || img.src;
+					dialogImage.alt = img.alt || '';
+					dialogCaption.textContent = getCaption(img);
+
+					const multiple = photos.length > 1;
+					prevButton.hidden = !multiple;
+					nextButton.hidden = !multiple;
+				}
+
+				photos.forEach((img, index) => {
+					const trigger = document.createElement('button');
+					trigger.type = 'button';
+					trigger.className = 'case-study__lightbox-trigger';
+					trigger.setAttribute('aria-label', `View larger: ${img.alt || 'case study image'}`);
+					img.parentNode?.insertBefore(trigger, img);
+					trigger.appendChild(img);
+					trigger.addEventListener('click', () => {
+						showImage(index);
+						dialog.showModal();
+					});
+				});
+
+				closeButton.addEventListener('click', () => dialog.close());
+				prevButton.addEventListener('click', () => showImage(currentIndex - 1));
+				nextButton.addEventListener('click', () => showImage(currentIndex + 1));
+
+				dialog.addEventListener('click', (event) => {
+					if (event.target === dialog) dialog.close();
+				});
+
+				dialog.addEventListener('keydown', (event) => {
+					if (event.key === 'ArrowLeft') {
+						event.preventDefault();
+						showImage(currentIndex - 1);
+					}
+					if (event.key === 'ArrowRight') {
+						event.preventDefault();
+						showImage(currentIndex + 1);
+					}
+				});
+			}
+		</script>
 		<Footer />
 	</body>
 </html>
