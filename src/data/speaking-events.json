@@ -1,5 +1,26 @@
 [
   {
+    "eventName": "WDC 2026",
+    "talkTitle": "Fail Better",
+    "location": "Bristol, UK",
+    "date": "2026-10-09",
+    "link": null
+  },
+  {
+    "eventName": "Design Systems London",
+    "talkTitle": "Design Systems are Dead. Long Live Design Systems",
+    "location": "London, UK",
+    "date": "2026-09-21",
+    "link": "https://www.youtube.com/watch?v=G5Jmk_lvX44"
+  },
+  {
+    "eventName": "Hops & Props London",
+    "talkTitle": "Nobody Will Read Your Documentation",
+    "location": "London, UK",
+    "date": "2026-08-20",
+    "link": null
+  },
+  {
     "eventName": "Pixel Pioneers 2026",
     "talkTitle": "Design Systems are Dead. Long Live Design Systems",
     "location": "Bristol, UK",
