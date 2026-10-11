@@ -1,5 +1,60 @@
 [
   {
+    "id": "brutallixmas26-a3",
+    "filename": "brutallixmas26-a3.jpg",
+    "large": "/images/posters/large/brutallixmas26-a3.webp",
+    "medium": "/images/posters/medium/brutallixmas26-a3.webp",
+    "bandName": "Brutalligators",
+    "date": "12/12/2026",
+    "venue": "The Victoria",
+    "location": "London",
+    "rawText": null
+  },
+  {
+    "id": "pillowfort-tour-a3",
+    "filename": "pillowfort-tour-a3.jpg",
+    "large": "/images/posters/large/pillowfort-tour-a3.webp",
+    "medium": "/images/posters/medium/pillowfort-tour-a3.webp",
+    "bandName": "Pillow Fort",
+    "date": "24/10/2026",
+    "venue": null,
+    "location": "UK",
+    "rawText": null
+  },
+  {
+    "id": "vienna-a3",
+    "filename": "vienna-a3.jpg",
+    "large": "/images/posters/large/vienna-a3.webp",
+    "medium": "/images/posters/medium/vienna-a3.webp",
+    "bandName": "Vienna",
+    "date": "11/10/2026",
+    "venue": null,
+    "location": null,
+    "rawText": null
+  },
+  {
+    "id": "nothingsoundsgood-birthday-a3",
+    "filename": "nothingsoundsgood-birthday-a3.jpg",
+    "large": "/images/posters/large/nothingsoundsgood-birthday-a3.webp",
+    "medium": "/images/posters/medium/nothingsoundsgood-birthday-a3.webp",
+    "bandName": "Nothing Sounds Good",
+    "date": "25/8/2026",
+    "venue": "The Victoria",
+    "location": "London",
+    "rawText": null
+  },
+  {
+    "id": "brutalligators-uk26",
+    "filename": "brutalligators-uk26.jpg",
+    "large": "/images/posters/large/brutalligators-uk26.webp",
+    "medium": "/images/posters/medium/brutalligators-uk26.webp",
+    "bandName": "Brutalligators",
+    "date": "25/7/2026",
+    "venue": null,
+    "location": "UK",
+    "rawText": null
+  },
+  {
     "id": "harker-a3",
     "filename": "harker-a3.jpg",
     "large": "/images/posters/large/harker-a3.webp",
