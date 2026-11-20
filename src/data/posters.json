@@ -1,5 +1,60 @@
 [
   {
+    "id": "hitlikeagirl-a3",
+    "filename": "hitlikeagirl-a3.jpg",
+    "large": "/images/posters/large/hitlikeagirl-a3.webp",
+    "medium": "/images/posters/medium/hitlikeagirl-a3.webp",
+    "bandName": "Hit Like A Girl",
+    "date": "13/1/2027",
+    "venue": "The Prince Albert",
+    "location": "Brighton",
+    "rawText": null
+  },
+  {
+    "id": "brutalligators-sheffield-a3",
+    "filename": "brutalligators-sheffield-a3.webp",
+    "large": "/images/posters/large/brutalligators-sheffield-a3.webp",
+    "medium": "/images/posters/medium/brutalligators-sheffield-a3.webp",
+    "bandName": "Brutalligators",
+    "date": "9/1/2027",
+    "venue": "Sidney & Matilda",
+    "location": "Sheffield",
+    "rawText": null
+  },
+  {
+    "id": "barbee-a3",
+    "filename": "barbee-a3.jpg",
+    "large": "/images/posters/large/barbee-a3.webp",
+    "medium": "/images/posters/medium/barbee-a3.webp",
+    "bandName": "Barbee",
+    "date": "9/12/2026",
+    "venue": "The Hope & Ruin",
+    "location": "Brighton",
+    "rawText": null
+  },
+  {
+    "id": "wrexmas-a3",
+    "filename": "wrexmas-a3.jpg",
+    "large": "/images/posters/large/wrexmas-a3.webp",
+    "medium": "/images/posters/medium/wrexmas-a3.webp",
+    "bandName": "Wrex",
+    "date": "4/12/2026",
+    "venue": "The Hope & Ruin",
+    "location": "Brighton",
+    "rawText": null
+  },
+  {
+    "id": "superfriends-kingofthemoths-a3",
+    "filename": "superfriends-kingofthemoths-a3.jpg",
+    "large": "/images/posters/large/superfriends-kingofthemoths-a3.webp",
+    "medium": "/images/posters/medium/superfriends-kingofthemoths-a3.webp",
+    "bandName": "Superfriends",
+    "date": "5/11/2026",
+    "venue": "The Pipeline",
+    "location": "Brighton",
+    "rawText": null
+  },
+  {
     "id": "brutallixmas26-a3",
     "filename": "brutallixmas26-a3.jpg",
     "large": "/images/posters/large/brutallixmas26-a3.webp",
