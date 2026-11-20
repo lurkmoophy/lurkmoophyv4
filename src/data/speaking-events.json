@@ -1,5 +1,12 @@
 [
   {
+    "eventName": "Smashing AI Conference",
+    "talkTitle": "Nobody Will Read Your Documentation",
+    "location": "Online",
+    "date": "2026-12-01",
+    "link": null
+  },
+  {
     "eventName": "WDC 2026",
     "talkTitle": "Fail Better",
     "location": "Bristol, UK",
