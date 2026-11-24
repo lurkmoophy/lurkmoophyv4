@@ -62,24 +62,26 @@
 
 			ratingElements.forEach((element) => {
 				if (typeof data.rating === 'number') {
-					const rounded = Math.round(data.rating);
-					const clamped = Math.min(Math.max(rounded, 1), 5);
-					element.textContent = '★'.repeat(clamped);
+					// StoryGraph ratings are in quarter stars, so show whole stars plus a half (e.g. ★★★½)
+					const clamped = Math.min(Math.max(data.rating, 0), 5);
+					const fullStars = Math.floor(clamped);
+					const halfStar = clamped - fullStars >= 0.5 ? '½' : '';
+					element.textContent = '★'.repeat(fullStars) + halfStar;
 				} else {
 					element.textContent = '';
 				}
 			});
 		} catch (error) {
 			console.error('Error fetching recent book:', error);
-			const titleElements = document.querySelectorAll('.book-title');
-			const ratingElements = document.querySelectorAll('.book-rating');
 
-			titleElements.forEach((element) => {
-				element.textContent = 'No recent book';
-			});
-
-			ratingElements.forEach((element) => {
-				element.textContent = '';
+			// Hide the book and the header separator before it, rather than showing an empty slot
+			document.querySelectorAll<HTMLElement>('.recent-book').forEach((element) => {
+				const wrapper = element.parentElement;
+				const separator = wrapper?.previousElementSibling;
+				if (separator?.classList.contains('header-separator')) {
+					(separator as HTMLElement).hidden = true;
+				}
+				if (wrapper) wrapper.hidden = true;
 			});
 		}
 	})();
