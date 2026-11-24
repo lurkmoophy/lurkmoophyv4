@@ -8,12 +8,10 @@ const METADATA_FILE = join(process.cwd(), 'src/data/posters.json');
 
 // Get API key from environment
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-if (!OPENAI_API_KEY) {
-	console.error('❌ OPENAI_API_KEY environment variable is not set');
-	console.error('   Please set it before running this script:');
-	console.error('   export OPENAI_API_KEY=your-api-key-here');
-	process.exit(1);
-}
+
+// Netlify sets NETLIFY=true; most other CI providers set CI.
+// Metadata is only ever extracted locally and committed, so deploys never call OpenAI.
+const IS_CI = process.env.NETLIFY === 'true' || ['true', '1'].includes(process.env.CI ?? '');
 
 // Generate clean name from filename
 function getCleanName(filename: string): string {
@@ -259,6 +257,24 @@ async function extractPosterMetadata() {
 
 		if (newFiles.length === 0) {
 			console.log('✅ All images have already been processed!');
+			return;
+		}
+
+		const fileList = newFiles.map((file) => `   - ${file}`).join('\n');
+
+		if (IS_CI) {
+			console.warn(`⚠️  ${newFiles.length} image(s) in src/assets/posters have no entry in posters.json:`);
+			console.warn(fileList);
+			console.warn('   Skipping AI extraction during deploys. These posters will not appear on the site.');
+			console.warn('   Run `npm run extract-poster-metadata` locally and commit src/data/posters.json.');
+			return;
+		}
+
+		if (!OPENAI_API_KEY) {
+			console.warn(`⚠️  ${newFiles.length} image(s) need metadata, but OPENAI_API_KEY is not set:`);
+			console.warn(fileList);
+			console.warn('   Skipping AI extraction. Set it and run `npm run extract-poster-metadata`:');
+			console.warn('   export OPENAI_API_KEY=your-api-key-here');
 			return;
 		}
 
